@@ -1,7 +1,6 @@
 var mongoose = require('mongoose')
 
 var resourceSchema = new mongoose.Schema({
-	_id: String,
     tipo: { type: String, required: true },
     titulo: { type: String, required: true },
     subtitulo: String,
