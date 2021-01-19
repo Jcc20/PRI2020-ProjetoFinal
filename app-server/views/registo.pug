@@ -1,0 +1,25 @@
+extends layout 
+
+block content
+    .w3-card-4
+     header.w3-container.w3-blue
+      h3.w3-left Registo 
+    .w3-container
+     br
+     form(class="w3-container" action='/registo', method='POST')
+      label(class="w3-text-black")
+       b Nome:
+      input(class="w3-input w3-border w3-light-grey", type="text", name="nome", required)    
+
+      label(class="w3-text-black")
+       b Email:
+      input(class="w3-input w3-border w3-light-grey", type="text", name="email", required, placeholder="exemplo@gmail.com" ,pattern="[a-zA-Z0-9\-\.]+[@][a-zA-Z]+[.][a-zA-Z]+")    
+
+      label(class="w3-text-black") 
+       b Password:
+      input(class="w3-input w3-border w3-light-grey", type="text", name="password", required) 
+     
+      label(class="w3-text-black") 
+       b Filiação:
+      input(class="w3-input w3-border w3-light-grey", type="text", name="filiacao") 
+      button(class="w3-btn w3-blue" type="submit" style="margin-top:20px") Registar  
