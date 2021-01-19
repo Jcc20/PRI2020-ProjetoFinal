@@ -1,10 +1,32 @@
 var express = require('express');
 var router = express.Router();
+var axios = require('axios')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+var json = {
+  "tipo": "livro",
+  "titulo": "o lobo mau",
+  "subtitulo": "",
+  "dataCriacao": "2021-1-15",
+  "dataRegisto": "2021-2-19",
+  "visibilidade": "privado",
+  "produtor": "Joãozinho"
+}
+
+/* GET home page */
+router.get('/', function(req,res) {
+   res.render('index', {recursos: json})
+})
+
+
+/* GET home page */
+router.get('/home', function(req,res) {
+  //var t = localStorage.getItem('myToken')
+  var t = "token"
+  axios.get('http://localhost:8001/recursos?token=' + t)
+    .then(dados => res.render('index', {recursos: dados.data}))
+    // se nao obtem os dados é porque o token está expirado, redireciona para o login
+    .catch(e =>  { res.redirect('/login') })
+})
 
 
 /* GET login page. */
