@@ -71,12 +71,6 @@ router.get('/', function(req,res) {
 })
 
 /* GET home page */
-router.get('/recursos', function(req,res) {
-  res.render('recursos', {recursos: json})
-})
-
-
-/* GET home page */
 router.get('/.', function(req,res) {
   console.log(req.body);
   //var t = localStorage.getItem('myToken')
@@ -90,9 +84,6 @@ router.get('/.', function(req,res) {
 
 /* GET login page. */
 router.get('/login', function(req, res, next) {
-  if (req.query.msg!=null)
-    res.render('login', {msg: req.query.msg});
-  else
     res.render('login');
 });
 
@@ -103,9 +94,9 @@ router.post('/login', function(req,res) {
     .then(dados => {
       //localStorage.setItem('myToken', dados.data.token);
       //guardar o token vindo da autenticação
-      res.redirect('/', dados)
+      res.redirect('/')
     })
-    .catch(erro => res.render(error, {error: erro}))
+    .catch(erro => res.render('error', {error: erro}))
 })
 
 
@@ -114,6 +105,11 @@ router.get('/registo', function(req, res, next) {
   res.render('registo');
 });
 
+
+/* GET home page */
+router.get('/recursos', function(req,res) {
+  res.render('recursos', {recursos: json})
+})
 
 
 /* Regista um novo utilizador na base de dados através do api-server */
