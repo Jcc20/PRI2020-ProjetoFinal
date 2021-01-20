@@ -76,7 +76,7 @@ router.get('/.', function(req,res) {
   //var t = localStorage.getItem('myToken')
   var t = "token"
   axios.get('http://localhost:8001/noticias?token=' + t)
-    .then(dados => res.render('index', {noticias: dados.data, user: req.body}))
+    .then(dados => res.render('index', {noticias: dados.data}))
     // se nao obtem os dados é porque o token está expirado, redireciona para o login
     .catch(e =>  { res.redirect('/login') })
 })
