@@ -17,8 +17,6 @@ module.exports.consultar = id => {
 
 module.exports.inserir = t => {
     var novo = new Recurso(t)
-    //var agr = new Date().toLocaleString('pt-PT', { hour12: false});
-    //novo.dataRegisto = agr;
     return novo.save()
 }
 
