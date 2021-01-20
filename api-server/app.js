@@ -28,6 +28,19 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+/*
+app.use(function(req, res, next){
+  var myToken = req.query.token || req.body.token;
+  jwt.verify( myToken, 'PRI2020', function(e, payload){
+    if(e) res.status(401).jsonp({error: 'Erro na verificação do token: ' + e})
+    else{
+      req.user = {_id: payload._id, nivel: payload.nivel, email: payload.email }
+      next()
+    } 
+  })
+})*/
+
+
 app.use('/utilizadores', utilizadorRouter);
 app.use('/recursos', recursoRouter);
 app.use('/posts', postRouter);
