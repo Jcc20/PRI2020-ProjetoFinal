@@ -4,8 +4,10 @@ var logger = require('morgan');
 var jwt = require('jsonwebtoken');
 
 
-var recursoRouter = require('./routes/recurso');
 var utilizadorRouter = require('./routes/utilizador');
+var recursoRouter = require('./routes/recurso');
+var postRouter = require('./routes/post');
+
 
 var mongoose = require('mongoose');
 
@@ -28,6 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/utilizadores', utilizadorRouter);
 app.use('/recursos', recursoRouter);
+app.use('/posts', postRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,32 +1,32 @@
 var express = require('express');
 var router = express.Router();
-const Recurso = require('../controllers/recurso')
+const Post = require('../controllers/post')
 
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  Recurso.listar()
+    Post.listar()
     .then(dados => res.status(200).jsonp(dados) )
     .catch(e => res.status(500).jsonp({error: e}))
 });
 
-// Inserir um recurso
+// Inserir um post
 router.post('/', function(req, res){
-  Recurso.inserir(req.body)
+    Post.inserir(req.body)
     .then(dados => res.status(201).jsonp({dados: dados}))
     .catch(e => res.status(500).jsonp({error: e}))
 })
 
-// Alterar um recurso
+// Alterarum post
 router.put('/', function(req, res){
-  Recurso.alterar(req.body)
+    Post.alterar(req.body)
     .then(dados => res.status(201).jsonp({dados: dados}))
     .catch(e => res.status(500).jsonp({error: e}))
 })
 
-// Remover um recurso
+// Remover um post
 router.delete('/:id', function(req, res) {
-  Recurso.remover(req.params.id)
+    Post.remover(req.params.id)
     .then(dados => res.status(200).jsonp(dados))
     .catch(e => res.status(500).jsonp({error: e}))
 });

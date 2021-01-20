@@ -1,31 +1,31 @@
-// Controlador para o modelo Recurso
+// Controlador para o modelo Post
 
-var Recurso = require('../models/recurso')
+var Post = require('../models/post')
 
-// Devolve a lista de recursos
+// Devolve a lista de Utilizadores
 module.exports.listar = () => {
-    return Recurso
+    return Post
         .find()
         .exec()
 }
 
 module.exports.consultar = id => {
-    return Recurso
+    return Post
         .findOne({_id: id})
         .exec()
 }
 
 module.exports.inserir = t => {
-    var novo = new Recurso(t)
+    var novo = new Post(t)
     //var agr = new Date().toLocaleString('pt-PT', { hour12: false});
     //novo.dataRegisto = agr;
     return novo.save()
 }
 
 module.exports.remover = function(id){
-    return Recurso.deleteOne({_id: id})
+    return Post.deleteOne({_id: id})
 }
 
 module.exports.alterar = function(t){
-    return Recurso.findByIdAndUpdate({_id: t._id}, t, {new: true})
+    return Post.findByIdAndUpdate({_id: t._id}, t, {new: true})
 }

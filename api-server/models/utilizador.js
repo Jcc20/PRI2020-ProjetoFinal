@@ -1,13 +1,14 @@
 var mongoose = require('mongoose')
 
-var userSchema = new mongoose.Schema({
+var utilizadorSchema = new mongoose.Schema({
     nome: { type:  String, required: true },
     email: { type: String, required: true , unique: true},
-    filiacao: String,
-    nivel: String,
-    dataRegisto: String,
-    dataUltimoAcesso: String,
     password: { type: String, required: true },
+    filiacao: String,
+    nivel: { type:  String, default: "consumer", required: true },
+    dataRegisto: { type : Date, default: Date.now, required: true },
+    dataUltimoAcesso: String,
+    recProd: [String],
 })
 
-module.exports = mongoose.model('utilizador', userSchema)
+module.exports = mongoose.model('utilizador', utilizadorSchema)

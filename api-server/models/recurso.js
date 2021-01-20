@@ -1,13 +1,20 @@
 var mongoose = require('mongoose')
 
-var resourceSchema = new mongoose.Schema({
+var recursoSchema = new mongoose.Schema({
     tipo: { type: String, required: true },
     titulo: { type: String, required: true },
     subtitulo: String,
-    dataCriacao: String,
-    dataRegisto: { type: String, required: true },
-    visibilidade: { type: String, required: true },
-    produtor: { type: String, required: true }
+    dataCriacao: { type : Date},
+    dataRegisto: { type : Date, default: Date.now, required: true },
+    ranking: {
+        rating : Number,
+        nrA : Number
+         },
+    visibilidade: { type: Boolean, required: true },
+    produtor: {
+        nomeP : { type: String, required: true },
+        emailP : { type: String, required: true }
+         }
 })
 
-module.exports = mongoose.model('resource', resourceSchema)
+module.exports = mongoose.model('recurso', recursoSchema)
