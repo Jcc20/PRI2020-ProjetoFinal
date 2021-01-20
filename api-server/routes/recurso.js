@@ -10,6 +10,12 @@ router.get('/', function(req, res) {
     .catch(e => res.status(500).jsonp({error: e}))
 });
 
+router.get('/:id', function(req, res) {
+  Recurso.consultar(req.params.id)
+    .then(dados => res.status(200).jsonp(dados) )
+    .catch(e => res.status(500).jsonp({error: e}))
+});
+  
 // Inserir um recurso
 router.post('/', function(req, res){
   Recurso.inserir(req.body)

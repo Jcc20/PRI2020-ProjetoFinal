@@ -10,6 +10,12 @@ router.get('/', function(req, res) {
     .catch(e => res.status(500).jsonp({error: e}))
 });
 
+router.get('/:id', function(req, res) {
+  Utilizador.consultar(req.params.id)
+    .then(dados => res.status(200).jsonp(dados) )
+    .catch(e => res.status(500).jsonp({error: e}))
+});
+
 // Inserir um utilizador
 router.post('/', function(req, res){
   Utilizador.inserir(req.body)
