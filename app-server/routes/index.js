@@ -100,16 +100,18 @@ router.post('/login', function(req,res) {
 })
 
 
-/* GET login page. */
-router.get('/registo', function(req, res, next) {
-  res.render('registo');
-});
 
 
-/* GET home page */
+/* GET recursos page */
 router.get('/recursos', function(req,res) {
   res.render('recursos', {recursos: json})
 })
+
+
+/* GET registo page. */
+router.get('/registo', function(req, res, next) {
+  res.render('registo');
+});
 
 
 /* Regista um novo utilizador na base de dados através do api-server */
