@@ -90,7 +90,10 @@ router.get('/.', function(req,res) {
 
 /* GET login page. */
 router.get('/login', function(req, res, next) {
-  res.render('login');
+  if (req.query.msg!=null)
+    res.render('login', {msg: req.query.msg});
+  else
+    res.render('login');
 });
 
 /* Manda os dados do login do utilizador para o servidor de autenticação. Se correr bem recebe um token de sessão */
@@ -112,14 +115,20 @@ router.get('/registo', function(req, res, next) {
 });
 
 
+
 /* Regista um novo utilizador na base de dados através do api-server */
 router.post('/registo', function(req,res) {
-  console.log(req.body)
-  axios.post('http://localhost:8001/utilizadores/registo', req.body)
-    .then(dados => {
-      res.redirect('/login', dados)
-    })
-    .catch(erro => res.render(error, {error: erro}))
+  axios.post('http://localhost:8001/utilizadores', req.body)
+    .then( dados => res.render('aviso', {msg: "sucess"}) )
+    .catch( erro => { 
+      try {
+        if (erro.response.data.error.keyValue.email!=null) res.render('aviso', {msg: "emailexistente", email: erro.response.data.error.keyValue.email})
+      }
+      catch{ 
+        res.render('error', {error: erro})  
+      } 
+  })
 })
+
 
 module.exports = router;
