@@ -2,28 +2,87 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios')
 
-var json = {
+var json = [{
+  "_id": "14",
   "tipo": "livro",
   "titulo": "o lobo mau",
   "subtitulo": "",
   "dataCriacao": "2021-1-15",
   "dataRegisto": "2021-2-19",
-  "visibilidade": "privado",
+  "visibilidade": "publico",
   "produtor": "Joãozinho"
-}
+},{
+  "_id": "19",
+  "tipo": "cd",
+  "titulo": "carapau sem espinha",
+  "subtitulo": "corcunda",
+  "dataCriacao": "2011-1-14",
+  "dataRegisto": "2017-12-5",
+  "visibilidade": "publico",
+  "produtor": "Calvin"
+},{
+  "_id": "19",
+  "tipo": "post",
+  "titulo": "tudo mau",
+  "data": "2011-1-14",
+  "autor": "Calvin"
+},{
+  "_id": "55",
+  "tipo": "post",
+  "titulo": "galinha",
+  "data": "2017-6-15",
+  "autor": "Rui"
+},{
+  "_id": "19",
+  "tipo": "cd",
+  "titulo": "carapau sem espinha",
+  "subtitulo": "corcunda",
+  "dataCriacao": "2011-1-14",
+  "dataRegisto": "2017-12-5",
+  "visibilidade": "publico",
+  "produtor": "Calvin"
+},{
+  "_id": "19",
+  "tipo": "post",
+  "titulo": "tudo mau",
+  "data": "2011-1-14",
+  "autor": "Calvin"
+},{
+  "_id": "55",
+  "tipo": "post",
+  "titulo": "galinha",
+  "data": "2017-6-15",
+  "autor": "Rui"
+},{
+  "_id": "19",
+  "tipo": "cd",
+  "titulo": "carapau sem espinha",
+  "subtitulo": "corcunda",
+  "dataCriacao": "2011-1-14",
+  "dataRegisto": "2017-12-5",
+  "visibilidade": "publico",
+  "produtor": "Calvin"
+}]
+
 
 /* GET home page */
 router.get('/', function(req,res) {
-   res.render('index', {recursos: json})
+   res.render('index', {noticias: json, user: {"nome":"joao"}})
+})
+
+/* GET home page */
+router.get('/recursos', function(req,res) {
+  res.render('recursos', {recursos: json})
 })
 
 
 /* GET home page */
-router.get('/home', function(req,res) {
+router.get('/.', function(req,res) {
+  console.log(req.body);
   //var t = localStorage.getItem('myToken')
   var t = "token"
-  axios.get('http://localhost:8001/recursos?token=' + t)
-    .then(dados => res.render('index', {recursos: dados.data}))
+  axios.get('http://localhost:8001/noticias?token=' + t)
+    .then(dados => res.render('index', {noticias: dados.data, user: req.body}))
     // se nao obtem os dados é porque o token está expirado, redireciona para o login
     .catch(e =>  { res.redirect('/login') })
 })
@@ -41,7 +100,7 @@ router.post('/login', function(req,res) {
     .then(dados => {
       //localStorage.setItem('myToken', dados.data.token);
       //guardar o token vindo da autenticação
-      res.redirect('/')
+      res.redirect('/', dados)
     })
     .catch(erro => res.render(error, {error: erro}))
 })

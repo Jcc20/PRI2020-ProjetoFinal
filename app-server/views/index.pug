@@ -4,20 +4,25 @@ block content
   .w3-card-4
     header.w3-container.w3-blue
       h1(style="text-align: center") Bem-vindo à Redu
-  p(style="margin-left: 10px; font-size:20px; font-weight: bold") Recrusos Educativos: 
-  table.w3-table-all
-        tr
-            th Data
-            th Designação
-            th Responsável
-            th Operações
-        each t in tarefas
+  p(style="text-align: right; font-size:18px; margin-right: 3%")
+    a(href='/perfil' style="text-align: right" class="buttom") Perfil
+  p(style="margin-left: 2%; font-size:22px; font-weight: bold") Noticias 
+  table(class="w3-table-all")
+        each r in noticias
             tr
-                td= t.data
-                td= t.designacao
-                td= t.responsavel
-                td 
-                    a(href='/editar') Editar
-                    span --
-                    a(href='/remover/' + t._id) Remover
-                
+              if (r.tipo=="post")
+                td= "Foi adicionado um novo post por " + r.autor + "!"
+                td= r.data
+                td
+                  a(href='/post/' + r._id) Ver Mais
+              else 
+                td= "Foi adicionado um novo recurso por " + r.produtor + "!"
+                td= r.dataCriacao
+                td
+                  a(href='/recurso/' + r._id) Ver Mais
+  a(href=`/posts`) 
+    button(class="w3-btn w3-blue" type="submit" style="padding: 15px 32px;  margin-left: 30px") Ver Posts
+  |
+  |
+  a(href=`/recursos`) 
+    button(class="w3-btn w3-blue" type="submit" style="margin:20px; padding: 15px 32px") Ver Recursos            

@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  .w3-card-4
+    header.w3-container.w3-blue
+      h1(style="text-align: center") Bem-vindo à Redu
+  p(style="margin-left: 10px; font-size:20px; font-weight: bold") Recrusos Educativos: 
+  table(class="w3-table-all")
+        tr.w3-blue
+            th Tipo
+            th Titulo
+            th Subtitulo
+            th Data da Criação
+            th Autor
+            th
+            th
+        each r in recursos
+            tr
+                td= r.tipo
+                td= r.titulo
+                td= r.subtitulo
+                td= r.dataCriacao
+                td= r.produtor
+                td
+                  a(href='/editar') Editar
+                td
+                  a(href='/remover/' + r._id) Remover
+                
