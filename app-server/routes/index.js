@@ -63,13 +63,17 @@ var json = [{
   "produtor": "Calvin"
 }]
 
+
+  
+
 /* GET home page */
-router.get('/', function(req,res) {
+router.get('/', isLogged, function(req,res) {
+   console.log("render index")
    res.render('index', {noticias: json, user: {"nome":"joao"}})
 })
 
 /* GET home page */
-router.get('/.', function(req,res) {
+router.get('/.', isLogged, function(req,res) {
   console.log(req.body);
   axios.get('http://localhost:8001/noticias?token=' + req.cookies.token)
     .then(dados => res.render('index', {noticias: dados.data}))
@@ -107,7 +111,7 @@ router.get('/logout', function(req, res, next) {
 
 
 /* GET recursos page */
-router.get('/recursos', function(req,res) {
+router.get('/recursos', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/recursos?token=' + req.cookies.token)
     .then(dados => res.render('recursos', {recursos: dados.data}))
@@ -123,7 +127,7 @@ router.get('/registo', function(req, res, next) {
 
 /* Regista um novo utilizador na base de dados através do api-server */
 router.post('/registo', function(req,res) {
-  axios.post('http://localhost:8001/utilizadores', req.body)
+  axios.post('http://localhost:8001/utilizadores/registo', req.body)
     .then( dados => res.render('aviso', {msg: "sucess"}) )
     .catch( erro => { 
       try {
@@ -135,5 +139,17 @@ router.post('/registo', function(req,res) {
   })
 })
 
+function isLogged(req, res, next){
+ 
+    if(req.cookies.token){
+    console.log("try if")
+    next();
+   } else {
+    console.log("catch")
+
+    res.redirect("/login")
+   }
+  
+}
 
 module.exports = router;
