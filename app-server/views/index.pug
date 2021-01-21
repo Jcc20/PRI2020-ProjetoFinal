@@ -1,15 +1,20 @@
 extends layout
 
 block content
+ 
   link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+  
   .w3-card-4
     header.w3-container.w3-blue
       h1(style="text-align: center") Bem-vindo à REDU
+  
   p(style="text-align: right; font-size:18px; margin-right: 3%")
     a(href='/perfil')
       button(class="w3-btn" style="border: 1px solid black; background-color: white; color: black; text-align: right" type="input") Perfil
         i(class="w3-xlarge material-icons" style="margin-left:10px; vertical-align:-25%") menu
+ 
   p(style="margin-left: 2%; font-size:22px; font-weight: bold") Noticias 
+ 
   table(class="w3-table-all")
         each r in noticias
             tr
@@ -23,9 +28,14 @@ block content
                 td= r.dataCriacao
                 td
                   a(href='/recurso/' + r._id) Ver Mais
+ 
   a(href=`/posts`) 
     button(class="w3-btn w3-blue" type="submit" style="padding: 15px 32px;  margin-left: 30px") Ver Posts
   |
   |
   a(href=`/recursos`) 
     button(class="w3-btn w3-blue" type="submit" style="margin:20px; padding: 15px 32px") Ver Recursos            
+  |
+  |
+  a(href=`/logout`) 
+    button(class="w3-btn w3-blue" type="submit" style="margin:20px; padding: 15px 32px") Logout            
