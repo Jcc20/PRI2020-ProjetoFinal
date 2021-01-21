@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios')
-
 var json = [{
   "_id": "14",
   "tipo": "livro",
@@ -65,17 +64,18 @@ var json = [{
 }]
 
 
+  
+
 /* GET home page */
-router.get('/', function(req,res) {
+router.get('/', isLogged, function(req,res) {
+   console.log("render index")
    res.render('index', {noticias: json, user: {"nome":"joao"}})
 })
 
 /* GET home page */
-router.get('/.', function(req,res) {
+router.get('/.', isLogged, function(req,res) {
   console.log(req.body);
-  //var t = localStorage.getItem('myToken')
-  var t = "token"
-  axios.get('http://localhost:8001/noticias?token=' + t)
+  axios.get('http://localhost:8001/noticias?token=' + req.cookies.token)
     .then(dados => res.render('index', {noticias: dados.data}))
     // se nao obtem os dados é porque o token está expirado, redireciona para o login
     .catch(e =>  { res.redirect('/login') })
@@ -90,21 +90,32 @@ router.get('/login', function(req, res, next) {
 /* Manda os dados do login do utilizador para o servidor de autenticação. Se correr bem recebe um token de sessão */
 router.post('/login', function(req,res) {
   console.log(req.body)
-  axios.post('http://localhost:8002/utilizadores/login', req.body)
+  axios.post('http://localhost:8002/utilizador/login', req.body)
     .then(dados => {
-      //localStorage.setItem('myToken', dados.data.token);
       //guardar o token vindo da autenticação
+      res.cookie('token', dados.data.token, {
+        expires: new Date(Date.now() + '1d'),
+        secure: false, 
+        httpOnly: true
+      });
       res.redirect('/')
     })
     .catch(erro => res.render('error', {error: erro}))
 })
 
-
+/* GET registo page. */
+router.get('/logout', function(req, res, next) {
+  res.clearCookie("token")
+  res.redirect('/login')
+});
 
 
 /* GET recursos page */
-router.get('/recursos', function(req,res) {
-  res.render('recursos', {recursos: json})
+router.get('/recursos', isLogged,function(req,res) {
+  console.log("token na app: "+req.cookies.token)
+  axios.get('http://localhost:8001/recursos?token=' + req.cookies.token)
+    .then(dados => res.render('recursos', {recursos: dados.data}))
+    .catch(e => res.render('error', {error: e}))
 })
 
 
@@ -116,7 +127,7 @@ router.get('/registo', function(req, res, next) {
 
 /* Regista um novo utilizador na base de dados através do api-server */
 router.post('/registo', function(req,res) {
-  axios.post('http://localhost:8001/utilizadores', req.body)
+  axios.post('http://localhost:8001/utilizadores/registo', req.body)
     .then( dados => res.render('aviso', {msg: "sucess"}) )
     .catch( erro => { 
       try {
@@ -128,5 +139,17 @@ router.post('/registo', function(req,res) {
   })
 })
 
+function isLogged(req, res, next){
+ 
+    if(req.cookies.token){
+    console.log("try if")
+    next();
+   } else {
+    console.log("catch")
+
+    res.redirect("/login")
+   }
+  
+}
 
 module.exports = router;

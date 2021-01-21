@@ -28,7 +28,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
+app.use('/utilizadores/registo', utilizadorRouter);
 
 app.use(function(req, res, next){
   var myToken = req.query.token || req.body.token;
@@ -41,7 +41,6 @@ app.use(function(req, res, next){
   })
 })
 
-//app.use('/utilizadores', utilizadorRouter);
 
 app.use('/utilizadores', utilizadorRouter);
 app.use('/recursos', recursoRouter);
