@@ -1,17 +1,29 @@
 extends layout
 
 block content
- div(style="font-size: 14px")
 
-  p(style="text-align: right; font-size:18px; margin-right: 3%")
-    a(href='/perfil')
-      button(class="w3-btn" style="border: 1px solid black; background-color: white; color: black; text-align: right" type="input") Perfil
-        i(class="w3-xlarge material-icons" style="margin-left:10px; vertical-align:-25%") menu
+ div(style="font-size: 14px")
+   
+  #wrapper.d-flex
+
+   #sidebar-wrapper.bg-light.border-right
+    .sidebar-heading 
+    .list-group.list-group-flush
+      a.list-group-item.list-group-item-action.bg-light(href='/posts') Posts
+      a.list-group-item.list-group-item-action.bg-light(href='/recursos') Recursos
+      a.list-group-item.list-group-item-action.bg-light(href='/perfil') Perfil
+
+   #page-content-wrapper
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      button#menu-toggle.material-icons(style="position: absolute") list
+
+    .container-fluid
+      div(style="width: 70%; margin: auto")
+
+        p(style="margin-left: 2%; font-size:22px; font-weight: bold") Noticias 
  
-  p(style="margin-left: 2%; font-size:22px; font-weight: bold") Noticias 
- 
-  table(class="w3-table-all")
-        each r in noticias
+        table(class="w3-table-all")
+         each r in noticias
             tr
               if (r.tipo=="post")
                 td= "Foi adicionado um novo post por " + r.autor + "!"
@@ -24,9 +36,13 @@ block content
                 td
                   a(href='/recursos/' + r._id) Ver Mais
  
-  a(href=`/posts`) 
-    button(class="w3-btn w3-blue" type="submit" style="padding: 15px 32px;  margin-left: 30px") Ver Posts
-  |
-  |
-  a(href=`/recursos`) 
-    button(class="w3-btn w3-blue" type="submit" style="margin:20px; padding: 15px 32px") Ver Recursos            
+
+
+ script(src='vendor/jquery/jquery.min.js')
+ script(src='vendor/bootstrap/js/bootstrap.bundle.min.js')
+
+ script.
+   $("#menu-toggle").click(function(e) {
+   e.preventDefault();
+   $("#wrapper").toggleClass("toggled");
+   });

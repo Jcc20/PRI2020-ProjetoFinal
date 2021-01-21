@@ -71,7 +71,7 @@ var json = [{
 /* GET home page */
 router.get('/', isLogged, function(req,res) {
    console.log("render index")
-   res.render('index', {noticias: json, user: {"nome":"joao"}})
+   res.render('index', {noticias: json, user: "logged"})
 })
 
 /* GET home page */
@@ -121,7 +121,7 @@ router.get('/logout', function(req, res, next) {
 router.get('/recursos', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/recursos?token=' + req.cookies.token)
-    .then(dados => res.render('recursos', {recursos: dados.data,  user: req}))
+    .then(dados => res.render('recursos', {recursos: dados.data, user: "logged"}))
     .catch(e => res.render('error', {error: e}))
 })
 
@@ -129,7 +129,7 @@ router.get('/recursos', isLogged,function(req,res) {
 router.get('/recursos/:id', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
-    .then(dados => res.render('recurso', {recurso: dados.data,  user: req}))
+    .then(dados => res.render('recurso', {recurso: dados.data, user: "logged"}))
     .catch(e => res.render('error', {error: e}))
 })
 
@@ -167,7 +167,7 @@ router.post('/registo', function(req,res) {
 router.get('/posts', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/posts?token=' + req.cookies.token)
-    .then(dados => res.render('posts', {posts: dados.data,  user: req}))
+    .then(dados => res.render('posts', {posts: dados.data, user: "logged"}))
     .catch(e => res.render('error', {error: e}))
 })
 
@@ -175,7 +175,7 @@ router.get('/posts', isLogged,function(req,res) {
 router.get('/posts/:id', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/posts/'+req.params.id+'?token=' + req.cookies.token)
-    .then(dados => res.render('posts', {recursos: dados.data,  user: req}))
+    .then(dados => res.render('posts', {recursos: dados.data, user: "logged"}))
     .catch(e => res.render('error', {error: e}))
 })
 
@@ -198,7 +198,7 @@ router.get('/perfil', isLogged, function(req,res) {
   console.log("token na app: "+req.cookies.token)
   var decoded = jwt.decode(req.cookies.token, {complete: true});
   axios.get('http://localhost:8001/utilizadores/'+decoded.payload._id+'?token=' + req.cookies.token)
-    .then(dados => res.render('perfil', {utilizador: dados.data,  user: req}))
+    .then(dados => res.render('perfil', {utilizador: dados.data, user: "logged"}))
     .catch(e => res.render('error', {error: e}))
 })
 
