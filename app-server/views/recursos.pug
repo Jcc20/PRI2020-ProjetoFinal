@@ -1,12 +1,12 @@
 extends layout
 
 block content
-  
+ div(style="font-size: 14px")
   br
 
   div(style="float: right")
     a(href="/recursos" style="text-decoration: none; color:black")
-      i.material-icons(style="font-size: 28px; margin-right:20px; vertical-align:-74%") add_circle_outline
+      i.material-icons(style="font-size: 28px; margin-right:20px; vertical-align:-24%") add_circle_outline
   p(style="margin-left: 10px; font-size:20px; font-weight: bold") Recrusos Educativos 
   
   table(class="w3-table-all")
@@ -14,7 +14,7 @@ block content
             th Tipo
             th Titulo
             th Subtitulo
-            th Data da Criação
+            th Data
             th Autor
             th
         each r in recursos
@@ -28,4 +28,4 @@ block content
                 td 
                   a(href="/recursos")
                     div(style="text-decoration: none; color: black")
-                      i.material-icons.md-18(style="vertical-align:-24%") archive
+                      i.material-icons.md-18(style="vertical-align:-14%") archive

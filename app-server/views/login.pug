@@ -1,9 +1,11 @@
 extends layout 
 
 block content
+  div(style="font-size: 14px")
+    br 
     .w3-card-4
      header.w3-container.w3-blue
-      h3 Login 
+      h1 Login 
     .w3-container
      br
      form(class="w3-container" action='/login', method='POST')
@@ -14,4 +16,10 @@ block content
       label(class="w3-text-black") 
        b Password:
       input(class="w3-input w3-border w3-light-grey", type="password", name="password", required) 
+      
+      label(class="w3-text-black") 
+       b Confirmar Password:
+      input(class="w3-input w3-border w3-light-grey", type="password", name="password2", required) 
+      
+      
       button(class="w3-btn w3-blue" type="submit" style="margin-top:18px") Iniciar Sessão  
