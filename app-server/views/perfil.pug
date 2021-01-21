@@ -10,16 +10,10 @@ block content
     
   p(style="text-align: center; font-size:22px; font-weight: bold") Perfil 
  
-  table(class="w3-table-all")
-        each elem in list
-            tr
-                td= "Nome: " + elem.nome 
-                td= "Email: " + elem.email 
-                td
-                  a(href='/post/' + r._id) Ver Mais
-  a(href=`/posts`) 
-    button(class="w3-btn w3-blue" type="submit" style="padding: 15px 32px;  margin-left: 30px") Ver Posts
-  |
-  |
-  a(href=`/recursos`) 
-    button(class="w3-btn w3-blue" type="submit" style="margin:20px; padding: 15px 32px") Ver Recursos            
+  p(style="text-align: center") Nome: #{utilizador.nome}
+  p(style="text-align: center") Email: #{utilizador.email}
+  p(style="text-align: center") Data de registo: #{utilizador.dataRegisto}
+  p(style="text-align: center") Filiação: #{utilizador.filiacao}
+  
+  a(href=`/`) 
+    button(class="w3-btn w3-blue" type="submit" style="padding: 15px 32px;  margin-left: 30px") Voltar atrás
