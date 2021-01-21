@@ -1,17 +1,43 @@
 extends layout
 
 block content
- div(style="font-size: 14px")
-  br
-  p(style="margin-left: 2%; font-size:22px; font-weight: bold") #{recurso.titulo}
 
-  p(style="margin-left: 2%; font-size:18px;") #{recurso.dataCriacao.split("T")[0]} 
+ div(style="font-size: 14px")
  
-  p(style="margin-left: 2%; font-size:18px;") #{recurso.dataRegisto.split("T")[0]}
+  br
+  .w3-card-4
+     header.w3-container.w3-blue
+      h1(style="text-align:center; font-weight: bold") #{recurso.titulo}
   
-  p(style="margin-left: 2%; font-size:18px;") #{recurso.ranking.rating} 
- 
-  p(style="margin-left: 2%; font-size:18px;") #{recurso.produtor.nomeP}
-  
-  p(style="margin-left: 2%; font-size:18px;") #{recurso.produtor.emailP}
+  .w3-container  
     
+    br
+    p(style="text-align:center;  font-size:18px;") #{recurso.subtitulo} 
+    
+    div(style="float: left; padding: 70px 0;") 
+      br
+      table(class="w3-table-all w3-small")
+        tr
+          td.w3-blue Data de Criação:
+          td= recurso.dataCriacao.split("T")[0]
+        tr 
+          td.w3-blue Data de Registo:
+          td= recurso.dataRegisto.split("T")[0]
+        tr 
+          td.w3-blue Rating:
+          td= recurso.ranking.rating
+        tr 
+          td.w3-blue Produtor:
+          td= recurso.produtor.nomeP
+        tr 
+          td.w3-blue Email do produtor:
+          td= recurso.produtor.emailP
+      if !tag
+        div(style="margin-top:30%;")
+        a(href="/")  
+            button.w3-btn.w3-blue Editar
+        |
+        |
+        a(href="/" style="margin-left:10px")  
+            button.w3-btn.w3-blue Remover
+
