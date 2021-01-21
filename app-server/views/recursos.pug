@@ -10,19 +10,11 @@ block content
             th Subtitulo
             th Data da Criação
             th Autor
-            th
-            th
         each r in recursos
             tr
                 td= r.tipo
-                td= r.titulo
+                td
+                  a(href='/recursos/' + r._id) #{r.titulo}
                 td= r.subtitulo
-                td= r.dataCriacao
+                td= r.dataCriacao.split("T")[0]
                 td= r.produtor.nomeP
-                td
-                  a(href='/editar') Editar
-                td
-                  a(href='/remover/' + r._id) Remover
-  br
-  a(href='/')
-     button(class="w3-btn w3-blue" type="submit" style="padding: 15px 32px;  margin-left: 10px") home
