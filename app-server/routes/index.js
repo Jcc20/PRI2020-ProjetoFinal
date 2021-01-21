@@ -117,6 +117,11 @@ router.get('/logout', function(req, res, next) {
 });
 
 
+router.get('/recursos/upload', function(req, res, next) {
+  res.render('upload', {user: "logged"})
+});
+
+
 /* GET recursos page */
 router.get('/recursos', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
