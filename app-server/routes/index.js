@@ -92,6 +92,11 @@ router.get('/login', function(req, res, next) {
 /* Manda os dados do login do utilizador para o servidor de autenticação. Se correr bem recebe um token de sessão */
 router.post('/login', function(req,res) {
   console.log(req.body)
+  /*
+  if (req.body.password2!=req.body.password) {
+    req.flash('warning','Passwords diferentes!')
+    res.redirect('/login')
+  }*/
   axios.post('http://localhost:8002/utilizador/login', req.body)
     .then(dados => {
       //guardar o token vindo da autenticação
