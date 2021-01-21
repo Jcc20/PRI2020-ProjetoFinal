@@ -4,11 +4,11 @@ block content
   
   link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
   
-   
+  br
   p(style="text-align: center; font-size:22px; font-weight: bold") Perfil 
  
-  p(style="text-align: center") Nome: #{utilizador.nome}
-  p(style="text-align: center") Email: #{utilizador.email}
-  p(style="text-align: center") Data de registo: #{utilizador.dataRegisto.split("T")[0]}
-  p(style="text-align: center") Hora de registo: #{utilizador.dataRegisto.split("T")[1].split(".")[0]}
-  p(style="text-align: center") Filiação: #{utilizador.filiacao}
+  p(style="font-weight: bold") Nome: #{utilizador.nome}
+  p(style="font-weight: bold") Email: #{utilizador.email}
+  p(style="font-weight: bold") Data de registo: #{utilizador.dataRegisto.split("T")[0]}
+  p(style="font-weight: bold") Hora de registo: #{utilizador.dataRegisto.split("T")[1].split(".")[0]}
+  p(style="font-weight: bold") Filiação: #{utilizador.filiacao}

@@ -1,8 +1,14 @@
 extends layout
 
 block content
+  
+  br
 
-  p(style="margin-left: 10px; font-size:20px; font-weight: bold") Recrusos Educativos
+  div(style="float: right")
+    a(href="/recursos" style="text-decoration: none; color:black")
+      i.material-icons(style="font-size: 28px; margin-right:20px; vertical-align:-74%") add_circle_outline
+  p(style="margin-left: 10px; font-size:20px; font-weight: bold") Recrusos Educativos 
+  
   table(class="w3-table-all")
         tr.w3-blue
             th Tipo
@@ -10,6 +16,7 @@ block content
             th Subtitulo
             th Data da Criação
             th Autor
+            th
         each r in recursos
             tr
                 td= r.tipo
@@ -18,3 +25,7 @@ block content
                 td= r.subtitulo
                 td= r.dataCriacao.split("T")[0]
                 td= r.produtor.nomeP
+                td 
+                  a(href="/recursos")
+                    div(style="text-decoration: none; color: black")
+                      i.material-icons.md-18(style="vertical-align:-24%") archive
