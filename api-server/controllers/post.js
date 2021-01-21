@@ -3,9 +3,11 @@
 var Post = require('../models/post')
 
 // Devolve a lista de Utilizadores
-module.exports.listar = () => {
+module.exports.listar = (pag, lim) => {
     return Post
         .find()
+        .skip((pag - 1) * lim)
+        .limit(lim)
         .exec()
 }
 

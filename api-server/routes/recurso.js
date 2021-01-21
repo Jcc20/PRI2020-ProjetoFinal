@@ -5,7 +5,9 @@ const Recurso = require('../controllers/recurso')
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  Recurso.listar()
+  const page = req.query.page ? parseInt(req.query.page) : 1
+  const limit = req.query.limit ? parseInt(req.query.limit) : 10
+  Recurso.listar(page, limit)
     .then(dados => res.status(200).jsonp(dados) )
     .catch(e => res.status(500).jsonp({error: e}))
 });

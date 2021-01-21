@@ -3,9 +3,11 @@
 var Recurso = require('../models/recurso')
 
 // Devolve a lista de recursos
-module.exports.listar = () => {
+module.exports.listar = (pag, lim) => {
     return Recurso
         .find()
+        .skip((pag - 1) * lim)
+        .limit(lim)
         .exec()
 }
 
