@@ -162,7 +162,7 @@ router.post('/registo', function(req,res) {
 router.get('/posts', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/posts?token=' + req.cookies.token)
-    .then(dados => res.render('posts', {recursos: dados.data,  user: req}))
+    .then(dados => res.render('posts', {posts: dados.data,  user: req}))
     .catch(e => res.render('error', {error: e}))
 })
 
