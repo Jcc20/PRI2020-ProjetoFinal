@@ -128,13 +128,20 @@ router.get('/registo', function(req, res, next) {
 /* Regista um novo utilizador na base de dados através do api-server */
 router.post('/registo', function(req,res) {
   axios.post('http://localhost:8001/utilizadores/registo', req.body)
-    .then( dados => res.render('aviso', {msg: "sucess"}) )
+    .then( dados => {
+      req.flash('success','Utlizador registado com sucesso!')
+      res.redirect('/login')
+    })
     .catch( erro => { 
       try {
-        if (erro.response.data.error.keyValue.email!=null) res.render('aviso', {msg: "emailexistente", email: erro.response.data.error.keyValue.email})
+        if (erro.response.data.error.keyValue.email!=null){ 
+        req.flash('warning','Email já existente!')
+        res.redirect('/registo')
+      }
       }
       catch{ 
-        res.render('error', {error: erro})  
+        req.flash('danger','Utlizador não foi registado com sucesso!')
+        res.redirect('/registo')
       } 
   })
 })
