@@ -1,9 +1,7 @@
 extends layout
 
 block content
-  .w3-card-4
-    header.w3-container.w3-blue
-      h1(style="text-align: center") REDU
+
   p(style="margin-left: 10px; font-size:20px; font-weight: bold") Recrusos Educativos
   table(class="w3-table-all")
         tr.w3-blue
@@ -20,11 +18,11 @@ block content
                 td= r.titulo
                 td= r.subtitulo
                 td= r.dataCriacao
-                td= r.produtor
+                td= r.produtor.nomeP
                 td
                   a(href='/editar') Editar
                 td
                   a(href='/remover/' + r._id) Remover
-
-  a(href=`/logout`) 
-    button(class="w3-btn w3-blue" type="submit" style="margin:20px; padding: 15px 32px") Logout              
+  br
+  a(href='/')
+     button(class="w3-btn w3-blue" type="submit" style="padding: 15px 32px;  margin-left: 10px") home

@@ -114,7 +114,7 @@ router.get('/logout', function(req, res, next) {
 router.get('/recursos', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/recursos?token=' + req.cookies.token)
-    .then(dados => res.render('recursos', {recursos: dados.data}))
+    .then(dados => res.render('recursos', {recursos: dados.data,  user: req}))
     .catch(e => res.render('error', {error: e}))
 })
 
