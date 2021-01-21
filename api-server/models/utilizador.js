@@ -7,7 +7,7 @@ var utilizadorSchema = new mongoose.Schema({
     filiacao: String,
     nivel: { type:  String, default: "consumer", required: true },
     dataRegisto: { type : Date, default: Date.now, required: true },
-    dataUltimoAcesso: String,
+    dataUltimoAcesso: { type : Date },
     recProd: [String],
 })
 

@@ -33,7 +33,15 @@ passport.use(new LocalStrategy(
         const utilizador = dados
         if(!utilizador) { return done(null, false, {message: 'Utilizador inexistente!\n'})}
         if(password != utilizador.password) { return done(null, false, {message: 'Credenciais inválidas!\n'})}
-        return done(null, utilizador)
+        
+        var date = new Date().toLocaleString('pt-PT', { hour12: false});
+        utilizador.dataUltimoAcesso=date
+        Utilizador.alterar(utilizador)
+          .then(d => {
+            return done(null, utilizador)
+          })
+          .catch(erro => done(erro))
+        
       })
       .catch(erro => done(erro))
     })

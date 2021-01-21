@@ -30,6 +30,7 @@ router.put('/', function(req, res){
     .catch(e => res.status(500).jsonp({error: e}))
 })
 
+
 // Remover uma utilizador
 router.delete('/:id', function(req, res) {
   Utilizador.remover(req.params.id)
