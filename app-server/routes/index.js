@@ -124,7 +124,7 @@ router.get('/recursos', isLogged,function(req,res) {
 router.get('/recursos/:id', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
-    .then(dados => res.render('recursos', {recursos: dados.data,  user: req}))
+    .then(dados => res.render('recurso', {recurso: dados.data,  user: req}))
     .catch(e => res.render('error', {error: e}))
 })
 
@@ -193,7 +193,7 @@ router.get('/perfil', isLogged, function(req,res) {
   console.log("token na app: "+req.cookies.token)
   var decoded = jwt.decode(req.cookies.token, {complete: true});
   axios.get('http://localhost:8001/utilizadores/'+decoded.payload._id+'?token=' + req.cookies.token)
-    .then(dados => res.render('perfil', {recursos: dados.data,  user: req}))
+    .then(dados => res.render('perfil', {utilizador: dados.data,  user: req}))
     .catch(e => res.render('error', {error: e}))
 })
 

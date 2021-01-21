@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  br
+  p(style="margin-left: 2%; font-size:22px; font-weight: bold") #{recurso.titulo}
+
+  p(style="margin-left: 2%; font-size:18px;") #{recurso.dataCriacao.split("T")[0]} 
+ 
+  p(style="margin-left: 2%; font-size:18px;") #{recurso.dataRegisto.split("T")[0]}
+  
+  p(style="margin-left: 2%; font-size:18px;") #{recurso.ranking.rating} 
+ 
+  p(style="margin-left: 2%; font-size:18px;") #{recurso.produtor.nomeP}
+  
+  a(href='/utilizador/' + recurso.produtor.emailP)  #{recurso.produtor.emailP}
+    

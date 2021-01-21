@@ -4,16 +4,11 @@ block content
   
   link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
   
-  .w3-card-4
-    header.w3-container.w3-blue
-      h1(style="text-align: center") REDU
-    
+   
   p(style="text-align: center; font-size:22px; font-weight: bold") Perfil 
  
   p(style="text-align: center") Nome: #{utilizador.nome}
   p(style="text-align: center") Email: #{utilizador.email}
-  p(style="text-align: center") Data de registo: #{utilizador.dataRegisto}
+  p(style="text-align: center") Data de registo: #{utilizador.dataRegisto.split("T")[0]}
+  p(style="text-align: center") Hora de registo: #{utilizador.dataRegisto.split("T")[1].split(".")[0]}
   p(style="text-align: center") Filiação: #{utilizador.filiacao}
-  
-  a(href=`/`) 
-    button(class="w3-btn w3-blue" type="submit" style="padding: 15px 32px;  margin-left: 30px") Voltar atrás
