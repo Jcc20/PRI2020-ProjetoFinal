@@ -84,7 +84,7 @@ router.get('/.', isLogged, function(req,res) {
 
 /* GET login page. */
 router.get('/login', function(req, res, next) {
-    res.render('login', {login: "login"});
+    res.render('login');
 });
 
 /* Manda os dados do login do utilizador para o servidor de autenticação. Se correr bem recebe um token de sessão */
