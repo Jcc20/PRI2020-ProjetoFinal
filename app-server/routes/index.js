@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios')
-
 var json = [{
   "_id": "14",
   "tipo": "livro",
@@ -64,7 +63,6 @@ var json = [{
   "produtor": "Calvin"
 }]
 
-
 /* GET home page */
 router.get('/', function(req,res) {
    res.render('index', {noticias: json, user: {"nome":"joao"}})
@@ -73,9 +71,7 @@ router.get('/', function(req,res) {
 /* GET home page */
 router.get('/.', function(req,res) {
   console.log(req.body);
-  //var t = localStorage.getItem('myToken')
-  var t = "token"
-  axios.get('http://localhost:8001/noticias?token=' + t)
+  axios.get('http://localhost:8001/noticias?token=' + req.cookies.token)
     .then(dados => res.render('index', {noticias: dados.data}))
     // se nao obtem os dados é porque o token está expirado, redireciona para o login
     .catch(e =>  { res.redirect('/login') })
@@ -90,21 +86,32 @@ router.get('/login', function(req, res, next) {
 /* Manda os dados do login do utilizador para o servidor de autenticação. Se correr bem recebe um token de sessão */
 router.post('/login', function(req,res) {
   console.log(req.body)
-  axios.post('http://localhost:8002/utilizadores/login', req.body)
+  axios.post('http://localhost:8002/utilizador/login', req.body)
     .then(dados => {
-      //localStorage.setItem('myToken', dados.data.token);
       //guardar o token vindo da autenticação
+      res.cookie('token', dados.data.token, {
+        expires: new Date(Date.now() + '1d'),
+        secure: false, 
+        httpOnly: true
+      });
       res.redirect('/')
     })
     .catch(erro => res.render('error', {error: erro}))
 })
 
-
+/* GET registo page. */
+router.get('/logout', function(req, res, next) {
+  res.clearCookie("token")
+  res.redirect('/login')
+});
 
 
 /* GET recursos page */
 router.get('/recursos', function(req,res) {
-  res.render('recursos', {recursos: json})
+  console.log("token na app: "+req.cookies.token)
+  axios.get('http://localhost:8001/recursos?token=' + req.cookies.token)
+    .then(dados => res.render('recursos', {recursos: dados.data}))
+    .catch(e => res.render('error', {error: e}))
 })
 
 
