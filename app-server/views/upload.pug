@@ -7,13 +7,42 @@ block content
       h1 Upload
     .w3-container
 
-    form.w3-container(action='/files' method='POST' enctype='single/form-data')
-        br
-        label.w3-text-teal(style='margin:10px')
-          b  Escolha o ficheiro 
-        #label
-          input.w3-input.w3-border.w3-light-grey(style='margin:10px' type='file' name='myFile')
-        input.w3-btn.w3-blue-grey(type='submit' style='margin:10px' value='Submeter')
-        a.w3-btn.w3-blue-grey(href='/recursos' type='button')  Cancelar 
+    br
+    form(class="w3-container" action='/#', method='POST')
+      label(class="w3-text-black")
+       b Titulo:
+      input(class="w3-input w3-border w3-light-grey", type="text", name="titulo", required)    
+
+      label(class="w3-text-black")
+       b Tipo:
+      input(class="w3-input w3-border w3-light-grey", type="text", name="tipo", required)    
+
+      label(class="w3-text-black") 
+       b Subtitulo:
+      input(class="w3-input w3-border w3-light-grey", type="text", name="subtitulo") 
+     
+      label(class="w3-text-black") 
+       b Data de criacao:
+      input(class="w3-input w3-border w3-light-grey", type="date", name="data", required) 
+            
+      label(class="w3-text-black") 
+       b Visibilidade:
+      br
+      input(type="checkbox",  name="publico", value=true) 
+      label(for="publico") Público
+
+      input(style="margin-left: 10px",type="checkbox",  name="privado", value=false) 
+      label(for="privado") Privado
+      br
+
+ 
+      #label
+        input.w3-input.w3-border.w3-light-grey(style='margin:10px' type='file' name='myFile')
+      input.w3-btn.w3-blue-grey(type='submit' style='margin:10px' value='Submeter')
+      a.w3-btn.w3-blue-grey(href='/recursos' type='button')  Cancelar 
+
+
+
+
 
 
