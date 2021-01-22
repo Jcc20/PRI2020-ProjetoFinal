@@ -32,9 +32,9 @@ block content
 
     ul.pagination
       li.page-item
-        a.page-link(href='/recursos?page='+(pag.paginaAtual)) Previous
+        a.page-link(href='/recursos?page='+(pag.paginaAtual-1)) Previous
       li.page-item.active(aria-current="page")
         a.page-link #{pag.paginaAtual}
       li.page-item
-        a.page-link(href='/recursos?page='+(pag.paginaAtual)) Next
+        a.page-link(href='/recursos?page='+(1+pag.paginaAtual-9)) Next
   
