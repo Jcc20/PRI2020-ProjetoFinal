@@ -2,21 +2,20 @@ extends layout
 
 block content
 
- div(style="font-size: 14px")
+ div(style="font-size: 14px; margin-top: -25px")
    
   #wrapper.d-flex
 
-   #sidebar-wrapper.bg-dark.border-right
-    .sidebar-heading 
+   #sidebar-wrapper.border-right.bg-light
     .list-group.list-group-flush
-      a.list-group-item.list-group-item-action.bg-dark(href='/posts') Posts
-      a.list-group-item.list-group-item-action.bg-dark(href='/recursos') Recursos
-      a.list-group-item.list-group-item-action.bg-dark(href='/perfil') Perfil
+      a.list-group-item.list-group-item-action.bg-light(href='/posts') Posts
+      a.list-group-item.list-group-item-action.bg-light(href='/recursos') Recursos
+      a.list-group-item.list-group-item-action.bg-light(href='/perfil') Perfil
 
    #page-content-wrapper
-    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-      button#menu-toggle.material-icons(style="position: absolute") list
-
+    nav.navbar.navbar-expand-lg
+      button#menu-toggle.material-icons(style="position: absolute; left:0px") list
+   
     .container-fluid
       div(style="width: 70%; margin: auto")
 
