@@ -149,9 +149,36 @@ router.get('/recursos', isLogged,function(req,res) {
     .then(dados => res.render('recursos', {recursos: dados.data, user: "logged"}))
     .catch(e => res.render('error', {error: e}))
 })
+/*
+router.get('/recursos/editar/:id', isLogged,function(req,res) {
+  console.log("token na app: "+req.cookies.token)
+  axios.get('http://localhost:8001/recursos?token=' + req.cookies.token)
+    .then(dados => res.render('recursos', {recursos: dados.data, user: "logged"}))
+    .catch(e => res.render('error', {error: e}))
+})*/
+
+
+
 
 /* GET recursos page */
-router.get('/download/:path',function(req,res) {
+router.get('/recursos/:id', isLogged,function(req,res) {
+  console.log("token na app: "+req.cookies.token)
+  axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
+  .then(dados => {
+    var decoded = jwt.decode(req.cookies.token, {complete: true});
+    
+    if((decoded.payload.nivel=="producer" && decoded.payload.email == dados.emailP) || (decoded.payload.nivel=="admin")){
+      res.render('recurso', {recurso: dados.data,tag: "edt", user: "logged"})
+    }else{
+      res.render('recurso', {recurso: dados.data, user: "logged"})
+    }
+
+  })
+  .catch(e => res.render('error', {error: e}))
+})
+
+/* Download recurso page */
+router.get('/download/:path', isLogged,function(req,res) {
   try {
     console.log(req)
     res.download(__dirname+ "/../../api-server/uploads/"+req.params.path)
@@ -160,19 +187,23 @@ router.get('/download/:path',function(req,res) {
   }
 })
 
-
-/* GET recursos page */
-router.get('/recursos/:id', isLogged,function(req,res) {
+/* DELETE recurso */
+router.get('/recursos/remover/:id', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
-  axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
-    .then(dados => res.render('recurso', {recurso: dados.data, user: "logged"}))
-    .catch(e => res.render('error', {error: e}))
+  axios.delete('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
+  .then(dados =>{
+    req.flash('success','Recurso removido com sucesso!')
+    res.redirect('/recursos')
+
+  })
+  .catch(e =>{
+    req.flash('danger','Recurso não foi removido com sucesso!')
+    res.redirect('/recursos/'+req.params.id)
+  })
 })
 
-router.post("/recursos", isLogged, upload.single('myFile'), (req, res, next) => {
-  console.log("file.path:"+req.file.path)
-  console.log(req.body)
 
+router.post("/recursos", isLogged, upload.single('myFile'), (req, res, next) => {
   var decoded = jwt.decode(req.cookies.token, {complete: true});
   req.body["path"] = decoded.payload._id +'-'+ req.file.originalname 
   req.body["produtor"]={}
@@ -180,7 +211,6 @@ router.post("/recursos", isLogged, upload.single('myFile'), (req, res, next) => 
   req.body.produtor["emailP"] = decoded.payload.email 
   if(req.body.visibilidade == '1'){req.body.visibilidade = true}
   else {req.body.visibilidade = false}
-  console.log(req.body)
 
   axios.post('http://localhost:8001/recursos?token=' + req.cookies.token, req.body)
   .then( dados => {
@@ -190,7 +220,7 @@ router.post("/recursos", isLogged, upload.single('myFile'), (req, res, next) => 
   .catch( erro => { 
     req.flash('danger','Recurso não foi registado com sucesso!')
     res.redirect('/recursos/upload')
-
+    
   })
 })
 
@@ -204,7 +234,11 @@ router.get('/registo', function(req, res, next) {
 
 /* Regista um novo utilizador na base de dados através do api-server */
 router.post('/registo', function(req,res) {
-  axios.post('http://localhost:8001/utilizadores/registo', req.body)
+  if(req.body.password != req.body.password2){
+    req.flash('danger','Passwords não correspondem!')
+    res.redirect('/registo')
+  }else{
+    axios.post('http://localhost:8001/utilizadores/registo', req.body)
     .then( dados => {
       req.flash('success','Utlizador registado com sucesso!')
       res.redirect('/login')
@@ -212,15 +246,16 @@ router.post('/registo', function(req,res) {
     .catch( erro => { 
       try {
         if (erro.response.data.error.keyValue.email!=null){ 
-        req.flash('warning','Email já existente!')
+          req.flash('warning','Email já existente!')
         res.redirect('/registo')
       }
-      }
-      catch{ 
-        req.flash('danger','Utlizador não foi registado com sucesso!')
-        res.redirect('/registo')
-      } 
+    }
+    catch{ 
+      req.flash('danger','Utlizador não foi registado com sucesso!')
+      res.redirect('/registo')
+    } 
   })
+  }
 })
 
 

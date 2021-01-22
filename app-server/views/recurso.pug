@@ -24,23 +24,26 @@ block content
           td= recurso.dataRegisto.split("T")[0]
         tr 
           td.w3-blue Rating:
-          td= recurso.ranking.rating
+          if recurso.ranking
+           td= recurso.ranking.rating
+          else
+           td= NaN
         tr 
           td.w3-blue Produtor:
           td= recurso.produtor.nomeP
         tr 
           td.w3-blue Email do produtor:
           td= recurso.produtor.emailP
-      if !tag
+      if tag
         div(style="margin-top:30%;")
-        a(href="/")  
+        a(href="/recursos/editar/"+recurso._id)  
             button.w3-btn.w3-blue Editar
         |
         |
-        a(href="/" style="margin-left:10px")  
+        a(href="/recursos/remover/"+recurso._id style="margin-left:10px")  
             button.w3-btn.w3-blue Remover
         |
         |
-        a(href="/recursos" style="margin-left:10px")  
+      a(href="/recursos" style="margin-left:10px")  
             button.w3-btn.w3-blue Back
 
