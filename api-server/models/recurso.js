@@ -14,7 +14,8 @@ var recursoSchema = new mongoose.Schema({
     produtor: {
         nomeP : { type: String, required: true },
         emailP : { type: String, required: true }
-         }
+         },
+    path:{ type: String, required: true}     
 })
 
 module.exports = mongoose.model('recurso', recursoSchema)
