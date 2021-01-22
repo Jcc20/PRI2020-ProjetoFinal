@@ -155,20 +155,31 @@ router.get('/recursos/upload', function(req, res, next) {
 router.get('/recursos', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   var page
-  req.query.page ? page=req.query.page : page=1
-  var info = {}
-  var query
+  req.query.page ? page=parseInt(req.query.page) : page=1
+  var query=""
   if(req.query.byTipo){query='byTipo=true'}
   if(req.query.byTitulo){query='byTitulo=true'}
   if(req.query.byData){query='byData=true'}
   if(req.query.byAutor){query='byAutor=true'}
 
-  console.log(req.query[0])
-  info["paginaAtual"]=page
-  axios.get('http://localhost:8001/recursos?'+query+'&token=' + req.cookies.token)
-    .then(dados => res.render('recursos', {recursos: dados.data, pag: info, user: "logged"}))
+  axios.get('http://localhost:8001/recursos?&token=' + req.cookies.token)
+  .then(dados => {
+    const startIndex = (page - 1) * 4
+    const endIndex = page * 4
+    const results = {}
+    results["atual"] = page
+    results["query"] = query
+    if (endIndex < dados.data) results["next"]     = page + 1
+    if (startIndex > 0)        results["previous"] = page - 1
+    
+    axios.get('http://localhost:8001/recursos?'+query+'&page='+page+'&token=' + req.cookies.token)
+    .then(dados => res.render('recursos', {recursos: dados.data, pag: results, user: "logged"}))
     .catch(e => res.render('error', {error: e}))
+  })
+  .catch(e => res.render('error', {error: e}))
 })
+
+
 /*
 router.get('/recursos/editar/:id', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)

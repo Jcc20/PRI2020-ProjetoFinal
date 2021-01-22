@@ -35,10 +35,30 @@ block content
   div(role='navigation' aria-label='Main')
 
     ul.pagination
-      li.page-item
-        a.page-link(href='/recursos?page='+(pag.paginaAtual-1)) Previous
+
+      if pag.previous
+
+        li.page-item
+          a.page-link(href='/recursos?'+pag.query+'&page='+pag.previous) Previous
+      
+        li.page-item
+          a.page-link(href='/recursos?'+pag.query+'&page='+pag.previous) #{pag.previous}
+      
+      else
+        li.page-item.disabled
+          a.page-link Previous
+
       li.page-item.active(aria-current="page")
-        a.page-link #{pag.paginaAtual}
-      li.page-item
-        a.page-link(href='/recursos?page='+(1+pag.paginaAtual-9)) Next
+        a.page-link #{pag.atual}
+
+      if pag.next
+
+        li.page-item
+          a.page-link(href='/recursos?'+pag.query+'&page='+pag.next) #{pag.next}
+
+        li.page-item
+          a.page-link(href='/recursos?'+pag.query+'&page='+pag.next) Next
+      else
+        li.page-item.disabled
+          a.page-link Next
   

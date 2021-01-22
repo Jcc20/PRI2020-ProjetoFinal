@@ -1,37 +1,55 @@
 // Controlador para o modelo Recurso
 
 var Recurso = require('../models/recurso')
+var limit=4
 
 // Devolve a lista de recursos
-module.exports.listar = () => {
+module.exports.listar = (page) => {
     return Recurso
         .find()
+        .skip((page * limit) - limit)
+        .limit(limit)
         .exec()
 }
 
-module.exports.listarbyTipo = () => {
+module.exports.contarTodos = () => {
+    return Recurso
+        .countDocuments()
+        .exec()
+}
+
+
+module.exports.listarbyTipo = (page) => {
     return Recurso
         .find()
         .sort('tipo')
+        .skip((page * limit) - limit)
+        .limit(limit)
         .exec()
 }
 
-module.exports.listarbyTitulo = () => {
+module.exports.listarbyTitulo = (page) => {
     return Recurso
         .find()
         .sort('titulo')
+        .skip((page * limit) - limit)
+        .limit(limit)
         .exec()
 }
-module.exports.listarbyData = () => {
+module.exports.listarbyData = (page) => {
     return Recurso
         .find()
         .sort({'dataCriacao' : 'desc'})
+        .skip((page * limit) - limit)
+        .limit(limit)
         .exec()
 }
-module.exports.listarbyAutor = () => {
+module.exports.listarbyAutor = (page) => {
     return Recurso
         .find()
         .sort({'produtor.nomeP' : 'asc'})
+        .skip((page * limit) - limit)
+        .limit(limit)
         .exec()
 }
 

@@ -6,27 +6,30 @@ const Recurso = require('../controllers/recurso')
 /* GET home page. */
 router.get('/', function(req, res) {
   if(req.query.byTipo != null){
-    Recurso.listarbyTipo()
+    Recurso.listarbyTipo(req.query.page)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else if(req.query.byTitulo != null){
-    Recurso.listarbyTitulo()
+    Recurso.listarbyTitulo(req.query.page)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else  if(req.query.byData != null){
-    Recurso.listarbyData()
+    Recurso.listarbyData(req.query.page)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else if(req.query.byAutor != null){
-    Recurso.listarbyAutor()
+    Recurso.listarbyAutor(req.query.page)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
-  }else{
-    Recurso.listar()
+  }else if(req.query.page != null){
+    Recurso.listar(req.query.page)
+    .then(dados => res.status(200).jsonp(dados) )
+    .catch(e => res.status(500).jsonp({error: e}))
+  }else {
+    Recurso.contarTodos()
     .then(dados => res.status(200).jsonp(dados) )
     .catch(e => res.status(500).jsonp({error: e}))
   }
-
 });
 
 router.get('/:id', function(req, res) {
