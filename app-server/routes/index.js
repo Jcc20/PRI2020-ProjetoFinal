@@ -145,8 +145,12 @@ router.get('/recursos/upload', function(req, res, next) {
 /* GET recursos page */
 router.get('/recursos', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
-  axios.get('http://localhost:8001/recursos?token=' + req.cookies.token)
-    .then(dados => res.render('recursos', {recursos: dados.data, user: "logged"}))
+  var page
+  req.query.page ? page=req.query.page : page=1
+  var info = {}
+  info["paginaAtual"]=page
+  axios.get('http://localhost:8001/recursos?page='+page+'&token=' + req.cookies.token)
+    .then(dados => res.render('recursos', {recursos: dados.data, pag: info, user: "logged"}))
     .catch(e => res.render('error', {error: e}))
 })
 /*

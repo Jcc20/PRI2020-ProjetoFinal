@@ -15,7 +15,7 @@ block content
             th Subtitulo
             th Data
             th Autor
-            th
+            th  
         each r in recursos
             tr
                 td= r.tipo
@@ -28,3 +28,13 @@ block content
                   a(href="/download/"+r.path)
                     div(style="text-decoration: none; color: black")
                       i.material-icons.md-18(style="vertical-align:-14%") archive
+  div(role='navigation' aria-label='Main')
+
+    ul.pagination
+      li.page-item
+        a.page-link(href='/recursos?page='+(pag.paginaAtual)) Previous
+      li.page-item.active(aria-current="page")
+        a.page-link #{pag.paginaAtual}
+      li.page-item
+        a.page-link(href='/recursos?page='+(pag.paginaAtual)) Next
+  
