@@ -5,24 +5,27 @@ const Recurso = require('../controllers/recurso')
 
 /* GET home page. */
 router.get('/', function(req, res) {
+  var page, limit
+  req.query.page ?  page = parseInt(req.query.page)   : page = 1
+  req.query.limit ? limit = parseInt(req.query.limit) : limit = 10
   if(req.query.byTipo != null){
-    Recurso.listarbyTipo(req.query.page)
+    Recurso.listarbyTipo(page, limit)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else if(req.query.byTitulo != null){
-    Recurso.listarbyTitulo(req.query.page)
+    Recurso.listarbyTitulo(page, limit)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else  if(req.query.byData != null){
-    Recurso.listarbyData(req.query.page)
+    Recurso.listarbyData(page, limit)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else if(req.query.byAutor != null){
-    Recurso.listarbyAutor(req.query.page)
+    Recurso.listarbyAutor(page, limit)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else if(req.query.page != null){
-    Recurso.listar(req.query.page)
+    Recurso.listar(page, limit)
     .then(dados => res.status(200).jsonp(dados) )
     .catch(e => res.status(500).jsonp({error: e}))
   }else {

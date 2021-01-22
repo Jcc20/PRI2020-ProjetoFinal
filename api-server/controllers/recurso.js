@@ -1,14 +1,14 @@
 // Controlador para o modelo Recurso
 
 var Recurso = require('../models/recurso')
-var limit=4
+
 
 // Devolve a lista de recursos
-module.exports.listar = (page) => {
+module.exports.listar = (page, lim) => {
     return Recurso
         .find()
-        .skip((page * limit) - limit)
-        .limit(limit)
+        .skip((page * lim) - lim)
+        .limit(lim)
         .exec()
 }
 
@@ -19,37 +19,37 @@ module.exports.contarTodos = () => {
 }
 
 
-module.exports.listarbyTipo = (page) => {
+module.exports.listarbyTipo = (page, lim) => {
     return Recurso
         .find()
         .sort('tipo')
-        .skip((page * limit) - limit)
-        .limit(limit)
+        .skip((page * lim) - lim)
+        .limit(lim)
         .exec()
 }
 
-module.exports.listarbyTitulo = (page) => {
+module.exports.listarbyTitulo = (page, lim) => {
     return Recurso
         .find()
         .sort('titulo')
-        .skip((page * limit) - limit)
-        .limit(limit)
+        .skip((page * lim) - lim)
+        .limit(lim)
         .exec()
 }
-module.exports.listarbyData = (page) => {
+module.exports.listarbyData = (page, lim) => {
     return Recurso
         .find()
         .sort({'dataCriacao' : 'desc'})
-        .skip((page * limit) - limit)
-        .limit(limit)
+        .skip((page * lim) - lim)
+        .limit(lim)
         .exec()
 }
-module.exports.listarbyAutor = (page) => {
+module.exports.listarbyAutor = (page, lim) => {
     return Recurso
         .find()
         .sort({'produtor.nomeP' : 'asc'})
-        .skip((page * limit) - limit)
-        .limit(limit)
+        .skip((page * lim) - lim)
+        .limit(lim)
         .exec()
 }
 

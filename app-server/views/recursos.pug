@@ -39,10 +39,10 @@ block content
       if pag.previous
 
         li.page-item
-          a.page-link(href='/recursos?'+pag.query+'&page='+pag.previous) Previous
+          a.page-link(href='/recursos?'+pag.query+'&page='+pag.previous+'&limit='+pag.limit) Previous
       
         li.page-item
-          a.page-link(href='/recursos?'+pag.query+'&page='+pag.previous) #{pag.previous}
+          a.page-link(href='/recursos?'+pag.query+'&page='+pag.previous+'&limit='+pag.limit) #{pag.previous}
       
       else
         li.page-item.disabled
@@ -54,10 +54,10 @@ block content
       if pag.next
 
         li.page-item
-          a.page-link(href='/recursos?'+pag.query+'&page='+pag.next) #{pag.next}
+          a.page-link(href='/recursos?'+pag.query+'&page='+pag.next+'&limit='+pag.limit) #{pag.next}
 
         li.page-item
-          a.page-link(href='/recursos?'+pag.query+'&page='+pag.next) Next
+          a.page-link(href='/recursos?'+pag.query+'&page='+pag.next+'&limit='+pag.limit) Next
       else
         li.page-item.disabled
           a.page-link Next
