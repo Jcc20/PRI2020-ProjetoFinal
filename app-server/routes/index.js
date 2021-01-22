@@ -4,13 +4,13 @@ var axios = require('axios')
 var jwt = require('jsonwebtoken');
 var multer = require('multer');
 
-var decoded = jwt.decode(req.cookies.token, {complete: true});
 // Set The Storage Engine
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, './uploads/');
   },
   filename: function(req, file, cb) {
+    var decoded = jwt.decode(req.cookies.token, {complete: true});
 
     cb(null, file.originalname+'-'+decoded.payload._id);
   }
@@ -158,7 +158,7 @@ router.get('/recursos/:id', isLogged,function(req,res) {
     .catch(e => res.render('error', {error: e}))
 })
 
-router.post("/recursos/", isLogged, upload.single('productImage'), (req, res, next) => {
+router.post("/recursos/", isLogged, upload.single('myFile'), (req, res, next) => {
   req.body.path = req.file.path 
   axios.post('http://localhost:8001/recursos?token=' + req.cookies.token, req.body)
   .then( dados => {
@@ -235,6 +235,7 @@ router.post('/posts', function(req,res) {
 /* GET perfil page */
 router.get('/perfil', isLogged, function(req,res) {
   console.log("token na app: "+req.cookies.token)
+  var decoded = jwt.decode(req.cookies.token, {complete: true});
   axios.get('http://localhost:8001/utilizadores/'+decoded.payload._id+'?token=' + req.cookies.token)
     .then(dados => res.render('perfil', {utilizador: dados.data, user: "logged"}))
     .catch(e => res.render('error', {error: e}))
