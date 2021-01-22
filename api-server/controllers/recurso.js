@@ -3,13 +3,38 @@
 var Recurso = require('../models/recurso')
 
 // Devolve a lista de recursos
-module.exports.listar = (pag, lim) => {
+module.exports.listar = () => {
     return Recurso
         .find()
-        .skip((pag - 1) * lim)
-        .limit(lim)
         .exec()
 }
+
+module.exports.listarbyTipo = () => {
+    return Recurso
+        .find()
+        .sort('tipo')
+        .exec()
+}
+
+module.exports.listarbyTitulo = () => {
+    return Recurso
+        .find()
+        .sort('titulo')
+        .exec()
+}
+module.exports.listarbyData = () => {
+    return Recurso
+        .find()
+        .sort({'dataCriacao' : 'desc'})
+        .exec()
+}
+module.exports.listarbyAutor = () => {
+    return Recurso
+        .find()
+        .sort({'produtor.nomeP' : 'asc'})
+        .exec()
+}
+
 
 module.exports.consultar = id => {
     return Recurso

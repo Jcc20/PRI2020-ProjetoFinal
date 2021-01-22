@@ -5,11 +5,28 @@ const Recurso = require('../controllers/recurso')
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  const page = req.query.page ? parseInt(req.query.page) : 1
-  const limit = req.query.limit ? parseInt(req.query.limit) : 10
-  Recurso.listar(page, limit)
+  if(req.query.byTipo != null){
+    Recurso.listarbyTipo()
+      .then(dados => res.status(200).jsonp(dados) )
+      .catch(e => res.status(500).jsonp({error: e}))
+  }else if(req.query.byTitulo != null){
+    Recurso.listarbyTitulo()
+      .then(dados => res.status(200).jsonp(dados) )
+      .catch(e => res.status(500).jsonp({error: e}))
+  }else  if(req.query.byData != null){
+    Recurso.listarbyData()
+      .then(dados => res.status(200).jsonp(dados) )
+      .catch(e => res.status(500).jsonp({error: e}))
+  }else if(req.query.byAutor != null){
+    Recurso.listarbyAutor()
+      .then(dados => res.status(200).jsonp(dados) )
+      .catch(e => res.status(500).jsonp({error: e}))
+  }else{
+    Recurso.listar()
     .then(dados => res.status(200).jsonp(dados) )
     .catch(e => res.status(500).jsonp({error: e}))
+  }
+
 });
 
 router.get('/:id', function(req, res) {

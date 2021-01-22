@@ -4,6 +4,15 @@ var axios = require('axios')
 var jwt = require('jsonwebtoken');
 var multer = require('multer');
 
+var MultererrorMessages = {
+  LIMIT_PART_COUNT: 'Too many parts',
+  LIMIT_FILE_SIZE: 'File too large',
+  LIMIT_FILE_COUNT: 'Too many files',
+  LIMIT_FIELD_KEY: 'Field name too long',
+  LIMIT_FIELD_VALUE: 'Field value too long',
+  LIMIT_FIELD_COUNT: 'Too many fields',
+  LIMIT_UNEXPECTED_FILE: 'Unexpected field'
+}
 // Set The Storage Engine
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -19,9 +28,9 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 5
+    fileSize: 1024 * 1024 * 5 * 3
   }
-});
+}).single('myFile');
 
 var json = [{
   "_id": "14",
@@ -148,8 +157,15 @@ router.get('/recursos', isLogged,function(req,res) {
   var page
   req.query.page ? page=req.query.page : page=1
   var info = {}
+  var query
+  if(req.query.byTipo){query='byTipo=true'}
+  if(req.query.byTitulo){query='byTitulo=true'}
+  if(req.query.byData){query='byData=true'}
+  if(req.query.byAutor){query='byAutor=true'}
+
+  console.log(req.query[0])
   info["paginaAtual"]=page
-  axios.get('http://localhost:8001/recursos?page='+page+'&token=' + req.cookies.token)
+  axios.get('http://localhost:8001/recursos?'+query+'&token=' + req.cookies.token)
     .then(dados => res.render('recursos', {recursos: dados.data, pag: info, user: "logged"}))
     .catch(e => res.render('error', {error: e}))
 })
@@ -170,8 +186,7 @@ router.get('/recursos/:id', isLogged,function(req,res) {
   axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
   .then(dados => {
     var decoded = jwt.decode(req.cookies.token, {complete: true});
-    
-    if((decoded.payload.nivel=="producer" && decoded.payload.email == dados.emailP) || (decoded.payload.nivel=="admin")){
+    if((decoded.payload.email == dados.data.produtor.emailP) || (decoded.payload.nivel=="admin")){
       res.render('recurso', {recurso: dados.data,tag: "edt", user: "logged"})
     }else{
       res.render('recurso', {recurso: dados.data, user: "logged"})
@@ -207,24 +222,61 @@ router.get('/recursos/remover/:id', isLogged,function(req,res) {
 })
 
 
-router.post("/recursos", isLogged, upload.single('myFile'), (req, res, next) => {
-  var decoded = jwt.decode(req.cookies.token, {complete: true});
-  req.body["path"] = decoded.payload._id +'-'+ req.file.originalname 
-  req.body["produtor"]={}
-  req.body.produtor["nomeP"] = decoded.payload.nome 
-  req.body.produtor["emailP"] = decoded.payload.email 
-  if(req.body.visibilidade == '1'){req.body.visibilidade = true}
-  else {req.body.visibilidade = false}
+router.post("/recursos", isLogged, (req, res, next) => {
+  upload(req, res, function (err) {
+    //tramento do erro se for do multer
+    if (err instanceof multer.MulterError) {
+      var msg = MultererrorMessages[err.code]
+      console.log(msg)
 
-  axios.post('http://localhost:8001/recursos?token=' + req.cookies.token, req.body)
-  .then( dados => {
-    req.flash('success','Recurso adicionado com sucesso!')
-    res.redirect('/recursos')
-  })
-  .catch( erro => { 
-    req.flash('danger','Recurso não foi registado com sucesso!')
-    res.redirect('/recursos/upload')
-    
+      req.flash('danger',msg)
+      res.redirect('/recursos/upload')
+    } else if (err) {
+      req.flash('danger','Recurso não foi registado com sucesso!')
+      res.redirect('/recursos/upload')
+    }else{
+      //Tratamento do body
+      var decoded = jwt.decode(req.cookies.token, {complete: true});
+      req.body["path"] = decoded.payload._id +'-'+ req.file.originalname 
+      req.body["produtor"]={}
+      req.body.produtor["nomeP"] = decoded.payload.nome 
+      req.body.produtor["emailP"] = decoded.payload.email 
+      if(req.body.visibilidade == '1'){req.body.visibilidade = true}
+      else {req.body.visibilidade = false}
+      
+      axios.post('http://localhost:8001/recursos?token=' + req.cookies.token, req.body)
+      .then( dados => {
+        //Verificar se é consumer, se for mudar nivel para producer
+        if(decoded.payload.nivel=="consumer"){
+          var bod = {
+            "_id": decoded.payload._id,
+            "nivel": "producer"
+          }
+          console.log("tratar do producer")
+          axios.put('http://localhost:8001/utilizadores?token=' + req.cookies.token, bod)
+          .then( dados => { 
+            console.log("tratar do producer1")
+
+            req.flash('success','Recurso adicionado com sucesso!')
+            res.redirect('/recursos')
+          })
+          .catch( erro => { 
+            console.log("tratar do producer2")
+
+            req.flash('danger','Recurso não foi registado com sucesso!')
+            res.redirect('/recursos/upload')
+            
+          })
+        }
+        req.flash('success','Recurso adicionado com sucesso!')
+        res.redirect('/recursos')
+      })
+      .catch( erro => { 
+        req.flash('danger','Recurso não foi registado com sucesso!')
+        res.redirect('/recursos/upload')
+        
+      })
+    }
   })
 })
 

@@ -10,11 +10,15 @@ block content
   
   table(class="w3-table-all")
         tr.w3-blue
-            th Tipo
-            th Titulo
+            th 
+              a(href='/recursos?byTipo=true' , style="text-decoration:none; color:white") Tipo
+            th 
+              a(href='/recursos?byTitulo=true' , style="text-decoration:none; color:white") Titulo
             th Subtitulo
-            th Data
-            th Autor
+            th 
+              a(href='/recursos?byData=true' , style="text-decoration:none; color:white") Data
+            th 
+              a(href='/recursos?byAutor=true' , style="text-decoration:none; color:white") Autor
             th  
         each r in recursos
             tr
