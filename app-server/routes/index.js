@@ -7,12 +7,12 @@ var multer = require('multer');
 // Set The Storage Engine
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, './uploads/');
+    cb(null, './../api-server/uploads/');
   },
   filename: function(req, file, cb) {
     var decoded = jwt.decode(req.cookies.token, {complete: true});
 
-    cb(null, file.originalname+'-'+decoded.payload._id);
+    cb(null, decoded.payload._id +'-'+file.originalname);
   }
 });
 // Init Upload
@@ -151,6 +151,17 @@ router.get('/recursos', isLogged,function(req,res) {
 })
 
 /* GET recursos page */
+router.get('/download/:path',function(req,res) {
+  try {
+    console.log(req)
+    res.download(__dirname+ "/../../api-server/uploads/"+req.params.path)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+
+/* GET recursos page */
 router.get('/recursos/:id', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
@@ -158,8 +169,19 @@ router.get('/recursos/:id', isLogged,function(req,res) {
     .catch(e => res.render('error', {error: e}))
 })
 
-router.post("/recursos/", isLogged, upload.single('myFile'), (req, res, next) => {
-  req.body.path = req.file.path 
+router.post("/recursos", isLogged, upload.single('myFile'), (req, res, next) => {
+  console.log("file.path:"+req.file.path)
+  console.log(req.body)
+
+  var decoded = jwt.decode(req.cookies.token, {complete: true});
+  req.body["path"] = decoded.payload._id +'-'+ req.file.originalname 
+  req.body["produtor"]={}
+  req.body.produtor["nomeP"] = decoded.payload.nome 
+  req.body.produtor["emailP"] = decoded.payload.email 
+  if(req.body.visibilidade == '1'){req.body.visibilidade = true}
+  else {req.body.visibilidade = false}
+  console.log(req.body)
+
   axios.post('http://localhost:8001/recursos?token=' + req.cookies.token, req.body)
   .then( dados => {
     req.flash('success','Recurso adicionado com sucesso!')
@@ -167,7 +189,7 @@ router.post("/recursos/", isLogged, upload.single('myFile'), (req, res, next) =>
   })
   .catch( erro => { 
     req.flash('danger','Recurso não foi registado com sucesso!')
-    res.redirect('/recursos/add')
+    res.redirect('/recursos/upload')
 
   })
 })

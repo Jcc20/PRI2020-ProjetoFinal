@@ -17,7 +17,7 @@ router.get('/logout', function(req, res){
 });
 
 router.post('/login',passport.authenticate('local') , function(req, res){
-  jwt.sign({_id: req.user._id, email: req.user.email, nivel: req.user.nivel},
+  jwt.sign({_id: req.user._id, email: req.user.email, nome: req.user.nome, nivel: req.user.nivel},
     'PRI2020',
     {expiresIn: "3h"},
     function(e, token) {

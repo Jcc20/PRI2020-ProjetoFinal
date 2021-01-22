@@ -8,7 +8,7 @@ block content
     .w3-container
 
     br
-    form(class="w3-container" action='/#', method='POST')
+    form(class="w3-container" action='/recursos', method='POST', enctype="multipart/form-data")
       label(class="w3-text-black")
        b Titulo:
       input(class="w3-input w3-border w3-light-grey", type="text", name="titulo", required)    
@@ -23,16 +23,16 @@ block content
      
       label(class="w3-text-black") 
        b Data de criacao:
-      input(class="w3-input w3-border w3-light-grey", type="date", name="data", required) 
+      input(class="w3-input w3-border w3-light-grey", type="date", name="dataCriacao", required) 
             
       label(class="w3-text-black") 
        b Visibilidade:
       br
-      input(type="checkbox",  name="publico", value=true) 
-      label(for="publico") Público
+      input(type="radio",  name="visibilidade", value='1', checked) 
+      label(for="visibilidade") Público
 
-      input(style="margin-left: 10px",type="checkbox",  name="privado", value=false) 
-      label(for="privado") Privado
+      input(style="margin-left: 10px",type="radio",  name="visibilidade", value='0') 
+      label(for="visibilidade") Privado
       br
 
  
