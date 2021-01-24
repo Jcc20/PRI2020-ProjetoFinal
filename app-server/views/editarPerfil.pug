@@ -9,12 +9,14 @@ block content
    br
    .w3-row-padding
     .w3-content.w3-margin-top(style='max-width:1400px;')
+      form(action='/', method='POST')
         div(style="margin: auto; width: 30%;")
+        
           .w3-white.w3-text-grey.w3-card-4
             .w3-display-container.w3-blue.w3-xxlarge
               p(style="text-align: center")  Perfil 
             .w3-container
-            form(class="w3-container" action='/', method='POST')
+            
               p
                 i.fa.fa-user.fa-fw.w3-margin-right.w3-large.w3-text-blue
                 |
@@ -42,7 +44,6 @@ block content
               p
                 i.fa.fa-calendar.fa-fw.w3-margin-right.w3-large.w3-text-blue
                 | #{utilizador.dataRegisto}
-              br
-              .w3-center
-                button.w3-btn.w3-blue(type="submit") Guardar
-              br
+        br
+        .w3-center
+          button.w3-btn.w3-blue(type="submit") Guardar
