@@ -1,12 +1,44 @@
 extends layout
 
 block content
+ link(rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css')
+ link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto')
+ link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+
  div(style="font-size: 18px")
 
-  p(style="text-align: center; font-size:22px; font-weight: bold") Perfil 
- 
-  p(style="font-weight: bold") Nome: #{utilizador.nome}
-  p(style="font-weight: bold") Email: #{utilizador.email}
-  p(style="font-weight: bold") Data de registo: #{utilizador.dataRegisto.split("T")[0]}
-  p(style="font-weight: bold") Hora de registo: #{utilizador.dataRegisto.split("T")[1].split(".")[0]}
-  p(style="font-weight: bold") Filiação: #{utilizador.filiacao}
+   style.
+      html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+   .w3-row-padding
+    .w3-content.w3-margin-top(style='max-width:1400px;')
+        div(style="margin: auto; width: 30%;")
+          .w3-white.w3-text-grey.w3-card-4
+            .w3-display-container.w3-blue.w3-xxlarge
+              p(style="text-align: center") #{utilizador.nome}
+            .w3-container
+              p
+                i.fa.fa-briefcase.fa-fw.w3-margin-right.w3-large.w3-text-blue
+                | #{utilizador.filiacao}
+              hr
+              p
+                i.fa.fa-home.fa-fw.w3-margin-right.w3-large.w3-text-blue
+                | --
+              hr
+              p
+                i.fa.fa-envelope.fa-fw.w3-margin-right.w3-large.w3-text-blue
+                | #{utilizador.email}
+              hr
+              p
+                i.fa.fa-phone.fa-fw.w3-margin-right.w3-large.w3-text-blue
+                | --
+              hr
+              p
+                i.fa.fa-calendar.fa-fw.w3-margin-right.w3-large.w3-text-blue
+                | #{utilizador.dataRegisto}
+          br
+        .w3-center
+          if tag
+            a(href="/")
+               button.w3-btn.w3-blue Editar
+          
+    

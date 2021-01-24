@@ -156,7 +156,7 @@ router.get('/recursos', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   var page, limit
   req.query.page ? page=parseInt(req.query.page) : page=1
-  req.query.limit ? limit=parseInt(req.query.limit) : limit=5
+  req.query.limit ? limit=parseInt(req.query.limit) : limit=10
   var query=""
   if(req.query.byTipo){query='byTipo=true'}
   if(req.query.byTitulo){query='byTitulo=true'}
@@ -357,13 +357,20 @@ router.post('/posts', function(req,res) {
       res.redirect('/posts')
   })
 })*/
-
+var dateFormat = require('dateformat');
 /* GET perfil page */
 router.get('/perfil', isLogged, function(req,res) {
   console.log("token na app: "+req.cookies.token)
   var decoded = jwt.decode(req.cookies.token, {complete: true});
   axios.get('http://localhost:8001/utilizadores/'+decoded.payload._id+'?token=' + req.cookies.token)
-    .then(dados => res.render('perfil', {utilizador: dados.data, user: "logged"}))
+    .then(dados => {
+      var decoded = jwt.decode(req.cookies.token, {complete: true});
+      dados.data.dataRegisto=dateFormat(dados.data.dataRegisto, "mmmm dS, yyyy");
+      if((decoded.payload.email == dados.data.email)){
+        res.render('perfil', {utilizador: dados.data,tag: "edt", user: "logged"})
+      }else{
+        res.render('perfil', {utilizador: dados.data, user: "logged"})
+    }})
     .catch(e => res.render('error', {error: e}))
 })
 
