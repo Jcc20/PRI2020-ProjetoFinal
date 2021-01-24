@@ -14,17 +14,21 @@ block content
             .w3-display-container.w3-blue.w3-xxlarge
               p(style="text-align: center")  Perfil 
             .w3-container
+            form(class="w3-container" action='/', method='POST')
               p
                 i.fa.fa-user.fa-fw.w3-margin-right.w3-large.w3-text-blue
-                | #{utilizador.nome}
+                |
+                input(type="text", value=utilizador.nome, name="nome") 
               hr
               p
                 i.fa.fa-briefcase.fa-fw.w3-margin-right.w3-large.w3-text-blue
-                | #{utilizador.filiacao}
+                |
+                input(type="text", value=utilizador.filiacao, name="filiacao") 
               hr
               p
                 i.fa.fa-home.fa-fw.w3-margin-right.w3-large.w3-text-blue
-                | --
+                |
+                input(type="text", value=utilizador.morada , name="morada") 
               hr
               p
                 i.fa.fa-envelope.fa-fw.w3-margin-right.w3-large.w3-text-blue
@@ -32,13 +36,13 @@ block content
               hr
               p
                 i.fa.fa-phone.fa-fw.w3-margin-right.w3-large.w3-text-blue
-                | --
+                |
+                input(type="text", value=utilizador.telefone, name="telefone") 
               hr
               p
                 i.fa.fa-calendar.fa-fw.w3-margin-right.w3-large.w3-text-blue
                 | #{utilizador.dataRegisto}
-          br
-        .w3-center
-          if tag
-            a(href="/perfil/editar")
-               button.w3-btn.w3-blue Editar
+              br
+              .w3-center
+                button.w3-btn.w3-blue(type="submit") Guardar
+              br

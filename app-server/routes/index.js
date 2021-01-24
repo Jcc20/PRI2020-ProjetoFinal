@@ -3,6 +3,7 @@ var router = express.Router();
 var axios = require('axios')
 var jwt = require('jsonwebtoken');
 var multer = require('multer');
+var dateFormat = require('dateformat');
 
 var MultererrorMessages = {
   LIMIT_PART_COUNT: 'Too many parts',
@@ -357,20 +358,31 @@ router.post('/posts', function(req,res) {
       res.redirect('/posts')
   })
 })*/
-var dateFormat = require('dateformat');
+
 /* GET perfil page */
 router.get('/perfil', isLogged, function(req,res) {
-  console.log("token na app: "+req.cookies.token)
   var decoded = jwt.decode(req.cookies.token, {complete: true});
   axios.get('http://localhost:8001/utilizadores/'+decoded.payload._id+'?token=' + req.cookies.token)
     .then(dados => {
-      var decoded = jwt.decode(req.cookies.token, {complete: true});
       dados.data.dataRegisto=dateFormat(dados.data.dataRegisto, "mmmm dS, yyyy");
       if((decoded.payload.email == dados.data.email)){
         res.render('perfil', {utilizador: dados.data,tag: "edt", user: "logged"})
       }else{
         res.render('perfil', {utilizador: dados.data, user: "logged"})
     }})
+    .catch(e => res.render('error', {error: e}))
+})
+
+
+
+/* GET editar perfil page */
+router.get('/perfil/editar', isLogged, function(req,res) {
+   var decoded = jwt.decode(req.cookies.token, {complete: true});
+  axios.get('http://localhost:8001/utilizadores/'+decoded.payload._id+'?token=' + req.cookies.token)
+    .then(dados => {
+        dados.data.dataRegisto=dateFormat(dados.data.dataRegisto, "mmmm dS, yyyy");
+        res.render('editarPerfil', {utilizador: dados.data, user: "logged"})
+      })
     .catch(e => res.render('error', {error: e}))
 })
 
