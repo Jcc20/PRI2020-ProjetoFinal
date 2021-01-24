@@ -36,6 +36,7 @@ module.exports.listarbyTitulo = (page, lim) => {
         .limit(lim)
         .exec()
 }
+
 module.exports.listarbyData = (page, lim) => {
     return Recurso
         .find()
@@ -44,6 +45,16 @@ module.exports.listarbyData = (page, lim) => {
         .limit(lim)
         .exec()
 }
+
+module.exports.listarbyDataRegisto = (page, lim) => {
+    return Recurso
+        .find()
+        .sort({'dataRegisto' : 'desc'})
+        .skip((page * lim) - lim)
+        .limit(lim)
+        .exec()
+}
+
 module.exports.listarbyAutor = (page, lim) => {
     return Recurso
         .find()

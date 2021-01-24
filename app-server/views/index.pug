@@ -24,16 +24,17 @@ block content
         table(class="w3-table-all")
          each r in noticias
             tr
-              if (r.tipo=="post")
+              if r.tipo
+                td= "Foi adicionado um novo recurso por " + r.produtor.nomeP + "!"
+                td= r.dataRegisto.split("T")[0]
+                td
+                  a(href='/recursos/' + r._id) Ver Mais 
+              else 
                 td= "Foi adicionado um novo post por " + r.autor + "!"
                 td= r.data
                 td
                   a(href='/post/' + r._id) Ver Mais
-              else 
-                td= "Foi adicionado um novo recurso por " + r.produtor + "!"
-                td= r.dataCriacao
-                td
-                  a(href='/recursos/' + r._id) Ver Mais
+                
  
 
 

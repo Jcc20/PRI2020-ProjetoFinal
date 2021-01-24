@@ -96,21 +96,32 @@ var json = [{
 }]
 
 
-  
 
 /* GET home page */
 router.get('/', isLogged, function(req,res) {
-   console.log("render index")
-   res.render('index', {noticias: json, user: "logged"})
-})
+  axios.get('http://localhost:8001/recursos?byDataRegisto=true&limit=8&page=1&token=' + req.cookies.token)
+  .then(dados => res.render('index', {noticias: dados.data, user: "logged"}))
+  .catch(e => res.render('error', {error: e}))
 
-/* GET home page */
-router.get('/.', isLogged, function(req,res) {
-  console.log(req.body);
-  axios.get('http://localhost:8001/noticias?token=' + req.cookies.token)
-    .then(dados => res.render('index', {noticias: dados.data}))
-    // se nao obtem os dados é porque o token está expirado, redireciona para o login
-    .catch(e =>  { res.redirect('/login') })
+
+  /*
+  //quando tivermos os posts será este
+  axios.get('http://localhost:8001/recursos?token=' + req.cookies.token)
+  .then(recursos => {
+    axios.get('http://localhost:8001/posts?token=' + req.cookies.token)
+    .then(posts => {
+        //pegar nos recursos e nos posts
+        //meter numa lista
+        //ordenar por data do maior para o menor
+        //limitar a 8 ou 10
+        res.render('index', {noticias: dados.data, user: "logged"})
+    })
+    .catch(e => res.render('error', {error: e}))
+  })
+  .catch(e => res.render('error', {error: e}))
+  */ 
+
+
 })
 
 
