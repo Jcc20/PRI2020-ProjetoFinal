@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else  if(req.query.byDataRegisto != null){
-    Recurso.listarbyDataRegisto(page, limit)
+    Recurso.listarbyDataRegisto()
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else if(req.query.byAutor != null){

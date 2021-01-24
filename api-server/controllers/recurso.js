@@ -46,12 +46,10 @@ module.exports.listarbyData = (page, lim) => {
         .exec()
 }
 
-module.exports.listarbyDataRegisto = (page, lim) => {
+module.exports.listarbyDataRegisto = () => {
     return Recurso
         .find()
         .sort({'dataRegisto' : 'desc'})
-        .skip((page * lim) - lim)
-        .limit(lim)
         .exec()
 }
 

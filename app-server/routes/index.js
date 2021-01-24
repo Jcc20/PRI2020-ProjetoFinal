@@ -37,31 +37,39 @@ const upload = multer({
 
 /* GET home page */
 router.get('/', isLogged, function(req,res) {
-  axios.get('http://localhost:8001/recursos?byDataRegisto=true&limit=8&page=1&token=' + req.cookies.token)
-  .then(dados => res.render('index', {noticias: dados.data, user: "logged"}))
-  .catch(e => res.render('error', {error: e}))
 
-
-  /*
-  //quando tivermos os posts será este
-  axios.get('http://localhost:8001/recursos?token=' + req.cookies.token)
+  axios.get('http://localhost:8001/recursos?byDataRegisto=true&token=' + req.cookies.token)
   .then(recursos => {
-    axios.get('http://localhost:8001/posts?token=' + req.cookies.token)
+     axios.get('http://localhost:8001/posts?token=' + req.cookies.token)
     .then(posts => {
-        //pegar nos recursos e nos posts
-        //meter numa lista
+        //pegar nos recursos e nos posts e meter numa lista
+        var noticias = []
+        recursos.data.forEach( a => noticias.push(a))
+        posts.data.forEach( a => noticias.push(a))
         //ordenar por dataRegisto do maior para o menor
-        //limitar a 8 ou 10
-        res.render('index', {noticias: dados.data, user: "logged"})
+        noticias.sort(compareByDataRegisto)
+        //limitar a 8 noticias
+        var lastNews = []
+        var i = 0
+        for(n of noticias) {
+          if (i < 8) {lastNews.push(n); i++}
+          else break
+        }
+        res.render('index', {noticias: lastNews, user: "logged"})
     })
     .catch(e => res.render('error', {error: e}))
   })
   .catch(e => res.render('error', {error: e}))
-  */ 
+  
 
 
 })
 
+function compareByDataRegisto( a, b ) {
+  if ( a.dataRegisto < b.dataRegisto ) return 1;
+  if ( a.dataRegisto > b.dataRegisto ) return -1;
+  return 0;
+}
 
 /* GET login page. */
 router.get('/login', function(req, res, next) {
