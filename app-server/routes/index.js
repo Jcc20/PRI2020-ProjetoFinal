@@ -33,68 +33,6 @@ const upload = multer({
   }
 }).single('myFile');
 
-var json = [{
-  "_id": "14",
-  "tipo": "livro",
-  "titulo": "o lobo mau",
-  "subtitulo": "",
-  "dataCriacao": "2021-1-15",
-  "dataRegisto": "2021-2-19",
-  "visibilidade": "publico",
-  "produtor": "Joãozinho"
-},{
-  "_id": "19",
-  "tipo": "cd",
-  "titulo": "carapau sem espinha",
-  "subtitulo": "corcunda",
-  "dataCriacao": "2011-1-14",
-  "dataRegisto": "2017-12-5",
-  "visibilidade": "publico",
-  "produtor": "Calvin"
-},{
-  "_id": "19",
-  "tipo": "post",
-  "titulo": "tudo mau",
-  "data": "2011-1-14",
-  "autor": "Calvin"
-},{
-  "_id": "55",
-  "tipo": "post",
-  "titulo": "galinha",
-  "data": "2017-6-15",
-  "autor": "Rui"
-},{
-  "_id": "19",
-  "tipo": "cd",
-  "titulo": "carapau sem espinha",
-  "subtitulo": "corcunda",
-  "dataCriacao": "2011-1-14",
-  "dataRegisto": "2017-12-5",
-  "visibilidade": "publico",
-  "produtor": "Calvin"
-},{
-  "_id": "19",
-  "tipo": "post",
-  "titulo": "tudo mau",
-  "data": "2011-1-14",
-  "autor": "Calvin"
-},{
-  "_id": "55",
-  "tipo": "post",
-  "titulo": "galinha",
-  "data": "2017-6-15",
-  "autor": "Rui"
-},{
-  "_id": "19",
-  "tipo": "cd",
-  "titulo": "carapau sem espinha",
-  "subtitulo": "corcunda",
-  "dataCriacao": "2011-1-14",
-  "dataRegisto": "2017-12-5",
-  "visibilidade": "publico",
-  "produtor": "Calvin"
-}]
-
 
 
 /* GET home page */
@@ -112,7 +50,7 @@ router.get('/', isLogged, function(req,res) {
     .then(posts => {
         //pegar nos recursos e nos posts
         //meter numa lista
-        //ordenar por data do maior para o menor
+        //ordenar por dataRegisto do maior para o menor
         //limitar a 8 ou 10
         res.render('index', {noticias: dados.data, user: "logged"})
     })
