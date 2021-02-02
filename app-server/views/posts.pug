@@ -2,4 +2,70 @@ extends layout
 
 block content
 
-    p(style="text-align: center; font-size:22px; font-weight: bold") WELCOME TO POSTS 
+  div(style="font-size: 16px; width: 60rem; margin: auto")
+    p(style="text-align: center; font-size:22px; font-weight: bold") WELCOME TO POSTS
+    br
+    
+    each post in posts
+     .w3-border
+      .w3-container-card-4
+        header.w3-container.w3-blue
+             h3 #{post.titulo}
+      .w3-container.w3-border-blue.w3-pale-blue
+        p(style="margin-top:10px") #{post.descricao}
+      footer.w3-container.w3-blue
+        .w3-btn(onclick='addComent("'+post._id+'")') Adicionar Comentário
+        if post.comentarios.length>0
+            .w3-btn(onclick='showComents("'+post.titulo+'")') Ver Comentários
+        h5(style="float: right") Escrito em: #{post.dataRegisto.split("T")[0]}
+     br
+
+     div(id=post.titulo , style="display: none;")
+   
+       each coment in post.comentarios
+         
+         div(style="font-size: 14px; width: 40rem; margin: auto")
+
+           .w3-border
+            .w3-container-card-4
+              header.w3-container.w3-blue
+                   h3 #{coment.nomeC}
+            .w3-container.w3-border-blue.w3-pale-blue
+              p(style="margin-top:10px") #{coment.comentario}
+            footer.w3-container.w3-blue
+              h5(style="float: right") Escrito em: #{coment.dataC.split("T")[0]}, #{coment.dataC.split("T")[1].split(".")[0]}
+           br
+
+
+     div(id=post._id , style="display: none;")
+       
+       form(class="w3-container" action='/posts/'+post._id+'/comentario', method='POST')
+            
+         label(class="w3-text-black") 
+           b Comentário:
+         input(class="w3-input w3-border w3-light-grey", type="text", name="comentario") 
+         button(class="w3-btn w3-blue" type="submit" style="margin-top:20px") Comentar  
+
+     br
+     br
+
+
+
+    script.
+       function showComents(id) {
+       var x = document.getElementById(id);
+       if (x.style.display === "none") {
+       x.style.display = "block";
+       } else {
+       x.style.display = "none";
+       }
+       }
+
+       function addComent(id) {
+       var x = document.getElementById(id);
+       if (x.style.display === "none") {
+       x.style.display = "block";
+       } else {
+       x.style.display = "none";
+       }
+       }

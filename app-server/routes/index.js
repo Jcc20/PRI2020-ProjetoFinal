@@ -286,15 +286,15 @@ router.post('/registo', function(req,res) {
 })
 
 
-/* GET recursos page */
+/* GET posts page */
 router.get('/posts', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/posts?token=' + req.cookies.token)
-    .then(dados => res.render('posts', {posts: dados.data, user: "logged"}))
+    .then(dados => res.render('posts', {posts: dados.data, username: "joao", user: "logged"}))
     .catch(e => res.render('error', {error: e}))
 })
 
-/* GET recursos page */
+/* GET posts page */
 router.get('/posts/:id', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/posts/'+req.params.id+'?token=' + req.cookies.token)
@@ -315,6 +315,7 @@ router.post('/posts', function(req,res) {
       res.redirect('/posts')
   })
 })*/
+
 
 /* GET perfil page */
 router.get('/perfil', isLogged, function(req,res) {
