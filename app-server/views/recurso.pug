@@ -7,8 +7,7 @@ block content
   .w3-card-4
      header.w3-container.w3-blue
       h2(style="text-align:center; font-weight: bold") #{recurso.titulo}
-
-  .w3-container
+  .w3-container  
     
     br
     p(style="text-align:center;  font-size:18px;") #{recurso.subtitulo} 
@@ -24,10 +23,29 @@ block content
           td= recurso.dataRegisto.split("T")[0]
         tr 
           td.w3-blue Rating:
-          if recurso.ranking
-           td= recurso.ranking.rating
+          if voted == 1
+            if recurso.ranking
+             td= recurso.ranking.rating
+            else
+            td= NaN
           else
-           td= NaN
+            form(class="w3-container" action='/rate', method='POST', enctype="multipart/form-data")
+
+            .custom-select(style='width:200px;')
+            select
+              option(value='0') Selecione um rating:
+              option(value='1') 1
+              option(value='2') 2
+              option(value='3') 3
+              option(value='4') 4
+              option(value='5') 5
+              option(value='6') 6
+              option(value='7') 7
+              option(value='8') 8
+              option(value='9') 9
+              option(value='10') 10
+            br
+            input.w3-btn.w3-blue(type='submit' style='margin:10px' value='Submeter')  
         tr 
           td.w3-blue Produtor:
           td= recurso.produtor.nomeP

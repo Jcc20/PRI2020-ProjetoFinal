@@ -7,8 +7,8 @@ var dateFormat = require('dateformat');
 
 var MultererrorMessages = {
   LIMIT_PART_COUNT: 'Too many parts',
-  LIMIT_FILE_SIZE: 'File too large',
-  LIMIT_FILE_COUNT: 'Too many files',
+  LIMIT_FILE_SIZE: 'Ficheiro demasiado grande',
+  LIMIT_FILE_COUNT: 'Demasiados ficheiros',
   LIMIT_FIELD_KEY: 'Field name too long',
   LIMIT_FIELD_VALUE: 'Field value too long',
   LIMIT_FIELD_COUNT: 'Too many fields',
@@ -94,7 +94,10 @@ router.post('/login', function(req,res) {
       });
       res.redirect('/')
     })
-    .catch(erro => res.render('error', {error: erro}))
+    .catch(erro => {
+      req.flash('danger','Password ou e-mail incorretos!')
+      res.redirect('/login')
+    })
 })
 
 /* GET registo page. */
@@ -157,10 +160,15 @@ router.get('/recursos/:id', isLogged,function(req,res) {
   axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
   .then(dados => {
     var decoded = jwt.decode(req.cookies.token, {complete: true});
+    var arr = dados.data.ranking.classf
+    var vot = 0
+    if(arr.some(p => p == decoded.payload._id)){
+      vot = 1
+    }
     if((decoded.payload.email == dados.data.produtor.emailP) || (decoded.payload.nivel=="admin")){
-      res.render('recurso', {recurso: dados.data,tag: "edt", user: "logged"})
+      res.render('recurso', {recurso: dados.data,voted: vot, tag: "edt", user: "logged"})
     }else{
-      res.render('recurso', {recurso: dados.data, user: "logged"})
+      res.render('recurso', {recurso: dados.data,voted: vot, user: "logged"})
     }
 
   })

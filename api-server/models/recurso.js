@@ -8,8 +8,8 @@ var recursoSchema = new mongoose.Schema({
     dataRegisto: { type : Date, default: Date.now, required: true },
     ranking: {
         rating : Number,
-        nrA : Number
-         },
+        classf : [mongoose.ObjectId]
+        },
     visibilidade: { type: Boolean, required: true },
     produtor: {
         nomeP : { type: String, required: true },
