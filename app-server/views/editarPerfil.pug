@@ -9,7 +9,7 @@ block content
    br
    .w3-row-padding
     .w3-content.w3-margin-top(style='max-width:1400px;')
-      form(action='/', method='POST')
+      form(action='/perfil', method='POST')
         div(style="margin: auto; width: 25%;")
         
           .w3-white.w3-text-grey.w3-card-4
@@ -28,18 +28,8 @@ block content
                 input(type="text", value=utilizador.filiacao, name="filiacao") 
               hr
               p
-                i.fa.fa-home.fa-fw.w3-margin-right.w3-large.w3-text-blue
-                |
-                input(type="text", value=utilizador.morada , name="morada") 
-              hr
-              p
                 i.fa.fa-envelope.fa-fw.w3-margin-right.w3-large.w3-text-blue
                 | #{utilizador.email}
-              hr
-              p
-                i.fa.fa-phone.fa-fw.w3-margin-right.w3-large.w3-text-blue
-                |
-                input(type="text", value=utilizador.telefone, name="telefone") 
               hr
               p
                 i.fa.fa-calendar.fa-fw.w3-margin-right.w3-large.w3-text-blue
@@ -47,3 +37,5 @@ block content
         br
         .w3-center
           button.w3-btn.w3-blue(type="submit") Guardar
+
+    
