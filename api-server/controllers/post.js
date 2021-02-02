@@ -9,6 +9,13 @@ module.exports.listar = () => {
         .exec()
 }
 
+module.exports.search = (text) => {
+    return Post
+        .find({ titulo: {$regex : ".*"+text+".*"} })
+        .exec()
+}
+
+
 module.exports.consultar = id => {
     return Post
         .findOne({_id: id})

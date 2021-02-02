@@ -289,10 +289,17 @@ router.post('/registo', function(req,res) {
 /* GET posts page */
 router.get('/posts', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
-  axios.get('http://localhost:8001/posts?token=' + req.cookies.token)
-    .then(dados => res.render('posts', {posts: dados.data, username: "joao", user: "logged"}))
-    .catch(e => res.render('error', {error: e}))
+  if (req.query.search!=null) {
+    axios.get('http://localhost:8001/posts?search='+ req.query.search +'&token=' + req.cookies.token)
+      .then(dados => res.render('posts', {posts: dados.data, username: "joao", user: "logged"}))
+      .catch(e => res.render('error', {error: e}))
+  }
+  else 
+    axios.get('http://localhost:8001/posts?token=' + req.cookies.token)
+      .then(dados => res.render('posts', {posts: dados.data, username: "joao", user: "logged"}))
+      .catch(e => res.render('error', {error: e}))
 })
+
 
 /* GET posts page */
 router.get('/posts/:id', isLogged,function(req,res) {

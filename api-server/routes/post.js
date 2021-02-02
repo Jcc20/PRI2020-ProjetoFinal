@@ -5,9 +5,16 @@ const Post = require('../controllers/post')
 
 /* GET home page. */
 router.get('/', function(req, res) {
+ if (req.query.search != null) {
+    Post.search(req.query.search)
+     .then(dados => res.status(200).jsonp(dados) )
+     .catch(e => res.status(500).jsonp({error: e}))
+     }
+ else {
     Post.listar()
-    .then(dados => res.status(200).jsonp(dados) )
-    .catch(e => res.status(500).jsonp({error: e}))
+     .then(dados => res.status(200).jsonp(dados) )
+     .catch(e => res.status(500).jsonp({error: e}))
+    }
 });
 
 router.get('/:id', function(req, res) {
