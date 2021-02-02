@@ -30,8 +30,8 @@ block content
                 td
                   a(href='/recursos/' + r._id) Ver Mais 
               else 
-                td= "Foi adicionado um novo post por " + r.autor + "!"
-                td= r.data
+                td= "Foi adicionado um novo post por " + r.autor.nomeA + "!"
+                td= r.dataRegisto.split("T")[0]
                 td
                   a(href='/post/' + r._id) Ver Mais
                 

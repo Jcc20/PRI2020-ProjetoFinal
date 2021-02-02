@@ -8,6 +8,10 @@ var postSchema = new mongoose.Schema({
         nomeA :  { type : String, required: true },
         emailA : { type : String, required: true }
          },
+    rec:{
+        idRec: { type : mongoose.ObjectId, required: true},
+        titRec: {type : String, required: true}
+    },
     comentarios: [{
         nomeC : String,
         dataC : Date,
