@@ -9,11 +9,20 @@ module.exports.listar = () => {
         .exec()
 }
 
+
 module.exports.consultar = id => {
     return Utilizador
         .findOne({_id: id})
         .exec()
 }
+
+
+module.exports.consultarByEmail = mail => {
+    return Utilizador
+        .findOne({email: mail})
+        .exec()
+}
+
 
 module.exports.inserir = t => {
     var novo = new Utilizador(t)

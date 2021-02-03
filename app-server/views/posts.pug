@@ -15,14 +15,16 @@ block content
      .w3-border
       .w3-container-card-4
         header.w3-container.w3-blue
-             h3 #{post.titulo}
+             h3 #{post.titulo} (
+              a(href="/perfil/"+post.autor.emailA  style="color:white;text-decoration:none;") #{post.autor.nomeA})
       .w3-container.w3-border-blue.w3-pale-blue
         p(style="margin-top:10px") #{post.descricao}
+        a(href="/recursos/" style="float:right;margin-bottom:3px") Sobre o recurso       
       footer.w3-container.w3-blue
         .w3-btn(onclick='addComent("'+post._id+'")') Adicionar Comentário
         if post.comentarios.length>0
             .w3-btn(onclick='showComents("'+post.titulo+'")') Ver Comentários
-        h5(style="float: right") Escrito em: #{post.dataRegisto.split("T")[0]}
+        h5(style="float: right;margin-top:10px") Escrito em: #{post.dataRegisto.split("T")[0]}
      br
 
      div(id=post.titulo , style="display: none;")

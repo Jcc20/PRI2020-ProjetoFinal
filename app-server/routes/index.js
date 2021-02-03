@@ -318,18 +318,6 @@ router.get('/posts/:id', isLogged,function(req,res) {
 })
 
 
-/* Regista um novo utilizador na base de dados através do api-server 
-router.post('/posts', function(req,res) {
-  axios.post('http://localhost:8001/posts', req.body)
-    .then( dados => {
-      req.flash('success','Post adicionado com sucesso!')
-      res.redirect('/posts/'+dados._id)
-    })
-    .catch( erro => { 
-      req.flash('warning','Erro na criação do post!')
-      res.redirect('/posts')
-  })
-})*/
 
 
 /* GET perfil page */
@@ -348,6 +336,7 @@ router.get('/perfil', isLogged, function(req,res) {
 
 
 
+
 /* GET editar perfil page */
 router.get('/perfil/editar', isLogged, function(req,res) {
    var decoded = jwt.decode(req.cookies.token, {complete: true});
@@ -358,6 +347,38 @@ router.get('/perfil/editar', isLogged, function(req,res) {
       })
     .catch(e => res.render('error', {error: e}))
 })
+
+/* PUT editar perfil page */
+router.post('/perfil/editar', function(req,res) {
+  var decoded = jwt.decode(req.cookies.token, {complete: true});
+  req.body["_id"] = decoded.payload._id
+  console.log(req.body)
+  axios.put('http://localhost:8001/utilizadores?token=' + req.cookies.token, req.body)
+   .then(dados => {
+       req.flash('success','Perfil alterado com sucesso!')
+       res.redirect('/perfil')
+     })
+   .catch(e => {
+      req.flash('danger','Perfil não foi alterado com sucesso!')
+      res.redirect('/perfil')
+   })
+})
+
+/* GET perfil by email page */
+router.get('/perfil/:email', isLogged, function(req,res) {
+  var decoded = jwt.decode(req.cookies.token, {complete: true});
+  axios.get('http://localhost:8001/utilizadores/'+req.params.email+'?byEmail=true&token=' + req.cookies.token)
+    .then(dados => {
+      dados.data.dataRegisto=dateFormat(dados.data.dataRegisto, "mmmm dS, yyyy");
+      if((decoded.payload.email == dados.data.email)){
+        res.render('perfil', {utilizador: dados.data,tag: "edt", user: "logged"})
+      }else{
+        res.render('perfil', {utilizador: dados.data, user: "logged"})
+    }})
+    .catch(e => res.render('error', {error: e}))
+})
+
+
 
 
 function isLogged(req, res, next){

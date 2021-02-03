@@ -9,7 +9,7 @@ block content
    br
    .w3-row-padding
     .w3-content.w3-margin-top(style='max-width:1400px;')
-      form(action='/perfil', method='POST')
+      form(action='/perfil/editar', method='POST')
         div(style="margin: auto; width: 25%;")
         
           .w3-white.w3-text-grey.w3-card-4
@@ -19,8 +19,7 @@ block content
             
               p
                 i.fa.fa-user.fa-fw.w3-margin-right.w3-large.w3-text-blue
-                |
-                input(type="text", value=utilizador.nome, name="nome") 
+                | #{utilizador.nome}
               hr
               p
                 i.fa.fa-briefcase.fa-fw.w3-margin-right.w3-large.w3-text-blue
