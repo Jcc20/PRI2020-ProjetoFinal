@@ -44,7 +44,7 @@ router.get('/', isLogged, function(req,res) {
     .then(posts => {
         //pegar nos recursos e nos posts e meter numa lista
         var noticias = []
-        recursos.data.forEach( a => noticias.push(a))
+        recursos.data.forEach( a => {if (a.visibilidade==true) noticias.push(a)})
         posts.data.forEach( a => noticias.push(a))
         //ordenar por dataRegisto do maior para o menor
         noticias.sort(compareByDataRegisto)
@@ -126,6 +126,7 @@ router.get('/recursos', isLogged,function(req,res) {
 
   axios.get('http://localhost:8001/recursos?&token=' + req.cookies.token)
   .then(dados => {
+    var decoded = jwt.decode(req.cookies.token, {complete: true});
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
     const results = {}
@@ -135,7 +136,7 @@ router.get('/recursos', isLogged,function(req,res) {
     if (endIndex < dados.data) results["next"]     = page + 1
     if (startIndex > 0)        results["previous"] = page - 1
     
-    axios.get('http://localhost:8001/recursos?'+query+'&limit='+limit+'&page='+page+'&token=' + req.cookies.token)
+    axios.get('http://localhost:8001/recursos?'+query+'&limit='+limit+'&page='+page+'&email='+decoded.payload.email+'&level='+decoded.payload.nivel+'&token=' + req.cookies.token)
     .then(dados => res.render('recursos', {recursos: dados.data, pag: results, user: "logged"}))
     .catch(e => res.render('error', {error: e}))
   })

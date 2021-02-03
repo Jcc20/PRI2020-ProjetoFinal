@@ -28,8 +28,12 @@ router.get('/', function(req, res) {
     Recurso.listarbyAutor(page, limit)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
+  }else if(req.query.level == "admin"){
+    Recurso.listarAll(page, limit)
+    .then(dados => res.status(200).jsonp(dados) )
+    .catch(e => res.status(500).jsonp({error: e}))
   }else if(req.query.page != null){
-    Recurso.listar(page, limit)
+    Recurso.listar(page, limit, req.query.email)
     .then(dados => res.status(200).jsonp(dados) )
     .catch(e => res.status(500).jsonp({error: e}))
   }else {

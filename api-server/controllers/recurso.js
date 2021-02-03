@@ -4,9 +4,17 @@ var Recurso = require('../models/recurso')
 
 
 // Devolve a lista de recursos
-module.exports.listar = (page, lim) => {
+module.exports.listarAll = (page, lim) => {
     return Recurso
         .find()
+        .skip((page * lim) - lim)
+        .limit(lim)
+        .exec()
+}
+
+module.exports.listar = (page, lim, email) => {
+    return Recurso
+        .find( { $or: [ { 'produtor.emailP': email }, { visibilidade: true } ] } )   
         .skip((page * lim) - lim)
         .limit(lim)
         .exec()
