@@ -161,14 +161,17 @@ router.get('/recursos/:id', isLogged,function(req,res) {
   .then(dados => {
     var decoded = jwt.decode(req.cookies.token, {complete: true});
     var arr = dados.data.ranking.classf
+    var le =  {
+        "leng": arr.length
+    }
     var vot = 0
     if(arr.some(p => p == decoded.payload._id)){
       vot = 1
     }
     if((decoded.payload.email == dados.data.produtor.emailP) || (decoded.payload.nivel=="admin")){
-      res.render('recurso', {recurso: dados.data,voted: vot, tag: "edt", user: "logged"})
+      res.render('recurso', {recurso: dados.data,voted: vot, leng: le, tag: "edt", user: "logged"})
     }else{
-      res.render('recurso', {recurso: dados.data,voted: vot, user: "logged"})
+      res.render('recurso', {recurso: dados.data,voted: vot, leng: le,  user: "logged"})
     }
 
   })
@@ -260,11 +263,56 @@ router.post("/recursos", isLogged, (req, res, next) => {
 })
 
 
+router.post("/recursos/classificar/:id", isLogged, (req, res, next) => {
+ 
+  axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
+  .then(dados => {
+    var decoded = jwt.decode(req.cookies.token, {complete: true});
+
+    classf = dados.data.ranking.classf
+    classf.push(decoded.payload._id)
+    console.log(classf)
+
+    var cl 
+    var rate = req.body.rating
+
+    if(dados.data.ranking.rating){
+      var arr = dados.data.ranking.classf
+      cl =  (dados.data.ranking.rating * (arr.length-1)) 
+      cl = (+cl + +rate)/(arr.length)
+    }else {
+      cl=rate
+    }
+    var bod = {
+      "_id": req.params.id,
+      "ranking":{
+          "rating": cl,
+          "classf": classf
+      } 
+    }
+
+    axios.put('http://localhost:8001/recursos?token=' + req.cookies.token, bod)
+    .then( dados => { 
+
+      req.flash('success','Recurso classificado com sucesso!')
+      res.redirect('/recursos/'+req.params.id)
+    })
+    .catch( erro => { 
+    
+
+      req.flash('danger','Recurso não foi classificado com sucesso!')
+      res.redirect('/recursos/'+req.params.id)
+      
+    })
+  })
+  .catch(e => res.render('error', {error: e}))
+})
+
 
 /* GET registo page. */
 router.get('/registo', function(req, res, next) {
   res.render('registo');
-});
+})
 
 
 /* Regista um novo utilizador na base de dados através do api-server */
