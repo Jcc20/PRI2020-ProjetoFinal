@@ -4,6 +4,8 @@ var axios = require('axios')
 var jwt = require('jsonwebtoken');
 var multer = require('multer');
 var dateFormat = require('dateformat');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 var MultererrorMessages = {
   LIMIT_PART_COUNT: 'Too many parts',
@@ -79,11 +81,6 @@ router.get('/login', function(req, res, next) {
 /* Manda os dados do login do utilizador para o servidor de autenticação. Se correr bem recebe um token de sessão */
 router.post('/login', function(req,res) {
   console.log(req.body)
-  /*
-  if (req.body.password2!=req.body.password) {
-    req.flash('warning','Passwords diferentes!')
-    res.redirect('/login')
-  }*/
   axios.post('http://localhost:8002/utilizador/login', req.body)
     .then(dados => {
       //guardar o token vindo da autenticação
@@ -322,23 +319,26 @@ router.post('/registo', function(req,res) {
     req.flash('danger','Passwords não correspondem!')
     res.redirect('/registo')
   }else{
-    axios.post('http://localhost:8001/utilizadores/registo', req.body)
-    .then( dados => {
-      req.flash('success','Utlizador registado com sucesso!')
-      res.redirect('/login')
-    })
-    .catch( erro => { 
-      try {
-        if (erro.response.data.error.keyValue.email!=null){ 
-          req.flash('warning','Email já existente!')
-        res.redirect('/registo')
-      }
-    }
-    catch{ 
-      req.flash('danger','Utlizador não foi registado com sucesso!')
-      res.redirect('/registo')
-    } 
-  })
+    bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+      req.body.password = hash
+      axios.post('http://localhost:8001/utilizadores/registo', req.body)
+      .then( dados => {
+        req.flash('success','Utlizador registado com sucesso!')
+        res.redirect('/login')
+      })
+      .catch( erro => { 
+        try {
+          if (erro.response.data.error.keyValue.email!=null){ 
+            req.flash('warning','Email já existente!')
+          res.redirect('/registo')
+          }
+        }
+        catch{ 
+          req.flash('danger','Utlizador não foi registado com sucesso!')
+          res.redirect('/registo')
+        } 
+      })
+    });
   }
 })
 

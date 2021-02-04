@@ -2,7 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const bcrypt = require('bcrypt');
 var { v4: uuidv4 } = require('uuid');
 var session = require('express-session');
 const FileStore = require('session-file-store')(session);
@@ -32,15 +32,18 @@ passport.use(new LocalStrategy(
       .then(dados => {
         const utilizador = dados
         if(!utilizador) { return done(null, false, {message: 'Utilizador inexistente!\n'})}
-        if(password != utilizador.password) { return done(null, false, {message: 'Credenciais inválidas!\n'})}
-        
-        var date = new Date().toLocaleString('pt-PT', { hour12: false});
-        utilizador.dataUltimoAcesso=date
-        Utilizador.alterar(utilizador)
+        bcrypt.compare(password, utilizador.password).then(function(result) {
+          if(!result) { return done(null, false, {message: 'Credenciais inválidas!\n'})}
+      
+          var date = new Date().toLocaleString('pt-PT', { hour12: false});
+          utilizador.dataUltimoAcesso=date
+          Utilizador.alterar(utilizador)
           .then(d => {
             return done(null, utilizador)
           })
           .catch(erro => done(erro))
+        });
+  
         
       })
       .catch(erro => done(erro))
