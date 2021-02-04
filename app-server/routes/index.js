@@ -367,11 +367,15 @@ router.get('/posts/:id', isLogged,function(req,res) {
 })
 
 
-router.post('/posts/:id', isLogged,  (req, res, next) => {
+
+
+
+router.post('/posts/comentario/:id', isLogged,  (req, res, next) => {
   axios.get('http://localhost:8001/posts/'+req.params.id+'?token=' + req.cookies.token)
   .then(dados => {
     console.log(dados.data)
     console.log(dados.data.comentarios)
+    
     var decoded = jwt.decode(req.cookies.token, {complete: true});
     var json = {
       "nomeC" : decoded.payload.nome,
@@ -389,6 +393,21 @@ router.post('/posts/:id', isLogged,  (req, res, next) => {
 })
 
 
+router.post('/posts/:id', isLogged,  (req, res, next) => {
+  var decoded = jwt.decode(req.cookies.token, {complete: true});
+
+  req.body["autor"]={}
+  req.body.autor["nomeA"] = decoded.payload.nome 
+  req.body.autor["emailA"] = decoded.payload.email 
+  req.body["rec"]={}
+  req.body.rec["idRec"] = req.params.id
+  req.body.rec["titRec"] = req.body.titulo
+  axios.post('http://localhost:8001/posts?token=' + req.cookies.token,req.body)
+  .then(dados => {
+    res.redirect("/posts")
+  })
+  .catch(e => res.render('error', {error: e}))
+})
 
 
 

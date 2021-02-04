@@ -19,7 +19,7 @@ block content
               a(href="/perfil/"+post.autor.emailA  style="color:white;text-decoration:none;") #{post.autor.nomeA})
       .w3-container.w3-border-blue.w3-pale-blue
         p(style="margin-top:10px") #{post.descricao}
-        a(href="/recursos/" style="float:right;margin-bottom:3px") Sobre o recurso       
+        a(href="/recursos/"+post.rec.idRec  style="float:right;margin-bottom:3px") Sobre o recurso       
       footer.w3-container.w3-blue
         .w3-btn(onclick='addComent("'+post._id+'")') Adicionar Comentário
         if post.comentarios.length>0
@@ -46,7 +46,7 @@ block content
 
      div(id=post._id , style="display: none;")
        
-       form(class="w3-container" action='/posts/'+post._id, method='POST')
+       form(class="w3-container" action='/posts/comentario/'+post._id, method='POST')
             
          label(class="w3-text-black") 
            b Comentário:
