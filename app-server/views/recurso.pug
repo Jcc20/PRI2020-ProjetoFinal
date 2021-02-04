@@ -12,9 +12,9 @@ block content
     br
     p(style="text-align:center;  font-size:18px;") #{recurso.subtitulo} 
     
-    div(style="float: left; padding: 70px 0;") 
+    div(style="font-size:14px; float: left; padding: 80px 0;") 
       br
-      table(class="w3-table-all w3-small")
+      table(class="w3-table-all")
         tr
           td.w3-blue Data de Criação:
           td= recurso.dataCriacao.split("T")[0]
@@ -29,13 +29,13 @@ block content
               d  #{recurso.ranking.rating}/10 de #{leng.leng} avaliações
             else
              td= NaN
-          else
-            
-             if recurso.ranking.rating
-               td
-                d #{recurso.ranking.rating}/10 de #{leng.leng}
-                 
-                form(style="margin-left:10px" class="w3-container" action='/recursos/classificar/'+recurso._id, method='POST')
+          else 
+            td    
+             form(class="w3-container" action='/recursos/classificar/'+recurso._id, method='POST')
+                  if recurso.ranking.rating
+                       d(style="margin-left: -15px; margin-right: 35px") #{recurso.ranking.rating}/10 de #{leng.leng}
+                  else
+                       d(style="margin-left: -15px; margin-right: 35px") Sem avaliações
                   select(name='rating')
                     option(value='0') Selecione um rating:
                     option(value='1') 1
@@ -48,25 +48,7 @@ block content
                     option(value='8') 8
                     option(value='9') 9
                     option(value='10') 10
-                  input.w3-btn.w3-blue(type='submit' for='rating'  style='font-size:8px;margin:5px' value='Submeter')  
-             else
-              td 
-                d Sem avaliações
-                form(class="w3-container" action='/recursos/classificar/'+recurso._id, method='POST')
-                  select(name='rating')
-                    option(value='0') Selecione um rating:
-                    option(value='1') 1
-                    option(value='2') 2
-                    option(value='3') 3
-                    option(value='4') 4
-                    option(value='5') 5
-                    option(value='6') 6
-                    option(value='7') 7
-                    option(value='8') 8
-                    option(value='9') 9
-                    option(value='10') 10
-                  input.w3-btn.w3-blue(type='submit' for='rating'  style='font-size:8px;margin:5px' value='Submeter')  
-             
+                  input.w3-btn.w3-blue(type='submit' for='rating'  style='font-size:12px;margin-left:15px' value='Submeter')              
         tr 
           td.w3-blue Produtor:
           td= recurso.produtor.nomeP
@@ -75,10 +57,6 @@ block content
           td= recurso.produtor.emailP
       div(style="margin-top:30%;")
       if tag
-        a(href="/recursos/editar/"+recurso._id)  
-            button.w3-btn.w3-blue Editar
-        |
-        |
         a(href="/recursos/remover/"+recurso._id style="margin-left:10px")  
             button.w3-btn.w3-blue Remover
         |

@@ -14,7 +14,7 @@ var postSchema = new mongoose.Schema({
     },
     comentarios: [{
         nomeC : String,
-        dataC : Date,
+        dataC : { type : Date, default: Date.now, required: true },
         comentario: String
          }]
 })

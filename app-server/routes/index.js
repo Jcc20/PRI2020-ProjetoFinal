@@ -367,6 +367,39 @@ router.get('/posts/:id', isLogged,function(req,res) {
 })
 
 
+router.post('/posts/:id', isLogged,  (req, res, next) => {
+  axios.get('http://localhost:8001/posts/'+req.params.id+'?token=' + req.cookies.token)
+  .then(dados => {
+    console.log(dados.data)
+    console.log(dados.data.comentarios)
+    var decoded = jwt.decode(req.cookies.token, {complete: true});
+    var json = {
+      "nomeC" : decoded.payload.nome,
+      "comentario": req.body.comentario
+    }
+    dados.data.comentarios.push(json)
+    console.log(dados.data)
+    
+    axios.put('http://localhost:8001/posts?token=' + req.cookies.token, dados.data)
+    .then(dados => res.redirect('/posts'))
+    .catch(e => res.render('error', {error: e}))
+    
+  })
+  .catch(e => res.render('error', {error: e}))
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* GET perfil page */
