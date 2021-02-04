@@ -12,11 +12,30 @@ block content
     br
     p(style="text-align:center;  font-size:18px;") #{recurso.subtitulo} 
     
-    div(style="font-size:14px; float: left; padding: 80px 0;") 
-      br
+
+    div(style="float:right; margin-right:10px; ") 
+
+
+      .w3-btn(style="border: 2px solid black;" onclick='addPost("1")') Escrever Post 
+        i.material-icons(style="font-size: 22 px; margin-right:10px; vertical-align:-24%") add_circle_outline
       
-      button.w3-btn.w3-light-grey(onclick='addPost("1")') Escrever Post 
-        i.material-icons(style="font-size: 18px; margin-right:10px; vertical-align:-24%") add_circle_outline
+    
+    div(id=1, style="float:right; margin-top:80px; font-size:14px; width: 40rem; display: none;")
+  
+       form(class="w3-container" action='/posts/'+recurso._id, method='POST')
+            label(class="w3-text-black")
+             b Título:
+            input(class="w3-input w3-border w3-light-grey", type="text", name="titulo", required)   
+
+            label(class="w3-text-black")
+             b Descrição:
+            textarea#w3review.w3-light-grey(name="descricao" rows='7' cols='54', required) 
+
+            button(style="position: relative; left:40%; margin-top:20px;" class="w3-btn w3-blue" type="submit") Postar 
+      
+
+    div(style="font-size:14px; float: left; padding: 80px 0;") 
+      
       table(class="w3-table-all")
         tr
           td.w3-blue Data de Criação:
@@ -59,30 +78,11 @@ block content
           td.w3-blue Email do produtor:
           td= recurso.produtor.emailP
 
-      a(href="/download/"+recurso.path)
-        div(style="text-decoration: none; color: grey; margin-top:10px ; margin-left: 15px; ") Download
-          i.material-icons.md-18(style="vertical-align:-21%") archive    
-      |
-      |
-      br
-      div(id=1 , style="display: none;")
-         form(class="w3-container" action='/posts/'+recurso._id, method='POST')
-            label(class="w3-text-black")
-             b Título:
-            input(class="w3-input w3-border w3-light-grey", type="text", name="titulo", required)    
-
-            label(class="w3-text-black")
-             b Descrição:
-            input(class="w3-input w3-border w3-light-grey", type="text", name="descricao", required)  
-
-            label(class="w3-text-black")
-             b Título do recurso:
-            input(class="w3-input w3-border w3-light-grey", type="text",disabled="disabled", name="titulo", value=recurso.titulo,required)  
-
-
-            button(class="w3-btn w3-blue" type="submit" style="margin-top:20px") Postar  
-            br  
-      div(style="margin-top:30%;")
+      a(href="/download/"+recurso.path style="text-decoration:none;")
+        p(style="text-decoration: none; color: grey; margin-top:40px ; margin-left: 25px; ") Download
+          i.material-icons.md-18(style="vertical-align:-21%; margin-left:10px") archive    
+  
+      div(style="margin-top:20%;")
       if tag
         a(href="/recursos/remover/"+recurso._id style="margin-left:10px")  
             button.w3-btn.w3-blue Remover
