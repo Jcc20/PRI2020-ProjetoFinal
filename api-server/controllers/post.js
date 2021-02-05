@@ -2,16 +2,18 @@
 
 var Post = require('../models/post')
 
-// Devolve a lista de Utilizadores
+// Devolve a lista de posts
 module.exports.listar = () => {
     return Post
         .find()
+        .sort( {dataRegisto : -1 } )
         .exec()
 }
 
 module.exports.search = (text) => {
     return Post
         .find({ titulo: {$regex : ".*"+text+".*"} })
+        .sort( {dataRegisto : -1} )
         .exec()
 }
 
