@@ -2,10 +2,14 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios')
 var jwt = require('jsonwebtoken');
+var fs = require('fs');
 var multer = require('multer');
 var dateFormat = require('dateformat');
+var AdmZip = require('adm-zip');
+var crypto = require('crypto')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+var filehash = 0;
 
 var MultererrorMessages = {
   LIMIT_PART_COUNT: 'Too many parts',
@@ -19,12 +23,16 @@ var MultererrorMessages = {
 // Set The Storage Engine
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, './../api-server/uploads/');
+    cb(null, './../app-server/uploadsTemp/');
   },
   filename: function(req, file, cb) {
     var decoded = jwt.decode(req.cookies.token, {complete: true});
-
-    cb(null, decoded.payload._id +'-'+file.originalname);
+    //rand = Math.random() * (1000000 - 1) + 1;
+    x = decoded.payload.email
+    var hash = crypto.createHash('sha1').update(x).digest('hex')
+    filehash= hash
+  
+    cb(null, filehash+'-'+file.originalname);
   }
 });
 // Init Upload
@@ -33,7 +41,7 @@ const upload = multer({
   limits: {
     fileSize: 1024 * 1024 * 5 * 3
   }
-}).single('myFile');
+}).array('myFile');
 
 
 
@@ -181,7 +189,7 @@ router.get('/recursos/:id', isLogged,function(req,res) {
 router.get('/download/:path', isLogged,function(req,res) {
   try {
     console.log(req)
-    res.download(__dirname+ "/../../api-server/uploads/"+req.params.path)
+    res.download(__dirname+ "/../../app-server/uploads/"+req.params.path)
   } catch (error) {
     console.log(error)
   }
@@ -190,8 +198,17 @@ router.get('/download/:path', isLogged,function(req,res) {
 /* DELETE recurso */
 router.get('/recursos/remover/:id', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
+  var path
+  axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
+  .then(dados => {
+    path =  dados.data.path
+  })
+  .catch(e => res.render('error', {error: e}))
+
   axios.delete('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
   .then(dados =>{
+    
+    fs.unlinkSync('./../app-server/uploads/'+path)
     req.flash('success','Recurso removido com sucesso!')
     res.redirect('/recursos')
 
@@ -214,11 +231,25 @@ router.post("/recursos", isLogged, (req, res, next) => {
       res.redirect('/recursos/upload')
     } else if (err) {
       req.flash('danger','Recurso não foi registado com sucesso!')
+      console.log(err)
       res.redirect('/recursos/upload')
     }else{
       //Tratamento do body
       var decoded = jwt.decode(req.cookies.token, {complete: true});
-      req.body["path"] = decoded.payload._id +'-'+ req.file.originalname 
+      var zip = new AdmZip();
+      
+      req.files.forEach(f => {
+      
+        zip.addLocalFile("./../app-server/uploadsTemp/"+filehash+'-'+f.originalname);
+        var dir = "./../app-server/uploadsTemp/"+filehash+'-'+f.originalname
+        fs.unlinkSync(dir)
+        
+        
+      });
+      var time = Date.now()
+      zip.writeZip("./../app-server/uploads/"+filehash+'-'+time+'.zip')
+
+      req.body["path"] = filehash+'-'+time+'.zip'
       req.body["produtor"]={}
       req.body.produtor["nomeP"] = decoded.payload.nome 
       req.body.produtor["emailP"] = decoded.payload.email 
@@ -254,6 +285,7 @@ router.post("/recursos", isLogged, (req, res, next) => {
       })
       .catch( erro => { 
         req.flash('danger','Recurso não foi registado com sucesso!')
+        console.log(erro)
         res.redirect('/recursos/upload')
         
       })
