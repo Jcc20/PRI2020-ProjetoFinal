@@ -347,14 +347,17 @@ router.post('/registo', function(req,res) {
 /* GET posts page */
 router.get('/posts', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
+  var decoded = jwt.decode(req.cookies.token, {complete: true});
+  console.log(decoded.payload.nivel)
+  console.log(decoded.payload.email)
   if (req.query.search!=null) {
     axios.get('http://localhost:8001/posts?search='+ req.query.search +'&token=' + req.cookies.token)
-      .then(dados => res.render('posts', {posts: dados.data, user: "logged"}))
+      .then(dados => res.render('posts', {posts: dados.data, level: decoded.payload.nivel, email: decoded.payload.email, user: "logged"}))
       .catch(e => res.render('error', {error: e}))
   }
   else 
     axios.get('http://localhost:8001/posts?token=' + req.cookies.token)
-      .then(dados => res.render('posts', {posts: dados.data, user: "logged"}))
+      .then(dados => res.render('posts', {posts: dados.data, level: decoded.payload.nivel, email: decoded.payload.email, user: "logged"}))
       .catch(e => res.render('error', {error: e}))
 })
 
@@ -414,7 +417,19 @@ router.post('/posts/:id', isLogged,  (req, res, next) => {
 })
 
 
+router.get('/posts/remover/:id', isLogged,function(req,res) {
+  console.log("token na app: "+req.cookies.token)
+  axios.delete('http://localhost:8001/posts/'+req.params.id+'?token=' + req.cookies.token)
+  .then(dados =>{
+    req.flash('success','Recurso removido com sucesso!')
+    res.redirect('/posts')
 
+  })
+  .catch(e =>{
+    req.flash('danger','Recurso não foi removido com sucesso!')
+    res.redirect('/posts/'+req.params.id)
+  })
+})
 
 
 
