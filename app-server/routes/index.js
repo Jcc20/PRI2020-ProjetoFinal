@@ -120,6 +120,7 @@ router.get('/recursos', isLogged,function(req,res) {
   if(req.query.byTitulo){query='byTitulo=true'}
   if(req.query.byData){query='byData=true'}
   if(req.query.byAutor){query='byAutor=true'}
+  if(req.query.search) {query='search='+req.query.search}
 
   axios.get('http://localhost:8001/recursos?&token=' + req.cookies.token)
   .then(dados => {

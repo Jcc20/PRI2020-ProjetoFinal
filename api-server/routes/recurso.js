@@ -9,15 +9,19 @@ router.get('/', function(req, res) {
   req.query.page ?  page = parseInt(req.query.page)   : page = 1
   req.query.limit ? limit = parseInt(req.query.limit) : limit = 10
   if(req.query.byTipo != null){
-    Recurso.listarbyTipo(page, limit)
+    Recurso.listarbyTipo(page, limit, req.query.email)
+      .then(dados => res.status(200).jsonp(dados) )
+      .catch(e => res.status(500).jsonp({error: e}))
+  }else if(req.query.search != null){
+    Recurso.listarbySearch(page, limit, req.query.search, req.query.email)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else if(req.query.byTitulo != null){
-    Recurso.listarbyTitulo(page, limit)
+    Recurso.listarbyTitulo(page, limit, req.query.email)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else  if(req.query.byData != null){
-    Recurso.listarbyData(page, limit)
+    Recurso.listarbyData(page, limit, req.query.email)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else  if(req.query.byDataRegisto != null){
@@ -25,7 +29,7 @@ router.get('/', function(req, res) {
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else if(req.query.byAutor != null){
-    Recurso.listarbyAutor(page, limit)
+    Recurso.listarbyAutor(page, limit, req.query.email)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
   }else if(req.query.level == "admin"){

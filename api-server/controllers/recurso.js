@@ -27,27 +27,35 @@ module.exports.contarTodos = () => {
 }
 
 
-module.exports.listarbyTipo = (page, lim) => {
+module.exports.listarbyTipo = (page, lim, email) => {
     return Recurso
-        .find()
+        .find( { $or: [ { 'produtor.emailP': email }, { visibilidade: true } ] } )
         .sort('tipo')
         .skip((page * lim) - lim)
         .limit(lim)
         .exec()
 }
 
-module.exports.listarbyTitulo = (page, lim) => {
+module.exports.listarbyTitulo = (page, lim, email) => {
     return Recurso
-        .find()
+        .find( { $or: [ { 'produtor.emailP': email }, { visibilidade: true } ] } )
         .sort('titulo')
         .skip((page * lim) - lim)
         .limit(lim)
         .exec()
 }
 
-module.exports.listarbyData = (page, lim) => {
+module.exports.listarbySearch = (page, lim, text, email) => {
     return Recurso
-        .find()
+        .find({$and: [{ titulo: {$regex : ".*"+text+".*"} }, { $or: [ { 'produtor.emailP': email }, { visibilidade: true } ] }]})
+        .skip((page * lim) - lim)
+        .limit(lim)
+        .exec()
+}
+
+module.exports.listarbyData = (page, lim, email) => {
+    return Recurso
+        .find( { $or: [ { 'produtor.emailP': email }, { visibilidade: true } ] } )
         .sort({'dataCriacao' : 'desc'})
         .skip((page * lim) - lim)
         .limit(lim)
@@ -61,9 +69,9 @@ module.exports.listarbyDataRegisto = () => {
         .exec()
 }
 
-module.exports.listarbyAutor = (page, lim) => {
+module.exports.listarbyAutor = (page, lim, email) => {
     return Recurso
-        .find()
+        .find( { $or: [ { 'produtor.emailP': email }, { visibilidade: true } ] } )
         .sort({'produtor.nomeP' : 'asc'})
         .skip((page * lim) - lim)
         .limit(lim)

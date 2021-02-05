@@ -1,8 +1,8 @@
 extends layout 
 
 block content
-  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
-  div(style="font-size: 16px; width: 60rem; margin: auto")
+  
+  div(style="font-size: 16px; width: 75rem; margin: auto")
     p(style="text-align: center; font-size:22px; font-weight: bold") WELCOME TO POSTS
     br
     form(action='/posts' style=" text-align: center;")
@@ -10,52 +10,62 @@ block content
       button.w3-blue(type='submit')
          i.fa.fa-search.w3-large.w3-text-white
 
-
     br
+
     each post in posts
-     .w3-border
+
+     .w3-container
       .w3-container-card-4
-        header.w3-container.w3-blue
-             h3 #{post.titulo} (
-              a(href="/perfil/"+post.autor.emailA  style="color:white;text-decoration:none;") #{post.autor.nomeA})
-      .w3-container.w3-border-blue.w3-pale-blue
+        header.w3-container.w3-blue(style="border-radius: 5px 5px 0 0;")
+          div(style="margin-top:10px;margin-bottom:10px;")
+            a(href="/perfil/"+post.autor.emailA  style="font-weight: bold;color:white;text-decoration:none;") #{post.autor.nomeA}
+            |
+            |
+            i.fa.fa-arrow-right 
+            |
+            |
+            a(href="/recursos/"+post.rec.idRec  style="font-weight: bold;color:white;text-decoration:none;") #{post.rec.titRec}
+
+        
+
+
+      .w3-container.w3-border-blue.w3-grey
+        h3.w3-center(style="margin-top:10px") #{post.titulo}
         p(style="margin-top:10px") #{post.descricao}
-        a(href="/recursos/"+post.rec.idRec style="float:right;margin-bottom:3px") Sobre o recurso       
-      footer.w3-container.w3-blue
-        .w3-btn(onclick='addComent("'+post._id+'")') Adicionar Comentário
-        if post.comentarios.length>0
-            .w3-btn(onclick='showComents("'+post.titulo+'")') Ver Comentários
-        h5(style="float: right;margin-top:10px") Escrito em: #{post.dataRegisto.split("T")[0]}
-     br
+        a(href="/recursos/"+post.rec.idRec style="float:right;font-weight: bold;margin-bottom:6px;color:white") Sobre o recurso   
 
-     div(id=post.titulo , style="display: none;")
-   
-       each coment in post.comentarios
-         
-         div(style="font-size: 14px; width: 40rem; margin: auto")
 
-           .w3-border
-            .w3-container-card-4
-              header.w3-container.w3-blue
-                   h3 #{coment.nomeC}
-            .w3-container.w3-border-blue.w3-pale-blue
-              p(style="margin-top:10px") #{coment.comentario}
-            footer.w3-container.w3-blue
-              h5(style="float: right") Escrito em: #{coment.dataC.split("T")[0]}, #{coment.dataC.split("T")[1].split(".")[0]}
+      footer.w3-container.w3-grey 
+        .w3-container.w3-border-bottom.w3-border-top.w3-border-black
+          if post.comentarios.length>0
+            .w3-btn(style="box-shadow:none;" onclick='showComents("'+post.titulo+'")') Ver Comentários
+          h5(style="float: right;margin-top:10px") Escrito em: #{post.dataRegisto.split("T")[0]}
+
+          
+      
+      
+      div(id=post.titulo , style="display: none;font-size:14px")
+       .w3-container.w3-grey
+         .w3-container.w3-border-bottom.w3-border-black(style="witdh:60%")
            br
+           each coment in post.comentarios                  
+                
+                .w3-container.w3-light-gray(style="border-radius: 25px;")
+                  h4(style="margin-top:10px") #{coment.nomeC}
+                  p #{coment.comentario}
+                  h6(style="float: right") Escrito em: #{coment.dataC.split("T")[0]}, #{coment.dataC.split("T")[1].split(".")[0]}
+                br
+  
+      .w3-container.w3-grey(style="border-radius: 0 0 5px 5px ;")
+        br
+        form(class="w3-container" action='/posts/comentario/'+post._id, method='POST')
+            input(style="font-size:14px;margin-left:10px;width: 96%;" class="w3-input w3-border", type="text", name="comentario", placeholder="Escreve um comentário...") 
+        br
 
-
-     div(id=post._id , style="display: none;")
-       
-       form(class="w3-container" action='/posts/comentario/'+post._id, method='POST')
-            
-         label(class="w3-text-black") 
-           b Comentário:
-         input(class="w3-input w3-border w3-light-grey", type="text", name="comentario") 
-         button(class="w3-btn w3-blue" type="submit" style="margin-top:20px") Comentar  
-
-     br
-     br
+      br
+      br
+      br
+      br
 
 
 

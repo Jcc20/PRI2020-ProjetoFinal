@@ -1,12 +1,18 @@
 extends layout
 
 block content
+
  div(style="font-size: 14px; width: 85%; margin: auto")
 
   div(style="float: right")
     a(href="/recursos/upload" style="text-decoration: none; color:black")
       i.material-icons(style="font-size: 28px; margin-right:20px; vertical-align:-24%") add_circle_outline
-  p(style="margin-left: 10px; font-size:20px; font-weight: bold") Recursos Educativos 
+  div(style="display: flex")
+    p(style="margin-left: 10px; font-size:20px; font-weight: bold") Recursos Educativos 
+      form(action='/recursos' style="margin-top:5px; margin-left:10px")
+        input(type='text' placeholder='Procurar pelo titulo...' name='search')
+        button.w3-blue(type='submit')
+          i.fa.fa-search.w3-large.w3-text-white
   
   table(class="w3-table-all")
         tr.w3-blue
