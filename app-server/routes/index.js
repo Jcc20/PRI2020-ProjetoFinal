@@ -349,12 +349,12 @@ router.get('/posts', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   if (req.query.search!=null) {
     axios.get('http://localhost:8001/posts?search='+ req.query.search +'&token=' + req.cookies.token)
-      .then(dados => res.render('posts', {posts: dados.data, username: "joao", user: "logged"}))
+      .then(dados => res.render('posts', {posts: dados.data, user: "logged"}))
       .catch(e => res.render('error', {error: e}))
   }
   else 
     axios.get('http://localhost:8001/posts?token=' + req.cookies.token)
-      .then(dados => res.render('posts', {posts: dados.data, username: "joao", user: "logged"}))
+      .then(dados => res.render('posts', {posts: dados.data, user: "logged"}))
       .catch(e => res.render('error', {error: e}))
 })
 
@@ -363,7 +363,7 @@ router.get('/posts', isLogged,function(req,res) {
 router.get('/posts/:id', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/posts/'+req.params.id+'?token=' + req.cookies.token)
-    .then(dados => res.render('posts', {recursos: dados.data, user: "logged"}))
+    .then(dados => res.render('posts', {posts: [dados.data], user: "logged"}))
     .catch(e => res.render('error', {error: e}))
 })
 
