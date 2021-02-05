@@ -64,7 +64,8 @@ block content
                     else if coment.emailC==email
                       a(href="/posts/remover/"+post._id+"/comentario/"+coment._id   style="font-weight: bold;color:gray;text-decoration:none;")
                         i(class="w3-large material-icons" ) cancel
-                  h4(style="margin-top:10px") #{coment.nomeC}
+                  h4(style="margin-top:10px") 
+                    a(href="/perfil/"+coment.emailC  style="font-weight: bold;color:black;") #{coment.nomeC}
                   p #{coment.comentario}
                   h6(style="float: right") Escrito em: #{coment.dataC.split("T")[0]}, #{coment.dataC.split("T")[1].split(".")[0]}
                 br
