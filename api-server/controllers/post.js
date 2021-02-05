@@ -34,9 +34,12 @@ module.exports.remover = function(id){
 }
 
 module.exports.removerComent = function(id,idC){
-    return Post.find({ _id: id })
-               .deleteOne({ 'comentarios._idC' : idC})
+    return Post
+        .find( {_id: id})
+        .update({ $pull: {'comentarios': {_id: idC} } })
 }
+
+
 
 module.exports.alterar = function(t){
     return Post.findByIdAndUpdate({_id: t._id}, t, {new: true})
