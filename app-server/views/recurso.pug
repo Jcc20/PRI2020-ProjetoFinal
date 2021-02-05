@@ -21,17 +21,18 @@ block content
       
     
     div(id=1, style="float:right; margin-top:80px; font-size:14px; width: 40rem; display: none;")
-  
-       form(class="w3-container" action='/posts/'+recurso._id, method='POST')
-            label(class="w3-text-black")
+      .w3-card-4.w3-light-grey
+        form(class="w3-container" action='/posts/'+recurso._id, method='POST')
+            label(class="w3-text-black" style="margin-top:20px")
              b Título:
-            input(class="w3-input w3-border w3-light-grey", type="text", name="titulo", required)   
+            input(class="w3-input w3-border", type="text", name="titulo", required)   
 
             label(class="w3-text-black")
              b Descrição:
-            textarea#w3review.w3-light-grey(name="descricao" rows='7' cols='54', required) 
+            textarea#w3review(name="descricao" rows='7' cols='54', required) 
 
-            button(style="position: relative; left:40%; margin-top:20px;" class="w3-btn w3-blue" type="submit") Postar 
+            button(style="position: relative; left:40%; margin-top:20px;margin-bottom:20px" class="w3-btn w3-blue" type="submit") Postar 
+            
       
 
     div(style="font-size:14px; float: left; padding: 80px 0;") 
