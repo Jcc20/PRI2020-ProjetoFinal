@@ -13,10 +13,11 @@ var postSchema = new mongoose.Schema({
         titRec: {type : String, required: true}
     },
     comentarios: [{
-        nomeC : String,
+        emailC   :  { type :  String, required: true},
+        nomeC : { type :  String, required: true},
         dataC : { type : Date, default: Date.now, required: true },
         comentario: String
-         }]
+        }]
 })
 
 module.exports = mongoose.model('post', postSchema)

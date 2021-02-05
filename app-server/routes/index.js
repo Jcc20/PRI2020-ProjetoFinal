@@ -377,17 +377,13 @@ router.get('/posts/:id', isLogged,function(req,res) {
 router.post('/posts/comentario/:id', isLogged,  (req, res, next) => {
   axios.get('http://localhost:8001/posts/'+req.params.id+'?token=' + req.cookies.token)
   .then(dados => {
-    console.log(dados.data)
-    console.log(dados.data.comentarios)
-    
     var decoded = jwt.decode(req.cookies.token, {complete: true});
     var json = {
+      "emailC" : decoded.payload.email,
       "nomeC" : decoded.payload.nome,
       "comentario": req.body.comentario
     }
-    dados.data.comentarios.push(json)
-    console.log(dados.data)
-    
+    dados.data.comentarios.push(json)   
     axios.put('http://localhost:8001/posts?token=' + req.cookies.token, dados.data)
     .then(dados => res.redirect('/posts'))
     .catch(e => res.render('error', {error: e}))
@@ -421,12 +417,28 @@ router.get('/posts/remover/:id', isLogged,function(req,res) {
   console.log("token na app: "+req.cookies.token)
   axios.delete('http://localhost:8001/posts/'+req.params.id+'?token=' + req.cookies.token)
   .then(dados =>{
-    req.flash('success','Recurso removido com sucesso!')
+    req.flash('success','Post removido com sucesso!')
     res.redirect('/posts')
 
   })
   .catch(e =>{
-    req.flash('danger','Recurso não foi removido com sucesso!')
+    req.flash('danger','Post não foi removido com sucesso!')
+    res.redirect('/posts/'+req.params.id)
+  })
+})
+
+router.get('/posts/remover/:id/comentario/:idC', isLogged,function(req,res) {
+  console.log("token na app: "+req.cookies.token)
+  console.log("cheguei para remover um comentario")
+  console.log("id do pai: " + req.params.id)
+  console.log("id c: " + req.params.idC)
+  axios.delete('http://localhost:8001/posts/'+req.params.id+'/comentario/'+req.params.idC+'?token=' + req.cookies.token)
+  .then(dados =>{
+    req.flash('success','Comentário removido com sucesso!')
+    res.redirect('/posts')
+  })
+  .catch(e =>{
+    req.flash('danger','Comentário não foi removido com sucesso!')
     res.redirect('/posts/'+req.params.id)
   })
 })

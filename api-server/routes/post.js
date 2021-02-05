@@ -45,5 +45,16 @@ router.delete('/:id', function(req, res) {
     .catch(e => res.status(500).jsonp({error: e}))
 });
 
+// Remover um comentario de um post
+router.delete('/:id/comentario/:idC', function(req, res) {
+    console.log("cheguei para remover um comentario")
+    console.log("id do pai: " + req.params.id)
+    console.log("id c: " + req.params.idC)
+    Post.removerComent(req.params.id, req.params.idC)
+    .then(dados => res.status(200).jsonp(dados))
+    .catch(e => res.status(500).jsonp({error: e}))
+});
+
+
 
 module.exports = router;
