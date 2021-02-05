@@ -12,12 +12,10 @@ block content
     br
     p(style="text-align:center;  font-size:18px;") #{recurso.subtitulo} 
     
-
-    div(style="float:right; margin-right:10px; ") 
-
-
-      .w3-btn(style="border: 2px solid black;" onclick='addPost("1")') Escrever Post 
-        i.material-icons(style="font-size: 22 px; margin-right:10px; vertical-align:-24%") add_circle_outline
+    if recurso.visibilidade==true
+      div(style="float:right; margin-right:10px; ") 
+        .w3-btn(style="border: 2px solid black;" onclick='addPost("1")') Escrever Post 
+          i.material-icons(style="font-size: 22 px; margin-right:10px; vertical-align:-24%") add_circle_outline
       
     
     div(id=1, style="float:right; margin-top:80px; font-size:14px; width: 40rem; display: none;")
