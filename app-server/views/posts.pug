@@ -3,10 +3,10 @@ extends layout
 block content
   
   div(style="font-size: 16px; width: 75rem; margin: auto")
-    p(style="text-align: center; font-size:22px; font-weight: bold") WELCOME TO POSTS
+    p(style="text-align: center; font-size:22px; font-weight: bold") POSTS
     br
     form(action='/posts' style=" text-align: center;")
-      input(type='text' placeholder='Search..' name='search')
+      input(type='text' placeholder='Procurar..' name='search')
       button.w3-blue(type='submit')
          i.fa.fa-search.w3-large.w3-text-white
 
@@ -18,8 +18,7 @@ block content
       .w3-container-card-4
         header.w3-container.w3-blue(style="border-radius: 5px 5px 0 0;")
           div(style="margin-top:10px;margin-bottom:10px;")
-            a(href="/perfil/"+post.autor.emailA  style="font-weight: bold;color:white;") 
-              u #{post.autor.nomeA}
+            a(href="/perfil/"+post.autor.emailA  style="font-weight: bold;color:white;")  #{post.autor.nomeA}
             |
             |
             i.fa.fa-arrow-right 
@@ -35,13 +34,13 @@ block content
                   i(class="w3-xlarge material-icons" ) cancel               
 
 
-      .w3-container.w3-border-blue.w3-grey
+      .w3-container.w3-border-blue.w3-light-grey
         h3.w3-center(style="margin-top:10px") #{post.titulo}
         p(style="margin-top:10px") #{post.descricao}
         a(href="/recursos/"+post.rec.idRec style="float:right;font-weight: bold;margin-bottom:6px;color:white") Sobre o recurso   
 
 
-      footer.w3-container.w3-grey 
+      footer.w3-container.w3-light-grey 
         .w3-container.w3-border-bottom.w3-border-top.w3-border-black
           if post.comentarios.length>0
             .w3-btn(style="box-shadow:none;" onclick='showComents("'+post.titulo+'")') Ver Comentários
@@ -51,12 +50,12 @@ block content
       
       
       div(id=post.titulo , style="display: none;font-size:14px")
-       .w3-container.w3-grey
+       .w3-container.w3-light-grey
          .w3-container.w3-border-bottom.w3-border-black(style="witdh:60%")
            br
            each coment in post.comentarios                  
                 
-                .w3-container.w3-light-gray(style="border-radius: 25px;")
+                .w3-container.w3-white(style="border-radius: 25px;")
                   div(style="float:right;margin-top:5px")
                     if level=="admin"
                       a(href="/posts/remover/"+post._id+"/comentario/"+coment._id  style="font-weight: bold;color:gray;text-decoration:none;")
@@ -70,7 +69,7 @@ block content
                   h6(style="float: right") Escrito em: #{coment.dataC.split("T")[0]}, #{coment.dataC.split("T")[1].split(".")[0]}
                 br
   
-      .w3-container.w3-grey(style="border-radius: 0 0 5px 5px ;")
+      .w3-container.w3-light-grey(style="border-radius: 0 0 5px 5px ;")
         br
         form(class="w3-container" action='/posts/comentario/'+post._id, method='POST')
             input(style="font-size:14px;margin-left:10px;width: 96%;" class="w3-input w3-border", type="text", name="comentario", placeholder="Escreve um comentário...")

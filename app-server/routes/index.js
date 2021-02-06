@@ -27,10 +27,11 @@ const storage = multer.diskStorage({
   },
   filename: function(req, file, cb) {
     var decoded = jwt.decode(req.cookies.token, {complete: true});
-    //rand = Math.random() * (1000000 - 1) + 1;
-    x = decoded.payload.email
-    var hash = crypto.createHash('sha1').update(x).digest('hex')
-    filehash= hash
+    if(filehash == 0){
+      var x = decoded.payload.email
+      var hash = crypto.createHash('sha1').update(x).digest('hex')
+      filehash= hash
+    } 
   
     cb(null, filehash+'-'+file.originalname);
   }
@@ -39,7 +40,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 5 * 3
+    fileSize: 1024 * 1024 * 5 * 3//15mb
   }
 }).array('myFile');
 
@@ -88,7 +89,6 @@ router.get('/login', function(req, res, next) {
 
 /* Manda os dados do login do utilizador para o servidor de autenticação. Se correr bem recebe um token de sessão */
 router.post('/login', function(req,res) {
-  console.log(req.body)
   axios.post('http://localhost:8002/utilizador/login', req.body)
     .then(dados => {
       //guardar o token vindo da autenticação
@@ -105,13 +105,13 @@ router.post('/login', function(req,res) {
     })
 })
 
-/* GET registo page. */
+/* Logout */
 router.get('/logout', function(req, res, next) {
   res.clearCookie("token")
   res.redirect('/login')
 });
 
-
+/* GET upload page */
 router.get('/recursos/upload', function(req, res, next) {
   res.render('upload', {user: "logged"})
 });
@@ -119,7 +119,6 @@ router.get('/recursos/upload', function(req, res, next) {
 
 /* GET recursos page */
 router.get('/recursos', isLogged,function(req,res) {
-  console.log("token na app: "+req.cookies.token)
   var page, limit
   req.query.page ? page=parseInt(req.query.page) : page=1
   req.query.limit ? limit=parseInt(req.query.limit) : limit=10
@@ -128,7 +127,9 @@ router.get('/recursos', isLogged,function(req,res) {
   if(req.query.byTitulo){query='byTitulo=true'}
   if(req.query.byData){query='byData=true'}
   if(req.query.byAutor){query='byAutor=true'}
+  if(req.query.byClassif){query='byClassif=true'}
   if(req.query.search) {query='search='+req.query.search}
+  if(query == ""){query='byData=true'}
 
   axios.get('http://localhost:8001/recursos?&token=' + req.cookies.token)
   .then(dados => {
@@ -150,20 +151,10 @@ router.get('/recursos', isLogged,function(req,res) {
 })
 
 
-/*
-router.get('/recursos/editar/:id', isLogged,function(req,res) {
-  console.log("token na app: "+req.cookies.token)
-  axios.get('http://localhost:8001/recursos?token=' + req.cookies.token)
-    .then(dados => res.render('recursos', {recursos: dados.data, user: "logged"}))
-    .catch(e => res.render('error', {error: e}))
-})*/
 
 
-
-
-/* GET recursos page */
+/* GET recurso page */
 router.get('/recursos/:id', isLogged,function(req,res) {
-  console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
   .then(dados => {
     var decoded = jwt.decode(req.cookies.token, {complete: true});
@@ -185,10 +176,9 @@ router.get('/recursos/:id', isLogged,function(req,res) {
   .catch(e => res.render('error', {error: e}))
 })
 
-/* Download recurso page */
+/* Download recurso  */
 router.get('/download/:path', isLogged,function(req,res) {
   try {
-    console.log(req)
     res.download(__dirname+ "/../../app-server/uploads/"+req.params.path)
   } catch (error) {
     console.log(error)
@@ -197,7 +187,6 @@ router.get('/download/:path', isLogged,function(req,res) {
 
 /* DELETE recurso */
 router.get('/recursos/remover/:id', isLogged,function(req,res) {
-  console.log("token na app: "+req.cookies.token)
   var path
   axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
   .then(dados => {
@@ -219,19 +208,18 @@ router.get('/recursos/remover/:id', isLogged,function(req,res) {
   })
 })
 
-
+/* POST recurso */
 router.post("/recursos", isLogged, (req, res, next) => {
   upload(req, res, function (err) {
     //tramento do erro se for do multer
     if (err instanceof multer.MulterError) {
       var msg = MultererrorMessages[err.code]
-      console.log(msg)
 
       req.flash('danger',msg)
       res.redirect('/recursos/upload')
     } else if (err) {
       req.flash('danger','Recurso não foi registado com sucesso!')
-      console.log(err)
+    
       res.redirect('/recursos/upload')
     }else{
       //Tratamento do body
@@ -264,16 +252,13 @@ router.post("/recursos", isLogged, (req, res, next) => {
             "_id": decoded.payload._id,
             "nivel": "producer"
           }
-          console.log("tratar do producer")
           axios.put('http://localhost:8001/utilizadores?token=' + req.cookies.token, bod)
           .then( dados => { 
-            console.log("tratar do producer1")
 
             req.flash('success','Recurso adicionado com sucesso!')
             res.redirect('/recursos')
           })
           .catch( erro => { 
-            console.log("tratar do producer2")
 
             req.flash('danger','Recurso não foi registado com sucesso!')
             res.redirect('/recursos/upload')
@@ -285,7 +270,6 @@ router.post("/recursos", isLogged, (req, res, next) => {
       })
       .catch( erro => { 
         req.flash('danger','Recurso não foi registado com sucesso!')
-        console.log(erro)
         res.redirect('/recursos/upload')
         
       })
@@ -293,7 +277,7 @@ router.post("/recursos", isLogged, (req, res, next) => {
   })
 })
 
-
+/* Classificar recurso */
 router.post("/recursos/classificar/:id", isLogged, (req, res, next) => {
  
   axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
@@ -302,7 +286,6 @@ router.post("/recursos/classificar/:id", isLogged, (req, res, next) => {
 
     classf = dados.data.ranking.classf
     classf.push(decoded.payload._id)
-    console.log(classf)
 
     var cl 
     var rate = req.body.rating
@@ -378,10 +361,7 @@ router.post('/registo', function(req,res) {
 
 /* GET posts page */
 router.get('/posts', isLogged,function(req,res) {
-  console.log("token na app: "+req.cookies.token)
   var decoded = jwt.decode(req.cookies.token, {complete: true});
-  console.log(decoded.payload.nivel)
-  console.log(decoded.payload.email)
   if (req.query.search!=null) {
     axios.get('http://localhost:8001/posts?search='+ req.query.search +'&token=' + req.cookies.token)
       .then(dados => res.render('posts', {posts: dados.data, level: decoded.payload.nivel, email: decoded.payload.email, user: "logged"}))
@@ -394,9 +374,8 @@ router.get('/posts', isLogged,function(req,res) {
 })
 
 
-/* GET posts page */
+/* GET post page */
 router.get('/posts/:id', isLogged,function(req,res) {
-  console.log("token na app: "+req.cookies.token)
   axios.get('http://localhost:8001/posts/'+req.params.id+'?token=' + req.cookies.token)
     .then(dados => res.render('posts', {posts: [dados.data], user: "logged"}))
     .catch(e => res.render('error', {error: e}))
@@ -405,7 +384,7 @@ router.get('/posts/:id', isLogged,function(req,res) {
 
 
 
-
+/* POST de um comentário */
 router.post('/posts/comentario/:id', isLogged,  (req, res, next) => {
   axios.get('http://localhost:8001/posts/'+req.params.id+'?token=' + req.cookies.token)
   .then(dados => {
@@ -424,7 +403,7 @@ router.post('/posts/comentario/:id', isLogged,  (req, res, next) => {
   .catch(e => res.render('error', {error: e}))
 })
 
-
+/* POST de um post */
 router.post('/posts/:id', isLogged,  (req, res, next) => {
   var decoded = jwt.decode(req.cookies.token, {complete: true});
   axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
@@ -444,9 +423,8 @@ router.post('/posts/:id', isLogged,  (req, res, next) => {
   .catch(e => res.render('error', {error: e}))
 })
 
-
+/* Remover post */
 router.get('/posts/remover/:id', isLogged,function(req,res) {
-  console.log("token na app: "+req.cookies.token)
   axios.delete('http://localhost:8001/posts/'+req.params.id+'?token=' + req.cookies.token)
   .then(dados =>{
     req.flash('success','Post removido com sucesso!')
@@ -458,12 +436,8 @@ router.get('/posts/remover/:id', isLogged,function(req,res) {
     res.redirect('/posts/'+req.params.id)
   })
 })
-
+/* Remover comentário */
 router.get('/posts/remover/:id/comentario/:idC', isLogged,function(req,res) {
-  console.log("token na app: "+req.cookies.token)
-  console.log("cheguei para remover um comentario")
-  console.log("id do pai: " + req.params.id)
-  console.log("id c: " + req.params.idC)
   axios.delete('http://localhost:8001/posts/'+req.params.id+'/comentario/'+req.params.idC+'?token=' + req.cookies.token)
   .then(dados =>{
     req.flash('success','Comentário removido com sucesso!')
@@ -516,7 +490,6 @@ router.get('/perfil/editar', isLogged, function(req,res) {
 router.post('/perfil/editar', function(req,res) {
   var decoded = jwt.decode(req.cookies.token, {complete: true});
   req.body["_id"] = decoded.payload._id
-  console.log(req.body)
   axios.put('http://localhost:8001/utilizadores?token=' + req.cookies.token, req.body)
    .then(dados => {
        req.flash('success','Perfil alterado com sucesso!')
@@ -546,11 +519,20 @@ router.get('/perfil/:email', isLogged, function(req,res) {
 
 
 function isLogged(req, res, next){
-    if(req.cookies.token){
-    next();
-   } else {
+  if(req.cookies.token){
+    var myToken = req.cookies.token 
+    jwt.verify( myToken, 'PRI2020', function(e, payload){
+      if(e){
+        res.clearCookie("token")
+        res.redirect("/login")
+      }
+      else{
+        next()
+      } 
+    })
+  }else {
     res.redirect("/login")
-   }
+  }
 }
 
 module.exports = router;

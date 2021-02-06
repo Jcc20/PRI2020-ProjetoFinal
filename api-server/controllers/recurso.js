@@ -45,9 +45,22 @@ module.exports.listarbyTitulo = (page, lim, email) => {
         .exec()
 }
 
+module.exports.listarbyClassif = (page, lim, email) => {
+    return Recurso
+        .find( { $or: [ { 'produtor.emailP': email }, { visibilidade: true } ] } )
+        .sort({'ranking.rating' : 'desc'})
+        .skip((page * lim) - lim)
+        .limit(lim)
+        .exec()
+}
+
+
 module.exports.listarbySearch = (page, lim, text, email) => {
     return Recurso
-        .find({$and: [{ titulo: {$regex : ".*"+text+".*"} }, { $or: [ { 'produtor.emailP': email }, { visibilidade: true } ] }]})
+        .find({$and:[
+            { $or: [ {titulo: {$regex : ".*"+text+".*", $options : 'i'}}, {tipo: {$regex : ".*"+text+".*", $options : 'i'}}, {'produtor.nomeP': {$regex : ".*"+text+".*", $options : 'i'}}]},
+            { $or: [ { 'produtor.emailP': email }, { visibilidade: true } ] }
+        ]})
         .skip((page * lim) - lim)
         .limit(lim)
         .exec()

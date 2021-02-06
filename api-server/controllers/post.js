@@ -12,7 +12,8 @@ module.exports.listar = () => {
 
 module.exports.search = (text) => {
     return Post
-        .find({ titulo: {$regex : ".*"+text+".*"} })
+        .find({ 
+             $or: [ {titulo: {$regex : ".*"+text+".*", $options : 'i'}}, {descricao: {$regex : ".*"+text+".*", $options : 'i'}}, {'autor.nomeA': {$regex : ".*"+text+".*", $options : 'i'}},  {'rec.titRec': {$regex : ".*"+text+".*", $options : 'i'}}]})
         .sort( {dataRegisto : -1} )
         .exec()
 }

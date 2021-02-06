@@ -20,6 +20,10 @@ router.get('/', function(req, res) {
     Recurso.listarbyTitulo(page, limit, req.query.email)
       .then(dados => res.status(200).jsonp(dados) )
       .catch(e => res.status(500).jsonp({error: e}))
+  }else  if(req.query.byClassif != null){
+    Recurso.listarbyClassif(page, limit, req.query.email)
+      .then(dados => res.status(200).jsonp(dados) )
+      .catch(e => res.status(500).jsonp({error: e}))
   }else  if(req.query.byData != null){
     Recurso.listarbyData(page, limit, req.query.email)
       .then(dados => res.status(200).jsonp(dados) )

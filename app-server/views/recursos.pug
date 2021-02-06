@@ -10,20 +10,21 @@ block content
   div(style="display: flex")
     p(style="margin-left: 10px; font-size:20px; font-weight: bold") Recursos Educativos 
       form(action='/recursos' style="margin-top:5px; margin-left:10px")
-        input(type='text' placeholder='Procurar pelo titulo...' name='search')
+        input(type='text' placeholder='Procurar...' name='search')
         button.w3-blue(type='submit')
           i.fa.fa-search.w3-large.w3-text-white
   
   table(class="w3-table-all")
         tr.w3-blue
-            th 
+            th
               a(href='/recursos?byTipo=true' , style="text-decoration:none; color:white") Tipo
             th 
               a(href='/recursos?byTitulo=true' , style="text-decoration:none; color:white") Titulo
-            th Subtitulo
-            th 
+            th(style="text-align:center")
+              a(href='/recursos?byClassif=true', style="text-decoration:none; color:white") Classificação
+            th(style="text-align:center")
               a(href='/recursos?byData=true' , style="text-decoration:none; color:white") Data
-            th 
+            th(style="text-align:center") 
               a(href='/recursos?byAutor=true' , style="text-decoration:none; color:white") Autor
             th  
         each r in recursos
@@ -31,9 +32,13 @@ block content
                 td= r.tipo
                 td
                   a(href='/recursos/' + r._id) #{r.titulo}
-                td= r.subtitulo
-                td= r.dataCriacao.split("T")[0]
-                td= r.produtor.nomeP
+                td(style="text-align:center")
+                  if r.ranking.rating
+                    d #{r.ranking.rating}/10
+                  else
+                    d Sem classificação  
+                td(style="text-align:center")= r.dataCriacao.split("T")[0]
+                td(style="text-align:center")= r.produtor.nomeP
                 td 
                   a(href="/download/"+r.path)
                     div(style="text-decoration: none; color: black")

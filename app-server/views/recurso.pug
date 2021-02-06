@@ -56,7 +56,7 @@ block content
                   if recurso.ranking.rating
                        d(style="margin-left: -15px; margin-right: 35px") #{recurso.ranking.rating}/10 de #{leng.leng}
                   else
-                       d(style="margin-left: -15px; margin-right: 35px") Sem avaliações
+                       d(style="margin-left: -15px; margin-right: 35px") Sem classificação
                   select(name='rating')
                     option(value='0') Selecione um rating:
                     option(value='1') 1
@@ -77,18 +77,25 @@ block content
           td.w3-blue Email do produtor:
           td= recurso.produtor.emailP
 
-      a(href="/download/"+recurso.path style="text-decoration:none;")
-        .w3-btn.w3-border.w3-round-xlarge(style="text-decoration: none; color: grey; margin-top:40px ; margin-left: 25px; ") Download
-          i.material-icons.md-18(style="vertical-align:-21%; margin-left:10px") archive    
-  
-      div(style="margin-top:20%;")
-      if tag
-        a(href="/recursos/remover/"+recurso._id style="margin-left:10px")  
-            button.w3-btn.w3-blue Remover
-        |
-        |
-      a(href="/recursos" style="margin-left:10px")  
-            button.w3-btn.w3-blue Back
+     
+      div(style="margin-top:40%; display:flex")
+        if tag
+          button.w3-btn.w3-blue(onclick="document.getElementById('id01').style.display='block'") Remover
+
+          div(class="w3-modal" id="id01" )
+            .w3-modal-content(action='/recurso/remover/'+recurso._id) 
+              .w3-container
+               h1 Delete Account
+               p Are you sure you want to delete your account?
+                 .clearfix
+                  a(href="/recursos/"+recurso._id style="margin-left:10px")  
+                    button.w3-btn.w3-blue Cancelar
+                  a(href="/recursos/remover/"+recurso._id style="margin-left:10px")  
+                    button.w3-btn.w3-blue Remover
+
+        a(href="/download/"+recurso.path style="text-decoration:none;")
+          .w3-btn.w3-border.w3-round-xlarge(style="text-decoration: none; color: grey; margin-left:15px; ") Download
+            i.material-icons.md-18(style="vertical-align:-21%; margin-left:10px") archive    
 
 
     script.
@@ -100,5 +107,8 @@ block content
        x.style.display = "none";
        }
        }
-
-  
+       function showImage(){
+    
+        $("#display").empty()
+        $("#display").modal()
+       }

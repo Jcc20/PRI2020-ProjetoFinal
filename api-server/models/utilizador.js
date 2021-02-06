@@ -8,7 +8,6 @@ var utilizadorSchema = new mongoose.Schema({
     nivel: { type:  String, default: "consumer", required: true },
     dataRegisto: { type : Date, default: Date.now, required: true },
     dataUltimoAcesso: { type : Date },
-    recProd: [String],
 })
 
 module.exports = mongoose.model('utilizador', utilizadorSchema)
