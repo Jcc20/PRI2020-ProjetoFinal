@@ -27,11 +27,11 @@ const storage = multer.diskStorage({
   },
   filename: function(req, file, cb) {
     var decoded = jwt.decode(req.cookies.token, {complete: true});
-    if(filehash == 0){
-      var x = decoded.payload.email
-      var hash = crypto.createHash('sha1').update(x).digest('hex')
-      filehash= hash
-    } 
+    
+    var x = decoded.payload.email
+    var hash = crypto.createHash('sha1').update(x).digest('hex')
+    filehash= hash
+    
   
     cb(null, filehash+'-'+file.originalname);
   }
@@ -40,7 +40,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 5 * 3//15mb
+    fileSize: 1024 * 1024 * 5 * 15//15mb
   }
 }).array('myFile');
 

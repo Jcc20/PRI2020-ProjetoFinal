@@ -24,7 +24,7 @@ block content
             th(style="text-align:center")
               a(href='/recursos?byClassif=true', style="text-decoration:none; color:white") Classificação
             th(style="text-align:center")
-              a(href='/recursos?byData=true' , style="text-decoration:none; color:white") Data
+              a(href='/recursos?byData=true' , style="text-decoration:none; color:white") Data de Criação
             th(style="text-align:center") 
               a(href='/recursos?byAutor=true' , style="text-decoration:none; color:white") Autor
             th  
@@ -38,7 +38,7 @@ block content
                     d #{r.ranking.rating}/10
                   else
                     d Sem classificação  
-                td(style="text-align:center")= r.dataCriacao.split("T")[0]
+                td(style="text-align:center; width:150px")= r.dataCriacao.split("T")[0]
                 td(style="text-align:center")= r.produtor.nomeP
                 td 
                   a(href="/download/"+r.path)
