@@ -481,16 +481,61 @@ router.get('/perfil/editar', isLogged, function(req,res) {
 /* PUT editar perfil page */
 router.post('/perfil/editar', function(req,res) {
   var decoded = jwt.decode(req.cookies.token, {complete: true});
-  req.body["_id"] = decoded.payload._id
-  axios.put('http://localhost:8001/utilizadores?token=' + req.cookies.token, req.body)
-   .then(dados => {
-       req.flash('success','Perfil alterado com sucesso!')
+  var body = {}
+  body["_id"] = decoded.payload._id
+  body["filiacao"] = req.body.filiacao
+
+  if (req.body.oldpassword == "" && req.body.newpassword == "" && req.body.new2password == "") {
+    axios.put('http://localhost:8001/utilizadores?token=' + req.cookies.token, body)
+    .then(dados => {
+        req.flash('success','Perfil alterado com sucesso!')
+        res.redirect('/perfil')
+      })
+    .catch(e => {
+       req.flash('danger','Perfil não foi alterado com sucesso!')
        res.redirect('/perfil')
-     })
-   .catch(e => {
-      req.flash('danger','Perfil não foi alterado com sucesso!')
-      res.redirect('/perfil')
-   })
+    })
+  }
+  else if (req.body.oldpassword != "" && req.body.newpassword != "" && req.body.new2password != "") {
+    axios.get('http://localhost:8001/utilizadores/'+decoded.payload._id+'?token=' + req.cookies.token) 
+      .then(dados => {
+        bcrypt.compare(req.body.oldpassword, dados.data.password)
+        .then(function(result) {
+          if(!result) { 
+            req.flash('danger','Perfil não foi alterado com sucesso!')
+            res.redirect('/perfil/editar')
+          }
+          else {
+            if(req.body.newpassword != req.body.new2password){
+              req.flash('danger','Passwords não correspondem!')
+              res.redirect('/perfil/editar')
+            }
+            else {
+              bcrypt.hash(req.body.newpassword, saltRounds, function(err, hash) {
+                body["password"] = hash
+                  axios.put('http://localhost:8001/utilizadores?token=' + req.cookies.token, body)
+                .then(dados => {
+                     req.flash('success','Perfil alterado com sucesso!')
+                     res.redirect('/perfil')
+                   })
+                .catch(e => {
+                    req.flash('danger','Perfil não foi alterado com sucesso!')
+                    res.redirect('/perfil')
+                })
+              })
+            }
+          }
+        })
+      })
+      .catch(e => {
+       req.flash('danger','Perfil não foi alterado com sucesso!')
+       res.redirect('/perfil/editar')
+      })  
+  }
+  else {
+    req.flash('danger','Perfil não foi alterado com sucesso!')
+    res.redirect('/perfil/editar')
+  }
 })
 
 

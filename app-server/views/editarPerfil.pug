@@ -32,8 +32,38 @@ block content
               p
                 i.fa.fa-calendar.fa-fw.w3-margin-right.w3-large.w3-text-blue
                 | #{utilizador.dataRegisto}
+              hr
+              .w3-btn.w3-small.w3-blue(style="margin-left:97px; margin-bottom:10px" onclick='add("1")') Alterar password
+              div(id=1, style="display: none;")
+                hr
+                p
+                  i.fa.fa-lock.fa-fw.w3-margin-right.w3-large.w3-text-blue
+                  | 
+                  input(type="password", placeholder="Password antiga..." ,value="", name="oldpassword") 
+                hr
+                p
+                  i.fa.fa-lock.fa-fw.w3-margin-right.w3-large(style="color:red")
+                  | 
+                  input(type="password", style="font-size:4px: color: ligh-grey", placeholder="Nova password..." , value="", name="newpassword",title="Password deverá conter 6-12 caracteres, contendo uma letra maiúscula, uma minúscula e um número.", pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,12}") 
+                hr
+                p
+                  i.fa.fa-lock.fa-fw.w3-margin-right.w3-large(style="color:red")
+                  | 
+                  input(type="password", placeholder="Confirmar password..." , value="", name="new2password",title="Password deverá conter 6-12 caracteres, contendo uma letra maiúscula, uma minúscula e um número.", pattern="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,12}") 
         br
         .w3-center
           button.w3-btn.w3-blue(type="submit") Guardar
+
+
+
+    script.
+       function add(id) {
+       var x = document.getElementById(id);
+       if (x.style.display === "none") {
+       x.style.display = "block";
+       } else {
+       x.style.display = "none";
+       }
+       }
 
     
