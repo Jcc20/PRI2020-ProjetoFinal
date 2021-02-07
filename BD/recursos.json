@@ -1,0 +1,374 @@
+[{
+  "_id": {
+    "$oid": "60201c451eac5a1d3c774714"
+  },
+  "ranking": {
+    "classf": []
+  },
+  "titulo": "Paradigma da ponderação constitucional legal da criação de bases de dados genéticos para condenados",
+  "tipo": "Dissertação de mestrado",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2013-01-01T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "58e04a70e58cc7f666f26a7d970c520de489bb66-1612717124942.zip",
+  "produtor": {
+    "nomeP": "Sara Raquel Azevedo dos Santos",
+    "emailP": "a81123@alunos.uminho.pt"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T16:58:45.071Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60201df41eac5a1d3c774716"
+  },
+  "ranking": {
+    "classf": []
+  },
+  "titulo": "Compreensão de representações organizacionais baseadas em abordagens BPM",
+  "tipo": "Dissertação de mestrado",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2008-12-16T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "10f88318245680487fc4d545d766870d2c7aa0fd-1612717556878.zip",
+  "produtor": {
+    "nomeP": "Ana Cristina Vilela de Magalhães",
+    "emailP": "anacristina@gmail.com"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T17:05:56.939Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60201e6a1eac5a1d3c774718"
+  },
+  "ranking": {
+    "classf": []
+  },
+  "titulo": "Changes in CoNS biofilm formation, composition, structure and antimicrobial resistance due to growth in sub-inhibitory concentrations of dicloxacillin",
+  "tipo": "Artigo em ata de conferência",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2004-01-08T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "d1d055206cb9ebc8c86a6b167c66fae3cc5b99ec-1612717674765.zip",
+  "produtor": {
+    "nomeP": "Nuno Cerca",
+    "emailP": "nunocerca@gmail.com"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T17:07:54.810Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60201ed91eac5a1d3c77471a"
+  },
+  "ranking": {
+    "rating": 10,
+    "classf": [
+      {
+        "$oid": "6020340b1eac5a1d3c774729"
+      }
+    ]
+  },
+  "titulo": "Sistemas de gestão integrados: desenvolvimento de um modelo para avaliação do nível de maturidade",
+  "tipo": "Tese de doutoramento",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2013-12-20T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "778692ba9f616baa4ead59fc208a7e64af81d2a7-1612717784829.zip",
+  "produtor": {
+    "nomeP": "José Pedro Teixeira Domingues",
+    "emailP": "josepedro@gmail.com"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T17:09:45.295Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60201f971eac5a1d3c77471c"
+  },
+  "ranking": {
+    "rating": 9,
+    "classf": [
+      {
+        "$oid": "60202a511eac5a1d3c774723"
+      }
+    ]
+  },
+  "titulo": "Del patrimonio cultural a la transición patrimonial. Un ritual festivo en el noroeste de Portugal",
+  "tipo": "Capítulo de livro",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2014-06-10T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "f9dac632b3486b03ea35204daf8b8948949b2d64-1612717975630.zip",
+  "produtor": {
+    "nomeP": "Jean-Yves Durand",
+    "emailP": "jeanyves@gmail.com"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T17:12:55.661Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602022cf1eac5a1d3c77471e"
+  },
+  "ranking": {
+    "rating": 8,
+    "classf": [
+      {
+        "$oid": "60202a511eac5a1d3c774723"
+      }
+    ]
+  },
+  "titulo": "Guidelines for legacy repository migration",
+  "tipo": "Artigo em ata de conferência",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2021-02-07T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "6e247e56307f13b1965e60c3c571195e0d37e8f0-1612718799790.zip",
+  "produtor": {
+    "nomeP": "José Carlos Ramalho",
+    "emailP": "jcr@di.uminho.pt"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T17:26:39.934Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6020243b1eac5a1d3c77471f"
+  },
+  "ranking": {
+    "rating": 10,
+    "classf": [
+      {
+        "$oid": "60202a511eac5a1d3c774723"
+      }
+    ]
+  },
+  "titulo": "Tecnologia i serveis de preservació digital",
+  "tipo": "Comunicação oral",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2015-05-28T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "6e247e56307f13b1965e60c3c571195e0d37e8f0-1612719160376.zip",
+  "produtor": {
+    "nomeP": "José Carlos Ramalho",
+    "emailP": "jcr@di.uminho.pt"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T17:32:43.508Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6020246f1eac5a1d3c774720"
+  },
+  "ranking": {
+    "classf": []
+  },
+  "titulo": "Agregação de conteúdos e construção de redes de recursos digitais à medida",
+  "tipo": "Palestra",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2011-05-24T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "6e247e56307f13b1965e60c3c571195e0d37e8f0-1612719215559.zip",
+  "produtor": {
+    "nomeP": "José Carlos Ramalho",
+    "emailP": "jcr@di.uminho.pt"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T17:33:35.903Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602024ef1eac5a1d3c774721"
+  },
+  "ranking": {
+    "classf": []
+  },
+  "titulo": "RODA - desenvolvimento de uma plataforma tecnológica para suportar arquivos digitais",
+  "tipo": "Comunicação oral",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2006-11-29T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "6e247e56307f13b1965e60c3c571195e0d37e8f0-1612719341573.zip",
+  "produtor": {
+    "nomeP": "José Carlos Ramalho",
+    "emailP": "jcr@di.uminho.pt"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T17:35:43.970Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602026821eac5a1d3c774722"
+  },
+  "ranking": {
+    "classf": []
+  },
+  "titulo": "Constraining topic maps: a TMCL declarative implementation",
+  "tipo": "Artigo em ata de conferência",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2005-08-02T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "6e247e56307f13b1965e60c3c571195e0d37e8f0-1612719746019.zip",
+  "produtor": {
+    "nomeP": "José Carlos Ramalho",
+    "emailP": "jcr@di.uminho.pt"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T17:42:26.042Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60202a9d1eac5a1d3c774724"
+  },
+  "ranking": {
+    "classf": []
+  },
+  "titulo": "Visualization of ontology evolution using ontodi graph",
+  "tipo": "Artigo em ata de conferência",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2017-01-01T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "8d804edaf2c6610bf5664b29ccd5a68cc051cee3-1612720797556.zip",
+  "produtor": {
+    "nomeP": "Pedro Rangel Henriques",
+    "emailP": "prh@di.uminho.pt"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T17:59:57.622Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60202acc1eac5a1d3c774725"
+  },
+  "ranking": {
+    "classf": []
+  },
+  "titulo": "Visualization of domain-specific programs' behavior",
+  "tipo": "Artigo em ata de conferência",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2009-01-01T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "8d804edaf2c6610bf5664b29ccd5a68cc051cee3-1612720844515.zip",
+  "produtor": {
+    "nomeP": "Pedro Rangel Henriques",
+    "emailP": "prh@di.uminho.pt"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T18:00:44.831Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60202efc1eac5a1d3c774726"
+  },
+  "ranking": {
+    "classf": []
+  },
+  "titulo": "A perspective on architectural re-engineering",
+  "tipo": "Artigo",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2015-02-01T00:00:00Z"
+  },
+  "visibilidade": false,
+  "path": "8d804edaf2c6610bf5664b29ccd5a68cc051cee3-1612721916833.zip",
+  "produtor": {
+    "nomeP": "Pedro Rangel Henriques",
+    "emailP": "prh@di.uminho.pt"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T18:18:36.860Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602035fe1eac5a1d3c77472d"
+  },
+  "ranking": {
+    "rating": 8.5,
+    "classf": [
+      {
+        "$oid": "6020358d1eac5a1d3c77472c"
+      },
+      {
+        "$oid": "6020340b1eac5a1d3c774729"
+      }
+    ]
+  },
+  "titulo": "Testes/Exames da cadeira de ICD do curso de Eng. Informática da Universidade do Minho",
+  "tipo": "Testes/Exames",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2021-02-07T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "84fbf23a2ce4661decdb1fb3fa45d4f0f3ebb3d5-1612723710363.zip",
+  "produtor": {
+    "nomeP": "António Luís Pinto Ferreira Sousa",
+    "emailP": "als@di.uminho.pt"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T18:48:30.411Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602036821eac5a1d3c77472e"
+  },
+  "ranking": {
+    "classf": []
+  },
+  "titulo": "Testes/Exames da cadeira de ABD do curso de Eng. Informática da Universidade do Minho",
+  "tipo": "Testes/Exames",
+  "subtitulo": "",
+  "dataCriacao": {
+    "$date": "2021-02-07T00:00:00Z"
+  },
+  "visibilidade": true,
+  "path": "84fbf23a2ce4661decdb1fb3fa45d4f0f3ebb3d5-1612723842850.zip",
+  "produtor": {
+    "nomeP": "António Luís Pinto Ferreira Sousa",
+    "emailP": "als@di.uminho.pt"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T18:50:42.860Z"
+  },
+  "__v": 0
+}]

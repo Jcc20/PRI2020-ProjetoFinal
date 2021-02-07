@@ -1,0 +1,67 @@
+[{
+  "_id": {
+    "$oid": "6020337a1eac5a1d3c774727"
+  },
+  "titulo": "Redes de recursos digitais",
+  "descricao": " Para quem tem interesse em saber mais sobre redes de recursos digitais aconselho a ver esta palestra!",
+  "autor": {
+    "nomeA": "Pedro Rangel Henriques",
+    "emailA": "prh@di.uminho.pt"
+  },
+  "rec": {
+    "idRec": {
+      "$oid": "6020246f1eac5a1d3c774720"
+    },
+    "titRec": "Agregação de conteúdos e construção de redes de recursos digitais à medida"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T18:37:46.379Z"
+  },
+  "comentarios": [
+    {
+      "_id": {
+        "$oid": "602034941eac5a1d3c77472b"
+      },
+      "emailC": "a84775@alunos.uminho.pt",
+      "nomeC": "João Cunha ",
+      "comentario": "Muito interessante!",
+      "dataC": {
+        "$date": "2021-02-07T18:42:28.064Z"
+      }
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602033e61eac5a1d3c774728"
+  },
+  "titulo": "Arquivos digitais",
+  "descricao": " Para todos os que trabalham com arquivos digitais temos aqui uma ferramenta muito útil para o suporte dos mesmos!",
+  "autor": {
+    "nomeA": "Pedro Rangel Henriques",
+    "emailA": "prh@di.uminho.pt"
+  },
+  "rec": {
+    "idRec": {
+      "$oid": "602024ef1eac5a1d3c774721"
+    },
+    "titRec": "RODA - desenvolvimento de uma plataforma tecnológica para suportar arquivos digitais"
+  },
+  "dataRegisto": {
+    "$date": "2021-02-07T18:39:34.443Z"
+  },
+  "comentarios": [
+    {
+      "_id": {
+        "$oid": "602034431eac5a1d3c77472a"
+      },
+      "emailC": "a84775@alunos.uminho.pt",
+      "nomeC": "João Cunha ",
+      "comentario": "Já conhecia essa plataforma, é muito boa!",
+      "dataC": {
+        "$date": "2021-02-07T18:41:07.457Z"
+      }
+    }
+  ],
+  "__v": 0
+}]

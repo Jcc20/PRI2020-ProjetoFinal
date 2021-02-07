@@ -1,0 +1,329 @@
+[{
+  "_id": {
+    "$oid": "601c3667897cb40d589fdd06"
+  },
+  "nivel": "producer",
+  "nome": "Martim",
+  "email": "martim@gmail.com",
+  "password": "$2b$10$hY5.MvaLgaxqCu.3VDxvauBc9/wfF.5Jzd0DFfCSpSYoxJhA7wDG.",
+  "filiacao": "Uminho",
+  "dataRegisto": {
+    "$date": "2021-02-04T18:01:11.883Z"
+  },
+  "__v": 0,
+  "dataUltimoAcesso": "2021-2-6 20:06:07"
+},{
+  "_id": {
+    "$oid": "60200ea5011abe4a4c1f7803"
+  },
+  "nivel": "consumer",
+  "nome": "Luis Ramos",
+  "email": "a83930@alunos.uminho.pt",
+  "password": "$2b$10$eRsIbcpl4CrDo3B/uvP/9O6K7HK4MGQ62LX6xAvTyBRppirUl7hti",
+  "filiacao": "Estudante da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:00:37.352Z"
+  },
+  "__v": 0,
+  "dataUltimoAcesso": "2021-2-7 16:13:16"
+},{
+  "_id": {
+    "$oid": "602016051eac5a1d3c774707"
+  },
+  "nivel": "consumer",
+  "nome": "Calango Ferreira",
+  "email": "calango@gmail.com",
+  "password": "$2b$10$6OSNcMeIM7HyYyukej1mf.nuIB2EOB2wnOGPHiasgO.dQahLoXOFC",
+  "filiacao": "Estudante da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:32:05.300Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602017431eac5a1d3c774708"
+  },
+  "nivel": "consumer",
+  "nome": "Quim Barreiros",
+  "email": "quim@gmail.com",
+  "password": "$2b$10$K48.56ekYbbFCD7N3xh.uuJRgMIwWeHTgdGsLEMvdN3wB3SeD8lAi",
+  "filiacao": "Docente no departamento de Informática da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:37:23.569Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6020175e1eac5a1d3c774709"
+  },
+  "nivel": "consumer",
+  "nome": "Floribela Alberta",
+  "email": "Floribela@gmail.com",
+  "password": "$2b$10$U7CtrEt9iErqUzUVl6FIXeFLQr585d4kq2pQO1aIEH9GnJvRHqZh6",
+  "filiacao": "Estudante da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:37:50.723Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602017cc1eac5a1d3c77470a"
+  },
+  "nivel": "consumer",
+  "nome": "Leonardo Alves",
+  "email": "leonardoAlves@gmail.com",
+  "password": "$2b$10$x/BrhpC0W56.GTcdUSMA.OAV1NPMNWUTQdwyTXRt2nBdXz86DBRtW",
+  "filiacao": "Estudante da Universidade do Porto",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:39:40.496Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602018051eac5a1d3c77470b"
+  },
+  "nivel": "consumer",
+  "nome": "Maria Leal",
+  "email": "marialeal@gmail.com",
+  "password": "$2b$10$YzVpgs5qTycfQEGomhp2IejDHrirSFQ1xgIXQZ19w1FxkDeLHms72",
+  "filiacao": "Docente no departamento de Artes da Universidade do Porto",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:40:37.916Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602019251eac5a1d3c77470c"
+  },
+  "nivel": "consumer",
+  "nome": "Emanuel luis",
+  "email": "emanuelluis@gmail.com",
+  "password": "$2b$10$i/v7Q7WFNBy18Lv47z38.O2K2L.zbGo81PGgtO3t5vwO2AfBBcL52",
+  "filiacao": "Estudante da Universidade do Algarve",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:45:25.033Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602019571eac5a1d3c77470d"
+  },
+  "nivel": "consumer",
+  "nome": "Filipa Alves",
+  "email": "fliper@gmail.com",
+  "password": "$2b$10$gA/jr5c2AS.5CXvPBc7weOs3WGMW477HioTZCYM1cfUqbfX2WM/bu",
+  "filiacao": "Docente no departamento de Artes da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:46:15.685Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602019871eac5a1d3c77470e"
+  },
+  "nivel": "consumer",
+  "nome": "Hugo Cardoso",
+  "email": "hugocardoso@hotmail.com",
+  "password": "$2b$10$u8YKjTDlvLovtl8q8XXELevTKG0P6yk4I6OItiTZXWd4TX9JXSyE2",
+  "filiacao": "Estudante da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:47:03.285Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602019b61eac5a1d3c77470f"
+  },
+  "nivel": "consumer",
+  "nome": "Válter Carvalho",
+  "email": "valtercarvalho@gmail.com",
+  "password": "$2b$10$FO9wX7Vdm4rGTRcMMx3kRutIR.lZ.GDQDr8A/8Nmuw/oA.iAR0kgO",
+  "filiacao": "Estudante da Universidade do Porto",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:47:50.183Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602019d41eac5a1d3c774710"
+  },
+  "nivel": "consumer",
+  "nome": "Ricardo Cunha",
+  "email": "a83432@alunos.uminho.pt",
+  "password": "$2b$10$E8oYJwxpWuzO78KNgy.T6.IOe22KSPh71wC3nl1/6ymvub5qkLLLi",
+  "filiacao": "Estudante da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:48:20.253Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602019f71eac5a1d3c774711"
+  },
+  "nivel": "consumer",
+  "nome": "Pedro Costa",
+  "email": "a989822@alunos.uminho.pt",
+  "password": "$2b$10$wD5Q3f0uwUu6S7JqXHZ85uq.8i6LYcyv/6tsZX9iSCKxUIue4b3Du",
+  "filiacao": "Estudante da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:48:55.762Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60201a6d1eac5a1d3c774712"
+  },
+  "nivel": "consumer",
+  "nome": "Luis Armando",
+  "email": "a54663@alunos.uminho.pt",
+  "password": "$2b$10$B6amRSiZTAdU.PpXqL3Mf.zP/11m0UedPLYOuDkBsWkf6SNnLYyc2",
+  "filiacao": "Docente no departamento de Informática da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:50:53.470Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60201bc31eac5a1d3c774713"
+  },
+  "nivel": "producer",
+  "nome": "Sara Raquel Azevedo dos Santos",
+  "email": "a81123@alunos.uminho.pt",
+  "password": "$2b$10$2eWu3czu5biVv2Pess7iEOv.nsUifUQehwMuxMpnbEeCA.3NrtdGK",
+  "filiacao": "Estudante da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T16:56:35.151Z"
+  },
+  "__v": 0,
+  "dataUltimoAcesso": {
+    "$date": "2021-02-07T16:56:53Z"
+  }
+},{
+  "_id": {
+    "$oid": "60201dc31eac5a1d3c774715"
+  },
+  "nivel": "producer",
+  "nome": "Ana Cristina Vilela de Magalhães",
+  "email": "anacristina@gmail.com",
+  "password": "$2b$10$BptHbsTpzyqlK/BAo5654usVXJMEpS.ZVsHVbN/FILS/AL5cZN8ZG",
+  "filiacao": "Estudante da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T17:05:07.156Z"
+  },
+  "__v": 0,
+  "dataUltimoAcesso": {
+    "$date": "2021-02-07T17:05:17Z"
+  }
+},{
+  "_id": {
+    "$oid": "60201e311eac5a1d3c774717"
+  },
+  "nivel": "producer",
+  "nome": "Nuno Cerca",
+  "email": "nunocerca@gmail.com",
+  "password": "$2b$10$5rhE2JBOqFDX3/LNzpSW2O67a7zGqV1Z38e9YAJuSUWx1yV.p2T1y",
+  "filiacao": "Docente no departamento de Biologia da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T17:06:57.567Z"
+  },
+  "__v": 0,
+  "dataUltimoAcesso": {
+    "$date": "2021-02-07T17:07:08Z"
+  }
+},{
+  "_id": {
+    "$oid": "60201eb01eac5a1d3c774719"
+  },
+  "nivel": "producer",
+  "nome": "José Pedro Teixeira Domingues",
+  "email": "josepedro@gmail.com",
+  "password": "$2b$10$wNN6YRirh18MN/Bp9ApF0uj2axbthBGid9cxeEggK4Yf3wTtk6AyC",
+  "filiacao": "Estudante da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T17:09:04.243Z"
+  },
+  "__v": 0,
+  "dataUltimoAcesso": {
+    "$date": "2021-02-07T17:09:13Z"
+  }
+},{
+  "_id": {
+    "$oid": "60201f731eac5a1d3c77471b"
+  },
+  "nivel": "producer",
+  "nome": "Jean-Yves Durand",
+  "email": "jeanyves@gmail.com",
+  "password": "$2b$10$MRQl0KRhwmYylR9w6dvcDeZu8K6Zhbb8mtJeKL.E32elKAakjxbpS",
+  "filiacao": "Docente no departamento de História da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T17:12:19.966Z"
+  },
+  "__v": 0,
+  "dataUltimoAcesso": {
+    "$date": "2021-02-07T17:12:30Z"
+  }
+},{
+  "_id": {
+    "$oid": "6020219e1eac5a1d3c77471d"
+  },
+  "nivel": "producer",
+  "nome": "José Carlos Ramalho",
+  "email": "jcr@di.uminho.pt",
+  "password": "$2b$10$nxlEkCHoMC72aiz7IWry0exOtWm45TobVcJ41vvjma23n0NnOyEQm",
+  "filiacao": "Docente no departamento de Informática da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T17:21:34.289Z"
+  },
+  "__v": 0,
+  "dataUltimoAcesso": {
+    "$date": "2021-02-07T19:29:25Z"
+  }
+},{
+  "_id": {
+    "$oid": "60202a511eac5a1d3c774723"
+  },
+  "nivel": "producer",
+  "nome": "Pedro Rangel Henriques",
+  "email": "prh@di.uminho.pt",
+  "password": "$2b$10$yO3HyC.mnv0GugOwTJHej.IttorVRPgrQU8d40uzR9DGnwd20BqUq",
+  "filiacao": "Docente no departamento de Informática da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T17:58:41.170Z"
+  },
+  "__v": 0,
+  "dataUltimoAcesso": {
+    "$date": "2021-02-07T17:58:48Z"
+  }
+},{
+  "_id": {
+    "$oid": "6020340b1eac5a1d3c774729"
+  },
+  "nivel": "producer",
+  "nome": "João Cunha",
+  "email": "a84775@alunos.uminho.pt",
+  "password": "$2b$10$1kfxemXS142JkAmeUMM9ouaOLGBL8sj5xz92ABFK4AC8nrwm4w.fG",
+  "filiacao": "Estudante da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T18:40:11.881Z"
+  },
+  "__v": 0,
+  "dataUltimoAcesso": {
+    "$date": "2021-02-07T19:30:45Z"
+  }
+},{
+  "_id": {
+    "$oid": "6020358d1eac5a1d3c77472c"
+  },
+  "nivel": "producer",
+  "nome": "António Luís Pinto Ferreira Sousa",
+  "email": "als@di.uminho.pt",
+  "password": "$2b$10$0NHtC2PIF1dnbPmPL.dZX.K4Uhq6tY76E4U.sE9fFOfz75Th0/M.e",
+  "filiacao": "Docente no departamento de Informática da Universidade do Minho",
+  "dataRegisto": {
+    "$date": "2021-02-07T18:46:37.990Z"
+  },
+  "__v": 0,
+  "dataUltimoAcesso": {
+    "$date": "2021-02-07T18:46:43Z"
+  }
+}]
