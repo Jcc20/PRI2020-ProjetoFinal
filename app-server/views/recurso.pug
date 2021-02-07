@@ -103,13 +103,15 @@ block content
           button.w3-btn.w3-blue(onclick="document.getElementById('id01').style.display='block'") Remover
 
           div(class="w3-modal" id="id01" )
-            .w3-modal-content(action='/recurso/remover/'+recurso._id) 
+            .w3-modal-content(action='/recurso/remover/'+recurso._id style="width:40rem;")
               .w3-container
-               h1 Remover Recurso
+               h1(style="margin-top:15px") Remover Recurso
                p Tem a certeza que deseja remover o recurso?
                  .clearfix
                   a(href="/recursos/"+recurso._id style="margin-left:10px")  
                     button.w3-btn.w3-blue Cancelar
+                  |
+                  |
                   a(href="/recursos/remover/"+recurso._id style="margin-left:10px")  
                     button.w3-btn.w3-blue Remover
 
