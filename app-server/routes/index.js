@@ -317,6 +317,27 @@ router.post("/recursos/classificar/:id", isLogged, (req, res, next) => {
 })
 
 
+
+router.post("/recursos/visibilidade/:id", isLogged, (req, res, next) => {
+ 
+  axios.get('http://localhost:8001/recursos/'+req.params.id+'?token=' + req.cookies.token)
+  .then(dados => {
+    if (dados.data.visibilidade==true) dados.data.visibilidade=false
+    else dados.data.visibilidade=true
+    axios.put('http://localhost:8001/recursos?token=' + req.cookies.token, dados.data)
+    .then( dados => { 
+      req.flash('success','Visiblidade do recurso alterada com sucesso!')
+      res.redirect('/recursos/'+req.params.id)
+    })
+    .catch( erro => { 
+      req.flash('danger','Visiblidade do recurso não foi alterada com sucesso!')
+      res.redirect('/recursos/'+req.params.id)  
+    })
+  })
+  .catch(e => res.render('error', {error: e}))
+})
+
+
 /* GET registo page. */
 router.get('/registo', function(req, res, next) {
   res.render('registo');

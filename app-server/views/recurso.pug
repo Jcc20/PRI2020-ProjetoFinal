@@ -1,6 +1,9 @@
 extends layout
 
+
 block content
+
+ link(href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet")
 
  div(style="font-size: 14px; width: 85%; margin: auto")
  
@@ -76,6 +79,23 @@ block content
         tr 
           td.w3-blue Email do produtor:
           td= recurso.produtor.emailP
+        if tag  
+          tr 
+            td.w3-blue Visibilidade:
+            td 
+              form(id="formname" class="w3-container" action='/recursos/visibilidade/'+recurso._id, method='POST')
+                d(style="margin-right:10px; margin-left:-14px") Privado
+                if recurso.visibilidade==false
+                  label.switch
+                    input(type='checkbox' onChange="this.form.submit()")
+                    span.slider.round
+                else
+                  label.switch
+                    input(type='checkbox' checked onChange="this.form.submit()")
+                    span.slider.round
+                d(style="margin-left:10px") Público
+      
+
 
      
       div(style="margin-top:40%; display:flex")
@@ -108,7 +128,74 @@ block content
        }
        }
        function showImage(){
-    
         $("#display").empty()
         $("#display").modal()
        }
+
+       $(document).ready(function(){
+          $("#formname").on("change", "input:checkbox", function(){
+          $("#formname").submit();
+          });
+       }); 
+
+
+    style.
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 56px;
+          height: 28px;
+        }
+        
+        .switch input { 
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+        
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 20px;
+          width: 20px;
+          left: 4px;
+          bottom: 4px;
+          background-color: white;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+        
+        input:checked + .slider {
+          background-color: #2196F3;
+        }
+        
+        input:focus + .slider {
+          box-shadow: 0 0 1px #2196F3;
+        }
+        
+        input:checked + .slider:before {
+          -webkit-transform: translateX(26px);
+          -ms-transform: translateX(26px);
+          transform: translateX(26px);
+        }
+        
+        /* Rounded sliders */
+        .slider.round {
+          border-radius: 34px;
+        }
+        
+        .slider.round:before {
+          border-radius: 50%;
+        }
