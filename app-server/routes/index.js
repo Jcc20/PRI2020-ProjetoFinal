@@ -48,7 +48,6 @@ const upload = multer({
 
 /* GET home page */
 router.get('/', isLogged, function(req,res) {
-
   axios.get('http://localhost:8001/recursos?byDataRegisto=true&token=' + req.cookies.token)
   .then(recursos => {
      axios.get('http://localhost:8001/posts?token=' + req.cookies.token)
@@ -71,10 +70,8 @@ router.get('/', isLogged, function(req,res) {
     .catch(e => res.render('error', {error: e}))
   })
   .catch(e => res.render('error', {error: e}))
-  
-
-
 })
+
 
 function compareByDataRegisto( a, b ) {
   if ( a.dataRegisto < b.dataRegisto ) return 1;
@@ -171,7 +168,6 @@ router.get('/recursos/:id', isLogged,function(req,res) {
     }else{
       res.render('recurso', {recurso: dados.data,voted: vot, leng: le,  user: "logged"})
     }
-
   })
   .catch(e => res.render('error', {error: e}))
 })
@@ -207,6 +203,7 @@ router.get('/recursos/remover/:id', isLogged,function(req,res) {
     res.redirect('/recursos/'+req.params.id)
   })
 })
+
 
 /* POST recurso */
 router.post("/recursos", isLogged, (req, res, next) => {
@@ -277,6 +274,7 @@ router.post("/recursos", isLogged, (req, res, next) => {
   })
 })
 
+
 /* Classificar recurso */
 router.post("/recursos/classificar/:id", isLogged, (req, res, next) => {
  
@@ -307,16 +305,12 @@ router.post("/recursos/classificar/:id", isLogged, (req, res, next) => {
 
     axios.put('http://localhost:8001/recursos?token=' + req.cookies.token, bod)
     .then( dados => { 
-
       req.flash('success','Recurso classificado com sucesso!')
       res.redirect('/recursos/'+req.params.id)
     })
     .catch( erro => { 
-    
-
       req.flash('danger','Recurso não foi classificado com sucesso!')
-      res.redirect('/recursos/'+req.params.id)
-      
+      res.redirect('/recursos/'+req.params.id)  
     })
   })
   .catch(e => res.render('error', {error: e}))
@@ -346,7 +340,7 @@ router.post('/registo', function(req,res) {
         try {
           if (erro.response.data.error.keyValue.email!=null){ 
             req.flash('warning','Email já existente!')
-          res.redirect('/registo')
+            res.redirect('/registo')
           }
         }
         catch{ 
@@ -403,6 +397,7 @@ router.post('/posts/comentario/:id', isLogged,  (req, res, next) => {
   .catch(e => res.render('error', {error: e}))
 })
 
+
 /* POST de um post */
 router.post('/posts/:id', isLogged,  (req, res, next) => {
   var decoded = jwt.decode(req.cookies.token, {complete: true});
@@ -423,19 +418,21 @@ router.post('/posts/:id', isLogged,  (req, res, next) => {
   .catch(e => res.render('error', {error: e}))
 })
 
+
 /* Remover post */
 router.get('/posts/remover/:id', isLogged,function(req,res) {
   axios.delete('http://localhost:8001/posts/'+req.params.id+'?token=' + req.cookies.token)
   .then(dados =>{
     req.flash('success','Post removido com sucesso!')
     res.redirect('/posts')
-
   })
   .catch(e =>{
     req.flash('danger','Post não foi removido com sucesso!')
     res.redirect('/posts/'+req.params.id)
   })
 })
+
+
 /* Remover comentário */
 router.get('/posts/remover/:id/comentario/:idC', isLogged,function(req,res) {
   axios.delete('http://localhost:8001/posts/'+req.params.id+'/comentario/'+req.params.idC+'?token=' + req.cookies.token)
@@ -448,11 +445,6 @@ router.get('/posts/remover/:id/comentario/:idC', isLogged,function(req,res) {
     res.redirect('/posts/'+req.params.id)
   })
 })
-
-
-
-
-
 
 
 
@@ -474,7 +466,6 @@ router.get('/perfil', isLogged, function(req,res) {
 
 
 
-
 /* GET editar perfil page */
 router.get('/perfil/editar', isLogged, function(req,res) {
    var decoded = jwt.decode(req.cookies.token, {complete: true});
@@ -485,6 +476,7 @@ router.get('/perfil/editar', isLogged, function(req,res) {
       })
     .catch(e => res.render('error', {error: e}))
 })
+
 
 /* PUT editar perfil page */
 router.post('/perfil/editar', function(req,res) {
@@ -500,6 +492,7 @@ router.post('/perfil/editar', function(req,res) {
       res.redirect('/perfil')
    })
 })
+
 
 /* GET perfil by email page */
 router.get('/perfil/:email', isLogged, function(req,res) {

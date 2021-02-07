@@ -3,13 +3,15 @@ var router = express.Router();
 const Utilizador = require('../controllers/utilizador')
 
 
-/* GET home page. */
+// Consultar os utilizadores
 router.get('/', function(req, res) {
   Utilizador.listar()
     .then(dados => res.status(200).jsonp(dados) )
     .catch(e => res.status(500).jsonp({error: e}))
 });
 
+
+// Consultar um utilizador
 router.get('/:id', function(req, res) {
   if(req.query.byEmail != null){
     Utilizador.consultarByEmail(req.params.id)
@@ -22,7 +24,6 @@ router.get('/:id', function(req, res) {
     .catch(e => res.status(500).jsonp({error: e}))
   }
 });
-
 
 
 // Inserir um utilizador

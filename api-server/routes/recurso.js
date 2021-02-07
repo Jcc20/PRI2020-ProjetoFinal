@@ -3,7 +3,7 @@ var router = express.Router();
 const Recurso = require('../controllers/recurso')
 
 
-/* GET home page. */
+// Consultar os recursos todos
 router.get('/', function(req, res) {
   var page, limit
   req.query.page ?  page = parseInt(req.query.page)   : page = 1
@@ -51,6 +51,7 @@ router.get('/', function(req, res) {
   }
 });
 
+// Consultar um recurso
 router.get('/:id', function(req, res) {
   Recurso.consultar(req.params.id)
     .then(dados => res.status(200).jsonp(dados) )

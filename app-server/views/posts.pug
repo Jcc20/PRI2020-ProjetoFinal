@@ -43,11 +43,9 @@ block content
       footer.w3-container.w3-light-grey 
         .w3-container.w3-border-bottom.w3-border-top.w3-border-black
           if post.comentarios.length>0
-            .w3-btn(style="box-shadow:none;" onclick='showComents("'+post.titulo+'")') Ver Comentários
+            .w3-btn(style="box-shadow:none;" onclick='show("'+post.titulo+'")') Ver Comentários
           h5(style="float: right;margin-top:10px") Escrito em: #{post.dataRegisto.split("T")[0]}
 
-          
-      
       
       div(id=post.titulo , style="display: none;font-size:14px")
        .w3-container.w3-light-grey
@@ -84,16 +82,7 @@ block content
 
 
     script.
-       function showComents(id) {
-       var x = document.getElementById(id);
-       if (x.style.display === "none") {
-       x.style.display = "block";
-       } else {
-       x.style.display = "none";
-       }
-       }
-
-       function addComent(id) {
+       function show(id) {
        var x = document.getElementById(id);
        if (x.style.display === "none") {
        x.style.display = "block";
