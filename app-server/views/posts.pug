@@ -12,7 +12,7 @@ block content
 
     br
 
-    each post in posts
+    each post in posts 
 
      .w3-container
       .w3-container-card-4
@@ -27,11 +27,23 @@ block content
             a(href="/recursos/"+post.rec.idRec  style="font-weight: bold;color:white;") #{post.rec.titRec}
             div(style="float:right;")
               if level=="admin"
-                a(href="/posts/remover/"+post._id  style="font-weight: bold;color:white;text-decoration:none;")
-                  i(class="w3-xlarge material-icons" ) cancel
+                i(type="button" class="w3-xlarge material-icons" onclick="document.getElementById('"+post._id+"').style.display='block'") cancel
               else if post.autor.emailA==email
-                a(href="/posts/remover/"+post._id  style="font-weight: bold;color:white;text-decoration:none;")
-                  i(class="w3-xlarge material-icons" ) cancel               
+                i(type="button" class="w3-xlarge material-icons" onclick="document.getElementById('"+post._id+"').style.display='block'") cancel   
+      
+      div(class="w3-modal" id=post._id)
+       .w3-modal-content(action='/posts/remover/'+post._id style="width:40rem;")
+        .w3-container
+          h1(style="margin-top:15px") Remover Post
+          p Tem a certeza que deseja remover o post?
+            .clearfix
+             a(href="/posts" style="margin-left:10px")  
+               button.w3-btn.w3-blue Cancelar
+             |
+             |
+             a(href="/posts/remover/"+post._id style="margin-left:10px")  
+               button.w3-btn.w3-blue Remover  
+             
 
 
       .w3-container.w3-border-blue.w3-light-grey
@@ -53,20 +65,33 @@ block content
            br
            each coment in post.comentarios                  
                 
+                div(class="w3-modal" id=coment._id )
+                 .w3-modal-content(action="/posts/remover/"+post._id+"/comentario/"+coment._id style="width:40rem;")
+                   .w3-container
+                     h1(style="margin-top:15px") Remover Comentáro
+                     p Tem a certeza que deseja remover o comentário?
+                       .clearfix
+                        a(href="/posts" style="margin-left:10px")  
+                          button.w3-btn.w3-blue Cancelar
+                        |
+                        |
+                        a(href="/posts/remover/"+post._id+"/comentario/"+coment._id style="margin-left:10px")  
+                          button.w3-btn.w3-blue Remover  
+                
                 .w3-container.w3-white(style="border-radius: 25px;")
                   div(style="float:right;margin-top:5px")
                     if level=="admin"
-                      a(href="/posts/remover/"+post._id+"/comentario/"+coment._id  style="font-weight: bold;color:gray;text-decoration:none;")
-                        i(class="w3-large material-icons" ) cancel
+                      i(type="button" class="w3-xlarge material-icons" onclick="document.getElementById('"+coment._id+"').style.display='block'") cancel
                     else if coment.emailC==email
-                      a(href="/posts/remover/"+post._id+"/comentario/"+coment._id   style="font-weight: bold;color:gray;text-decoration:none;")
-                        i(class="w3-large material-icons" ) cancel
+                      i(type="button" class="w3-xlarge material-icons" onclick="document.getElementById('"+coment._id+"').style.display='block'") cancel
                   h4(style="margin-top:10px") 
                     a(href="/perfil/"+coment.emailC  style="font-weight: bold;color:black;") #{coment.nomeC}
                   p #{coment.comentario}
                   h6(style="float: right") Escrito em: #{coment.dataC.split("T")[0]}, #{coment.dataC.split("T")[1].split(".")[0]}
                 br
-  
+      
+                   
+      
       .w3-container.w3-light-grey(style="border-radius: 0 0 5px 5px ;")
         br
         form(class="w3-container" action='/posts/comentario/'+post._id, method='POST')
@@ -89,4 +114,9 @@ block content
        } else {
        x.style.display = "none";
        }
+       }
+
+       function showImage(){
+        $("#display").empty()
+        $("#display").modal()
        }
