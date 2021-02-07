@@ -169,7 +169,10 @@ router.get('/recursos/:id', isLogged,function(req,res) {
       res.render('recurso', {recurso: dados.data,voted: vot, leng: le,  user: "logged"})
     }
   })
-  .catch(e => res.render('error', {error: e}))
+  .catch(e => {
+    req.flash('danger','Não foi possível encontrar o recurso!')
+    res.redirect('/posts')
+  })
 })
 
 /* Download recurso  */
